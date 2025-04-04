@@ -1,6 +1,6 @@
-name: flutter_git_testing
-description: "A new Flutter project."
-publish_to: 'none'
+name: pomodoro_flutter
+description: "This is an app for the study method of Pomodoro made in Flutter"
+publish_to: "none"
 version: 0.1.0
 
 environment:
