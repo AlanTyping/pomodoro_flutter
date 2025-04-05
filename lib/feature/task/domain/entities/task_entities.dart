@@ -2,15 +2,15 @@ class Task {
   final int? id;
   final String title;
   final DateTime date;
-  final bool status;
+  final bool completed;
   final Cycle cycle;
 
   Task({
     this.id,
     required this.title,
     required this.date,
-    required this.status,
-    required this.cycle
+    required this.completed,
+    required this.cycle,
   });
 }
 
