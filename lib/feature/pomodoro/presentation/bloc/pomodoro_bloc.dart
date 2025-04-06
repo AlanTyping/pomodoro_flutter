@@ -7,7 +7,7 @@ import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart
 
 final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   static const Duration _workDuration = Duration(minutes: 25);
-  static const Duration _restMinutes = Duration(minutes: 5);
+  static const Duration _restDuration = Duration(minutes: 5);
 
   StreamSubscription<int>? _streamSubscription;
 
@@ -15,38 +15,46 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     on<StartPomodoro>(_onStart);
     on<TickPomodoro>(_onTick);
     on<PausePomodoro>(_onPaused);
+    on<StopPomodoro>(_onStop);
+    on<SkipCyclePomodoro>(_onSkipCycle);
+    on<UpdateTitlePomodoro>(
+      (event, emit) => emit(state.copyWith(title: event.title)),
+    );
+    on<FinishPomodoro>(_onFinish); // Add this in constructor
   }
 
-  Cycle get _getNextCycle => switch (state.cycle) {
-    Cycle.first => Cycle.second,
-    Cycle.second => Cycle.third,
-    Cycle.third => Cycle.fourth,
-    Cycle.fourth => Cycle.first,
-  };
+  Cycle get _getNextCycle {
+    final nextOrdinal = (state.cycle.index + 1) % 4;
+    return Cycle.values[nextOrdinal];
+  }
 
   void _onStart(StartPomodoro event, Emitter<PomodoroState> emit) {
-    emit(state.copyWith(isRunning: true));
+    final timer = state.isResting ? _restDuration : _workDuration;
+
+    emit(state.copyWith(isRunning: true, timer: timer));
 
     _streamSubscription?.cancel();
 
     _streamSubscription = _timerStream(
-      state.timer.inSeconds,
+      timer,
     ).listen((value) => add(TickPomodoro(value)));
   }
 
   void _onTick(TickPomodoro event, Emitter<PomodoroState> emit) {
-    final isTimerCompleted =
-        event.currentSeconds ==
-        (state.isResting ? _restMinutes : _workDuration).inSeconds;
+    final isResting = state.isResting;
+    final currentDurationInSeconds =
+        (isResting ? _restDuration : _workDuration).inSeconds;
 
-    emit(
-      isTimerCompleted
-          ? state.copyWith(
-            isResting: !state.isResting,
-            cycle: state.isResting ? _getNextCycle : state.cycle,
-          )
-          : state.copyWith(timer: Duration(seconds: event.currentSeconds)),
-    );
+    if (event.currentSeconds == currentDurationInSeconds) {
+      add(
+        state.cycle == Cycle.fourth
+            ? const FinishPomodoro()
+            : const SkipCyclePomodoro(),
+      );
+      return;
+    }
+
+    emit(state.copyWith(timer: Duration(seconds: event.currentSeconds)));
   }
 
   void _onPaused(PausePomodoro event, Emitter<PomodoroState> emit) {
@@ -54,8 +62,56 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     emit(state.copyWith(isRunning: false));
   }
 
-  Stream<int> _timerStream(int durationInSeconds) => Stream.periodic(
-    const Duration(seconds: 1),
-    (second) => second,
-  ).take(durationInSeconds);
+  void _onResumed(ResumePomodoro event, Emitter<PomodoroState> emit) {
+    _streamSubscription?.resume();
+    emit(state.copyWith(isRunning: true));
+  }
+
+  void _onStop(StopPomodoro event, Emitter<PomodoroState> emit) {
+    _streamSubscription?.cancel();
+
+    final registeredTask = Task(
+      title: state.title ?? '',
+      date: DateTime.now(),
+      completed: false,
+      cycle: state.cycle,
+    );
+    // TODO: Save Usecase Task Implementation
+
+    emit(PomodoroState.initial());
+  }
+
+  void _onSkipCycle(SkipCyclePomodoro event, Emitter<PomodoroState> emit) {
+    if (state.cycle != Cycle.fourth) {
+      emit(state.copyWith(cycle: _getNextCycle, isResting: false));
+      add(const StartPomodoro());
+    } else {
+      add(const StopPomodoro());
+    }
+  }
+
+  void _onFinish(FinishPomodoro event, Emitter<PomodoroState> emit) {
+    final registeredTask = Task(
+      title: state.title ?? '',
+      date: DateTime.now(),
+      completed: true,
+      cycle: state.cycle,
+    );
+    // TODO: Save Usecase Task Implementation
+
+    add(const StopPomodoro());
+  }
+
+  Stream<int> _timerStream(Duration duration) {
+    return Stream.periodic(
+      const Duration(seconds: 1),
+      (tick) => duration.inSeconds - tick - 1,
+    ).takeWhile((seconds) => seconds >= 0);
+  }
+
+  @override
+  Future<void> close() {
+    _streamSubscription?.cancel();
+    return super.close();
+  }
 }

@@ -263,3 +263,23 @@ class _$TickPomodoroCopyWithImpl<$Res> implements $TickPomodoroCopyWith<$Res> {
     );
   }
 }
+
+/// @nodoc
+
+class FinishPomodoro implements PomodoroEvent {
+  const FinishPomodoro();
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is FinishPomodoro);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  String toString() {
+    return 'PomodoroEvent.finish()';
+  }
+}

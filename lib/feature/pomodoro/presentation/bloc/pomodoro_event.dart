@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 
 part 'pomodoro_event.freezed.dart';
 
@@ -11,4 +12,5 @@ sealed class PomodoroEvent with _$PomodoroEvent {
   const factory PomodoroEvent.skipCycle() = SkipCyclePomodoro;
   const factory PomodoroEvent.updateTitle(String title) = UpdateTitlePomodoro;
   const factory PomodoroEvent.tick(int currentSeconds) = TickPomodoro;
+  const factory PomodoroEvent.finish() = FinishPomodoro;
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_bloc.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/widgets/timer_text.dart';
+import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 
 import '../bloc/pomodoro_state.dart';
 import '../bloc/pomodoro_event.dart';

@@ -10,7 +10,25 @@ class _PomodoroView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
+          Center(
+            child: TextField(
+              onChanged:
+                  (value) => context.read<PomodoroBloc>().add(
+                    PomodoroEvent.updateTitle(value),
+                  ),
+              enabled: context.select(
+                (PomodoroBloc bloc) =>
+                    !bloc.state.isRunning && bloc.state.cycle == Cycle.first,
+              ),
+            ),
+          ),
           const Padding(padding: EdgeInsets.all(15.0), child: TimerText()),
+          Center(
+            child: Text(
+              context.select((PomodoroBloc bloc) => bloc.state.cycle.name),
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
+          ),
           BlocBuilder<PomodoroBloc, PomodoroState>(
             builder: (context, state) {
               final bloc = context.read<PomodoroBloc>();
