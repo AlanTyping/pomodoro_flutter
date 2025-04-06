@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pomodoro_flutter/feature/pomodoro/presentation/screen/pomodoro_page.dart';
+import 'package:pomodoro_flutter/feature/pomodoro/presentation/pages/pomodoro_page.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
