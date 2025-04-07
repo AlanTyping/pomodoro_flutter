@@ -9,10 +9,9 @@ final class PomodoroCubit extends Cubit<PomodoroState> {
 
   void onStart() {
     emit(
-      PomodoroRunningState(
-        currentSeconds: 0,
+      PomodoroStartState(
         task: Task(
-          title: "A",
+          title: "First task",
           date: DateTime.now(),
           cycle: Cycle.first,
           completed: false,

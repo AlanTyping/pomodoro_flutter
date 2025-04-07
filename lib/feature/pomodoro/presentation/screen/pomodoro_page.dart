@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/providers/pomodoro_cubit.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/providers/pomodoro_state.dart';
+import 'package:pomodoro_flutter/feature/pomodoro/presentation/widgets/pomodoro_icon.dart';
 
 part 'pomodoro_view.dart';
 
