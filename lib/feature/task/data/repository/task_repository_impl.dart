@@ -10,22 +10,25 @@ class TaskRepositoryImpl implements TaskRepository {
   //en una variable manejamos la instancia de la inicializacion
   Future<Database> get _database async => await localDatasource.getDataBase();
 
+  static const taskTableName = 'taskTable';
 
   @override
   Future<List<TaskModel>> getAllTasks() async {
     final db = await _database;
-    final List<Map<String, dynamic>> queryResult = await db.rawQuery('SELECT * FROM taskTable');
+    final List<Map<String, dynamic>> queryResult = await db.rawQuery(
+      'SELECT * FROM $taskTableName',
+    );
     return queryResult.map((e) => TaskModel.fromJson(e)).toList();
   }
 
   @override
-  Future<void> insertTask(TaskModel data) async{
+  Future<void> insertTask(TaskModel data) async {
     final db = await _database;
-    await db.insert('ListaTable', data.toJson());
+    await db.insert(taskTableName, data.toJson());
   }
 
   @override
-  Future<void> updateTask(TaskModel data)async{
+  Future<void> updateTask(TaskModel data) async {
     final db = await _database;
     await db.update(
       'taskTable',
@@ -36,7 +39,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<void> deleteTask(int id)async{
+  Future<void> deleteTask(int id) async {
     final db = await _database;
     await db.delete('taskTable', where: 'id = ?', whereArgs: [id]);
   }
