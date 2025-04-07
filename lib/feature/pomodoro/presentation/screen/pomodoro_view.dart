@@ -102,7 +102,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                           },
                           obscuringCharacter: '*',
                         ),
-                        SizedBox(height: 50),
+                        SizedBox(height: 25),
                         ElevatedButton(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
