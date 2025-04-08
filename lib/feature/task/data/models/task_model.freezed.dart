@@ -16,7 +16,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$TaskModel {
 
- String get id; String get title; String get date;@JsonKey(name: 'CompleteD') int get completed; String get cycle;
+ int? get id; String get title; String get date; int get completed; String get cycle;
 /// Create a copy of TaskModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -49,7 +49,7 @@ abstract mixin class $TaskModelCopyWith<$Res>  {
   factory $TaskModelCopyWith(TaskModel value, $Res Function(TaskModel) _then) = _$TaskModelCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String date,@JsonKey(name: 'CompleteD') int completed, String cycle
+ int? id, String title, String date, int completed, String cycle
 });
 
 
@@ -66,10 +66,10 @@ class _$TaskModelCopyWithImpl<$Res>
 
 /// Create a copy of TaskModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? title = null,Object? date = null,Object? completed = null,Object? cycle = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = freezed,Object? title = null,Object? date = null,Object? completed = null,Object? cycle = null,}) {
   return _then(_self.copyWith(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as String,completed: null == completed ? _self.completed : completed // ignore: cast_nullable_to_non_nullable
 as int,cycle: null == cycle ? _self.cycle : cycle // ignore: cast_nullable_to_non_nullable
@@ -84,13 +84,13 @@ as String,
 @JsonSerializable()
 
 class _TaskModel implements TaskModel {
-  const _TaskModel({required this.id, required this.title, required this.date, @JsonKey(name: 'CompleteD') required this.completed, required this.cycle});
+  const _TaskModel({this.id, required this.title, required this.date, required this.completed, required this.cycle});
   factory _TaskModel.fromJson(Map<String, dynamic> json) => _$TaskModelFromJson(json);
 
-@override final  String id;
+@override final  int? id;
 @override final  String title;
 @override final  String date;
-@override@JsonKey(name: 'CompleteD') final  int completed;
+@override final  int completed;
 @override final  String cycle;
 
 /// Create a copy of TaskModel
@@ -126,7 +126,7 @@ abstract mixin class _$TaskModelCopyWith<$Res> implements $TaskModelCopyWith<$Re
   factory _$TaskModelCopyWith(_TaskModel value, $Res Function(_TaskModel) _then) = __$TaskModelCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String date,@JsonKey(name: 'CompleteD') int completed, String cycle
+ int? id, String title, String date, int completed, String cycle
 });
 
 
@@ -143,10 +143,10 @@ class __$TaskModelCopyWithImpl<$Res>
 
 /// Create a copy of TaskModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? title = null,Object? date = null,Object? completed = null,Object? cycle = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = freezed,Object? title = null,Object? date = null,Object? completed = null,Object? cycle = null,}) {
   return _then(_TaskModel(
-id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
-as String,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
+id: freezed == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
+as int?,title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,date: null == date ? _self.date : date // ignore: cast_nullable_to_non_nullable
 as String,completed: null == completed ? _self.completed : completed // ignore: cast_nullable_to_non_nullable
 as int,cycle: null == cycle ? _self.cycle : cycle // ignore: cast_nullable_to_non_nullable

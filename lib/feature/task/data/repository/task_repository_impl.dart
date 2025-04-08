@@ -31,7 +31,7 @@ class TaskRepositoryImpl implements TaskRepository {
   Future<void> updateTask(TaskModel data) async {
     final db = await _database;
     await db.update(
-      'taskTable',
+      taskTableName,
       data.toJson(),
       where: 'id = ?',
       whereArgs: [data.id],
@@ -41,6 +41,6 @@ class TaskRepositoryImpl implements TaskRepository {
   @override
   Future<void> deleteTask(int id) async {
     final db = await _database;
-    await db.delete('taskTable', where: 'id = ?', whereArgs: [id]);
+    await db.delete(taskTableName, where: 'id = ?', whereArgs: [id]);
   }
 }
