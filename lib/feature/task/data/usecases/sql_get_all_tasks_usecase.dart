@@ -9,25 +9,6 @@ final class SqlGetAllTasksUsecase implements GetAllTasksUsecase {
 
   @override
   Future<List<Task>> execute() async {
-    final entities = await _repository.getAllTasks();
-    return entities
-        .map(
-          (entity) => Task(
-            title: entity.title,
-            date: DateTime.parse(entity.date),
-            completed: entity.completed == 1,
-            cycle: _getCycleFromName(entity.cycle),
-          ),
-        )
-        .toList();
-  }
-
-  Cycle _getCycleFromName(String name) {
-    if (name == Cycle.first.name) return Cycle.first;
-    if (name == Cycle.second.name) return Cycle.second;
-    if (name == Cycle.third.name) return Cycle.third;
-    if (name == Cycle.fourth.name) return Cycle.fourth;
-
-    return Cycle.first;
+    return await _repository.getAllTasks();
   }
 }
