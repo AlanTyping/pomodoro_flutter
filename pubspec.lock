@@ -483,7 +483,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
-<<<<<<< HEAD
+  platform:
+    dependency: transitive
+    description:
+      name: platform
+      sha256: "5d6b1b0036a5f331ebc77c850ebc8506cbc1e9416c27e59b439f917a902a4984"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.6"
+  plugin_platform_interface:
+    dependency: transitive
+    description:
+      name: plugin_platform_interface
+      sha256: "4820fbfdb9478b1ebae27888254d445073732dae3d6ea81f0b7e06d5dedc3f02"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.1.8"
   pool:
     dependency: transitive
     description:
@@ -540,23 +555,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
-=======
-  platform:
-    dependency: transitive
-    description:
-      name: platform
-      sha256: "5d6b1b0036a5f331ebc77c850ebc8506cbc1e9416c27e59b439f917a902a4984"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.1.6"
-  plugin_platform_interface:
-    dependency: transitive
-    description:
-      name: plugin_platform_interface
-      sha256: "4820fbfdb9478b1ebae27888254d445073732dae3d6ea81f0b7e06d5dedc3f02"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.8"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -578,7 +576,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.1"
-<<<<<<< HEAD
   sprintf:
     dependency: transitive
     description:
@@ -587,7 +584,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
-=======
   sqflite:
     dependency: "direct dev"
     description:
@@ -628,7 +624,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
->>>>>>> origin/feature/Sqlite
   stack_trace:
     dependency: transitive
     description:
