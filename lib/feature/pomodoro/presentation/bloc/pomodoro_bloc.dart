@@ -74,11 +74,22 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   void _onStop(StopPomodoro event, Emitter<PomodoroState> emit) async {
     _streamSubscription?.cancel();
 
+    final newCyclesData = state.cyclesData.map<Cycle, int>((cycle, seconds) {
+      if (cycle.index < state.cycle.index) {
+        return MapEntry(cycle, (_workDuration + _restDuration).inSeconds);
+      }
+      if (cycle.index == state.cycle.index) {
+        return MapEntry(cycle, state.timer.inSeconds);
+      }
+
+      return MapEntry(cycle, seconds);
+    });
+
     final registeredTask = Task(
       title: state.title ?? '',
       date: DateTime.now(),
       completed: false,
-      cycle: state.cycle,
+      cyclesData: newCyclesData,
     );
     await _saveTaskUseCase.execute(registeredTask);
 

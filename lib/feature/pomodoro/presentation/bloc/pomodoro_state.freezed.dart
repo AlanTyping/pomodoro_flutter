@@ -17,6 +17,7 @@ mixin _$PomodoroState {
   String? get title;
   Cycle get cycle;
   Duration get timer;
+  Map<Cycle, int> get cyclesData;
   bool get isRunning;
   bool get isResting;
 
@@ -38,6 +39,10 @@ mixin _$PomodoroState {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.cycle, cycle) || other.cycle == cycle) &&
             (identical(other.timer, timer) || other.timer == timer) &&
+            const DeepCollectionEquality().equals(
+              other.cyclesData,
+              cyclesData,
+            ) &&
             (identical(other.isRunning, isRunning) ||
                 other.isRunning == isRunning) &&
             (identical(other.isResting, isResting) ||
@@ -45,12 +50,19 @@ mixin _$PomodoroState {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, title, cycle, timer, isRunning, isResting);
+  int get hashCode => Object.hash(
+    runtimeType,
+    title,
+    cycle,
+    timer,
+    const DeepCollectionEquality().hash(cyclesData),
+    isRunning,
+    isResting,
+  );
 
   @override
   String toString() {
-    return 'PomodoroState(title: $title, cycle: $cycle, timer: $timer, isRunning: $isRunning, isResting: $isResting)';
+    return 'PomodoroState(title: $title, cycle: $cycle, timer: $timer, cyclesData: $cyclesData, isRunning: $isRunning, isResting: $isResting)';
   }
 }
 
@@ -65,6 +77,7 @@ abstract mixin class $PomodoroStateCopyWith<$Res> {
     String? title,
     Cycle cycle,
     Duration timer,
+    Map<Cycle, int> cyclesData,
     bool isRunning,
     bool isResting,
   });
@@ -86,6 +99,7 @@ class _$PomodoroStateCopyWithImpl<$Res>
     Object? title = freezed,
     Object? cycle = null,
     Object? timer = null,
+    Object? cyclesData = null,
     Object? isRunning = null,
     Object? isResting = null,
   }) {
@@ -106,6 +120,11 @@ class _$PomodoroStateCopyWithImpl<$Res>
                 ? _self.timer
                 : timer // ignore: cast_nullable_to_non_nullable
                     as Duration,
+        cyclesData:
+            null == cyclesData
+                ? _self.cyclesData
+                : cyclesData // ignore: cast_nullable_to_non_nullable
+                    as Map<Cycle, int>,
         isRunning:
             null == isRunning
                 ? _self.isRunning
@@ -128,9 +147,10 @@ class _PomodoroState implements PomodoroState {
     this.title,
     required this.cycle,
     required this.timer,
+    required final Map<Cycle, int> cyclesData,
     required this.isRunning,
     this.isResting = false,
-  });
+  }) : _cyclesData = cyclesData;
 
   @override
   final String? title;
@@ -138,6 +158,14 @@ class _PomodoroState implements PomodoroState {
   final Cycle cycle;
   @override
   final Duration timer;
+  final Map<Cycle, int> _cyclesData;
+  @override
+  Map<Cycle, int> get cyclesData {
+    if (_cyclesData is EqualUnmodifiableMapView) return _cyclesData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_cyclesData);
+  }
+
   @override
   final bool isRunning;
   @override
@@ -160,6 +188,10 @@ class _PomodoroState implements PomodoroState {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.cycle, cycle) || other.cycle == cycle) &&
             (identical(other.timer, timer) || other.timer == timer) &&
+            const DeepCollectionEquality().equals(
+              other._cyclesData,
+              _cyclesData,
+            ) &&
             (identical(other.isRunning, isRunning) ||
                 other.isRunning == isRunning) &&
             (identical(other.isResting, isResting) ||
@@ -167,12 +199,19 @@ class _PomodoroState implements PomodoroState {
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, title, cycle, timer, isRunning, isResting);
+  int get hashCode => Object.hash(
+    runtimeType,
+    title,
+    cycle,
+    timer,
+    const DeepCollectionEquality().hash(_cyclesData),
+    isRunning,
+    isResting,
+  );
 
   @override
   String toString() {
-    return 'PomodoroState(title: $title, cycle: $cycle, timer: $timer, isRunning: $isRunning, isResting: $isResting)';
+    return 'PomodoroState(title: $title, cycle: $cycle, timer: $timer, cyclesData: $cyclesData, isRunning: $isRunning, isResting: $isResting)';
   }
 }
 
@@ -189,6 +228,7 @@ abstract mixin class _$PomodoroStateCopyWith<$Res>
     String? title,
     Cycle cycle,
     Duration timer,
+    Map<Cycle, int> cyclesData,
     bool isRunning,
     bool isResting,
   });
@@ -210,6 +250,7 @@ class __$PomodoroStateCopyWithImpl<$Res>
     Object? title = freezed,
     Object? cycle = null,
     Object? timer = null,
+    Object? cyclesData = null,
     Object? isRunning = null,
     Object? isResting = null,
   }) {
@@ -230,6 +271,11 @@ class __$PomodoroStateCopyWithImpl<$Res>
                 ? _self.timer
                 : timer // ignore: cast_nullable_to_non_nullable
                     as Duration,
+        cyclesData:
+            null == cyclesData
+                ? _self._cyclesData
+                : cyclesData // ignore: cast_nullable_to_non_nullable
+                    as Map<Cycle, int>,
         isRunning:
             null == isRunning
                 ? _self.isRunning

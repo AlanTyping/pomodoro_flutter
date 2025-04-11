@@ -3,11 +3,26 @@ import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart
 import '../models/task_model.dart';
 
 final class TaskMapper {
+  final totalDuration = const Duration(minutes: 30).inSeconds;
+
   Task fromModel(TaskModel model) {
     return Task(
       id: model.id,
       title: model.title,
-      cycle: _getCycleFromName(model.cycle),
+      cyclesData:
+          model.completed == 1
+              ? {
+                Cycle.first: totalDuration,
+                Cycle.second: totalDuration,
+                Cycle.third: totalDuration,
+                Cycle.fourth: totalDuration,
+              }
+              : {
+                Cycle.first: 0,
+                Cycle.second: 0,
+                Cycle.third: 0,
+                Cycle.fourth: 0,
+              },
       completed: model.completed == 1,
       date: DateTime.parse(model.date),
     );
@@ -18,12 +33,18 @@ final class TaskMapper {
   }
 
   TaskModel fromTask(Task task) {
+    Cycle lastCycle = Cycle.first;
+
+    task.cyclesData.forEach((cycle, second) {
+      if (second > 0) lastCycle = cycle;
+    });
+
     return TaskModel(
       id: task.id,
       title: task.title,
       date: task.date.toIso8601String(),
       completed: task.completed ? 1 : 0,
-      cycle: task.cycle.name,
+      cycle: lastCycle.name,
     );
   }
 

@@ -5,13 +5,18 @@ class Task {
   final String title;
   final DateTime date;
   final bool completed;
-  final Cycle cycle;
+  final Map<Cycle, int> cyclesData;
 
   const Task({
     this.id,
     required this.title,
     required this.date,
     required this.completed,
-    required this.cycle,
+    this.cyclesData = const {
+      Cycle.first: 0,
+      Cycle.second: 0,
+      Cycle.third: 0,
+      Cycle.fourth: 0,
+    },
   });
 }
