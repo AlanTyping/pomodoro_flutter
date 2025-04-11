@@ -12,14 +12,18 @@ dependencies:
   freezed_annotation: ^3.0.0
   json_annotation: ^4.9.0
   sqflite: ^2.4.2
+  flutter_bloc: ^9.1.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^5.0.0
-  build_runner: ^2.4.15
   freezed: ^3.0.6
+  build_runner: ^2.4.15
   json_serializable: ^6.9.4
+
+  flutter_lints: ^5.0.0
+  freezed_lint: ^0.0.9
+  custom_lint: ^0.7.5
 
 flutter:
   uses-material-design: true

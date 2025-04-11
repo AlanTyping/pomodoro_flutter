@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:pomodoro_flutter/feature/pomodoro/presentation/screen/pomodoro_page.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MainApp());
 }
 
@@ -10,10 +13,11 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: Text("Prueba TaskRepository")),
-        body: Center(child: Text("Prueba")),
+      title: 'Pomodoro Flutter',
+      theme: ThemeData.from(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal),
       ),
+      home: const PomodoroPage(),
     );
   }
 }

@@ -1,3 +1,5 @@
+enum Cycle { first, second, third, fourth }
+
 class Task {
   final int? id;
   final String title;
@@ -5,13 +7,11 @@ class Task {
   final bool completed;
   final Cycle cycle;
 
-  Task({
+  const Task({
     this.id,
     required this.title,
     required this.date,
     required this.completed,
-    required this.cycle
+    required this.cycle,
   });
 }
-
-enum Cycle { first, second, third, fourth }
