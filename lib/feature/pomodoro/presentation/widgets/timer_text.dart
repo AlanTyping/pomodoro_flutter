@@ -9,7 +9,10 @@ class TimerText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       _formatDuration(actualClock),
-      style: Theme.of(context).textTheme.displayMedium,
+      style: Theme.of(context).textTheme.displayMedium?.copyWith(
+        fontWeight: FontWeight.bold,
+        color: const Color.fromARGB(221, 37, 37, 37),
+      ),
     );
   }
 

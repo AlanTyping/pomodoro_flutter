@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_bloc.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_event.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_state.dart';
+import 'package:pomodoro_flutter/feature/pomodoro/presentation/widgets/filling_box_animation.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/widgets/pomodoro_icon.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/widgets/timer_text.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';

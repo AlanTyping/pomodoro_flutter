@@ -85,6 +85,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     if (state.cycle != Cycle.fourth) {
       emit(state.copyWith(cycle: _getNextCycle, isResting: false));
       add(const StartPomodoro());
+      add(const PausePomodoro());
     } else {
       add(const StopPomodoro());
     }
