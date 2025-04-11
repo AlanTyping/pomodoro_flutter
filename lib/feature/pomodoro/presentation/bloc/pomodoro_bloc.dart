@@ -4,14 +4,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_event.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_state.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
+import 'package:pomodoro_flutter/feature/task/domain/usecases/insert_task_usecase.dart';
 
 final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   static const Duration _workDuration = Duration(minutes: 25);
   static const Duration _restDuration = Duration(minutes: 5);
 
   StreamSubscription<int>? _streamSubscription;
+  final InsertTaskUsecase _saveTaskUseCase;
 
-  PomodoroBloc() : super(PomodoroState.initial()) {
+  PomodoroBloc({required InsertTaskUsecase insertUseCase})
+    : _saveTaskUseCase = insertUseCase,
+      super(PomodoroState.initial()) {
     on<StartPomodoro>(_onStart);
     on<TickPomodoro>(_onTick);
     on<PausePomodoro>(_onPaused);
@@ -67,7 +71,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     emit(state.copyWith(isRunning: true));
   }
 
-  void _onStop(StopPomodoro event, Emitter<PomodoroState> emit) {
+  void _onStop(StopPomodoro event, Emitter<PomodoroState> emit) async {
     _streamSubscription?.cancel();
 
     final registeredTask = Task(
@@ -76,7 +80,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
       completed: false,
       cycle: state.cycle,
     );
-    // TODO: Save Usecase Task Implementation
+    await _saveTaskUseCase.execute(registeredTask);
 
     emit(PomodoroState.initial());
   }
@@ -90,15 +94,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     }
   }
 
-  void _onFinish(FinishPomodoro event, Emitter<PomodoroState> emit) {
-    final registeredTask = Task(
-      title: state.title ?? '',
-      date: DateTime.now(),
-      completed: true,
-      cycle: state.cycle,
-    );
-    // TODO: Save Usecase Task Implementation
-
+  void _onFinish(FinishPomodoro event, Emitter<PomodoroState> emit) async {
     add(const StopPomodoro());
   }
 

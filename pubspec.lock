@@ -17,8 +17,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.3.0"
-<<<<<<< HEAD
-=======
   analyzer_plugin:
     dependency: transitive
     description:
@@ -27,7 +25,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.13.0"
->>>>>>> feature/presentation
   args:
     dependency: transitive
     description:
@@ -140,8 +137,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
-<<<<<<< HEAD
-=======
   ci:
     dependency: transitive
     description:
@@ -158,7 +153,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.4.2"
->>>>>>> feature/presentation
   clock:
     dependency: transitive
     description:
@@ -199,8 +193,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.6"
-<<<<<<< HEAD
-=======
   custom_lint:
     dependency: "direct dev"
     description:
@@ -233,7 +225,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0+7.3.0"
->>>>>>> feature/presentation
   dart_style:
     dependency: transitive
     description:
@@ -308,8 +299,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.0"
-<<<<<<< HEAD
-=======
   freezed_lint:
     dependency: "direct dev"
     description:
@@ -318,7 +307,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.0.9"
->>>>>>> feature/presentation
   frontend_server_client:
     dependency: transitive
     description:
@@ -343,8 +331,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.2"
-<<<<<<< HEAD
-=======
   hotreloader:
     dependency: transitive
     description:
@@ -353,7 +339,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.3.0"
->>>>>>> feature/presentation
   http:
     dependency: transitive
     description:
@@ -395,18 +380,13 @@ packages:
     source: hosted
     version: "0.7.2"
   json_annotation:
-<<<<<<< HEAD
     dependency: "direct main"
-=======
-    dependency: transitive
->>>>>>> feature/presentation
     description:
       name: json_annotation
       sha256: "1ce844379ca14835a50d2f019a3099f419082cfdd231cd86a142af94dd5c6bb1"
       url: "https://pub.dev"
     source: hosted
     version: "4.9.0"
-<<<<<<< HEAD
   json_serializable:
     dependency: "direct dev"
     description:
@@ -415,8 +395,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.9.4"
-=======
->>>>>>> feature/presentation
   leak_tracker:
     dependency: transitive
     description:
@@ -489,8 +467,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
-<<<<<<< HEAD
-=======
   nested:
     dependency: transitive
     description:
@@ -499,7 +475,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
->>>>>>> feature/presentation
   package_config:
     dependency: transitive
     description:
@@ -516,7 +491,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.9.1"
-<<<<<<< HEAD
   platform:
     dependency: transitive
     description:
@@ -533,8 +507,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
-=======
->>>>>>> feature/presentation
   pool:
     dependency: transitive
     description:
@@ -543,8 +515,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
-<<<<<<< HEAD
-=======
   provider:
     dependency: transitive
     description:
@@ -553,7 +523,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.1.4"
->>>>>>> feature/presentation
   pub_semver:
     dependency: transitive
     description:
@@ -570,8 +539,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
-<<<<<<< HEAD
-=======
   rxdart:
     dependency: transitive
     description:
@@ -580,7 +547,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.28.0"
->>>>>>> feature/presentation
   shelf:
     dependency: transitive
     description:
@@ -610,7 +576,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
-<<<<<<< HEAD
   source_helper:
     dependency: transitive
     description:
@@ -619,8 +584,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.5"
-=======
->>>>>>> feature/presentation
   source_span:
     dependency: transitive
     description:
@@ -629,7 +592,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.10.1"
-<<<<<<< HEAD
+  sprintf:
+    dependency: transitive
+    description:
+      name: sprintf
+      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.0"
   sqflite:
     dependency: "direct main"
     description:
@@ -670,16 +640,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.4.0"
-=======
-  sprintf:
-    dependency: transitive
-    description:
-      name: sprintf
-      sha256: "1fc9ffe69d4df602376b52949af107d8f5703b77cda567c4d7d86a0693120f23"
-      url: "https://pub.dev"
-    source: hosted
-    version: "7.0.0"
->>>>>>> feature/presentation
   stack_trace:
     dependency: transitive
     description:
@@ -752,8 +712,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
-<<<<<<< HEAD
-=======
   uuid:
     dependency: transitive
     description:
@@ -762,7 +720,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.5.1"
->>>>>>> feature/presentation
   vector_math:
     dependency: transitive
     description:
