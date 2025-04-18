@@ -174,6 +174,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                           ),
                           child: const FillingBoxAnimation(
                             duration: Duration(seconds: 40),
+                            cycle: Cycle.fourth,
                             color: Color(0xFF8DC5FE),
                           ),
                         ),
@@ -190,6 +191,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                           ),
                           child: const FillingBoxAnimation(
                             duration: Duration(seconds: 20),
+                            cycle: Cycle.third,
                             color: Color(0xFF659FFF),
                           ),
                         ),
@@ -206,6 +208,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                           ),
                           child: const FillingBoxAnimation(
                             duration: Duration(seconds: 10),
+                            cycle: Cycle.second,
                             color: Color(0xFF3F79FF),
                           ),
                         ),
@@ -222,6 +225,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                           ),
                           child: const FillingBoxAnimation(
                             duration: Duration(seconds: 5),
+                            cycle: Cycle.first,
                             color: Color(0xFF1852FE),
                           ),
                         ),
