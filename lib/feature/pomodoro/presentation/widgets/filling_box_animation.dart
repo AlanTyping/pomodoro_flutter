@@ -42,7 +42,6 @@ class _FillingBoxAnimationState extends State<FillingBoxAnimation>
     return BlocListener<PomodoroBloc, PomodoroState>(
       listener: (context, state) {
         if (state.cycle == widget.cycle) {
-          print(state);
           if (!state.isRunning) {
             _controller.stop();
           } else {
