@@ -10,7 +10,7 @@ class PomodoroIcon extends StatelessWidget {
     return IconButton(
       onPressed: onPressed,
       icon: Icon(icon),
-      style: ButtonStyle(
+      style: const ButtonStyle(
         iconSize: WidgetStatePropertyAll(45),
         side: WidgetStatePropertyAll(BorderSide(color: Colors.black)),
       ),

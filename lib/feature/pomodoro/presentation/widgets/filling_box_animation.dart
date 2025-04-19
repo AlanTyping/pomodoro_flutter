@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_bloc.dart';
-import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_event.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_state.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 
@@ -41,12 +40,10 @@ class _FillingBoxAnimationState extends State<FillingBoxAnimation>
   Widget build(BuildContext context) {
     return BlocListener<PomodoroBloc, PomodoroState>(
       listener: (context, state) {
-        if (state.cycle == widget.cycle) {
-          if (!state.isRunning) {
-            _controller.stop();
-          } else {
-            _controller.forward();
-          }
+        if (state.cycle == widget.cycle && state.isRunning == true) {
+          _controller.forward();
+        } else if (state.isRunning == false) {
+          _controller.stop();
         }
       },
       child: AnimatedBuilder(

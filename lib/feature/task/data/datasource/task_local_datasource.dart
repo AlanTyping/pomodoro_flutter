@@ -27,14 +27,14 @@ class SQLiteTaskLocalDatasource {
         version: 1,
       );
     } catch (e) {
-      throw Exception("ERROR al inicializar la base de datos: $e");
+      throw Exception('ERROR al inicializar la base de datos: $e');
     }
   }
 
   //Elimina las bases de datos anteriores
   Future<void> deleteOldDatabases() async {
     for (int i = 1; i < dbVersion; i++) {
-      String dbName = 'lista_${i}.db'; // Asegúrate de usar el nombre correcto
+      String dbName = 'lista_$i.db'; // Asegúrate de usar el nombre correcto
       await deleteDatabase(dbName);
     }
   }

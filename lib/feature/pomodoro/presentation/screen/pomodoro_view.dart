@@ -10,6 +10,8 @@ class _PomodoroView extends StatefulWidget {
 class _PomodoroViewState extends State<_PomodoroView> {
   final titleController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  // mock de duration config
+  static const cycleDuration = Duration(minutes: 25);
 
   @override
   void dispose() {
@@ -17,7 +19,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
     titleController.dispose();
   }
 
-  static _border(Color color) => OutlineInputBorder(
+  static OutlineInputBorder _border(Color color) => OutlineInputBorder(
     borderSide: BorderSide(color: color, width: 3.0),
     borderRadius: BorderRadius.circular(10),
   );
@@ -173,7 +175,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                             shape: BoxShape.circle,
                           ),
                           child: const FillingBoxAnimation(
-                            duration: Duration(seconds: 40),
+                            duration: cycleDuration,
                             cycle: Cycle.fourth,
                             color: Color(0xFF8DC5FE),
                           ),
@@ -190,7 +192,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                             // ),
                           ),
                           child: const FillingBoxAnimation(
-                            duration: Duration(seconds: 20),
+                            duration: cycleDuration,
                             cycle: Cycle.third,
                             color: Color(0xFF659FFF),
                           ),
@@ -207,7 +209,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                             // ),
                           ),
                           child: const FillingBoxAnimation(
-                            duration: Duration(seconds: 10),
+                            duration: cycleDuration,
                             cycle: Cycle.second,
                             color: Color(0xFF3F79FF),
                           ),
@@ -224,7 +226,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                             // ),
                           ),
                           child: const FillingBoxAnimation(
-                            duration: Duration(seconds: 5),
+                            duration: cycleDuration,
                             cycle: Cycle.first,
                             color: Color(0xFF1852FE),
                           ),
