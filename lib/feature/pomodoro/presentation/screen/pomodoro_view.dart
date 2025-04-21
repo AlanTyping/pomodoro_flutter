@@ -10,6 +10,8 @@ class _PomodoroView extends StatefulWidget {
 class _PomodoroViewState extends State<_PomodoroView> {
   final titleController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  // mock de duration config
+  static const cycleDuration = Duration(minutes: 25);
 
   @override
   void dispose() {
@@ -17,7 +19,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
     titleController.dispose();
   }
 
-  static _border(Color color) => OutlineInputBorder(
+  static OutlineInputBorder _border(Color color) => OutlineInputBorder(
     borderSide: BorderSide(color: color, width: 3.0),
     borderRadius: BorderRadius.circular(10),
   );
@@ -94,11 +96,8 @@ class _PomodoroViewState extends State<_PomodoroView> {
                     children: [
                       TextFormField(
                         controller: titleController,
-                        onChanged: (nombre) {
-                          bloc.add(UpdateTitlePomodoro(nombre));
-                        },
                         decoration: InputDecoration(
-                          contentPadding: EdgeInsets.all(20),
+                          contentPadding: const EdgeInsets.all(20),
                           hintText: 'New task',
                           hintStyle: const TextStyle(
                             color: Colors.grey,
@@ -116,26 +115,29 @@ class _PomodoroViewState extends State<_PomodoroView> {
                           }
                           return null;
                         },
-                        obscuringCharacter: '*',
                       ),
                       const SizedBox(height: 25),
                       ElevatedButton(
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
-                            bloc.add(const StartPomodoro());
+                            bloc.add(UpdateTitlePomodoro(titleController.text));
                           }
                         },
                         style: ElevatedButton.styleFrom(
                           fixedSize: const Size(400, 60),
-                          backgroundColor: Colors.black,
-                          shadowColor: Colors.transparent,
+                          backgroundColor: const Color.fromARGB(
+                            221,
+                            37,
+                            37,
+                            37,
+                          ),
                           padding: const EdgeInsets.all(20),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                         ),
                         child: Text(
-                          "Start",
+                          'Start',
                           style: Theme.of(
                             context,
                           ).textTheme.bodyLarge?.copyWith(
@@ -157,64 +159,84 @@ class _PomodoroViewState extends State<_PomodoroView> {
                       style: const TextStyle(
                         fontSize: 40,
                         fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(221, 37, 37, 37),
                       ),
                     ),
                     const SizedBox(height: 100),
-                    Container(
-                      width: 300,
-                      height: 300,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color:
-                            state.cycle.index == Cycle.first.index
-                                ? Colors.lightBlue
-                                : Colors.blueAccent,
-                        border: const Border.fromBorderSide(
-                          BorderSide(color: Colors.black, width: 2),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        Container(
+                          width: 300,
+                          height: 300,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: const BoxDecoration(
+                            color: Color(0x4D8DC5FE),
+                            shape: BoxShape.circle,
+                          ),
+                          child: const FillingBoxAnimation(
+                            duration: cycleDuration,
+                            cycle: Cycle.fourth,
+                            color: Color(0xFF8DC5FE),
+                          ),
                         ),
-                      ),
-                      child: Center(
-                        child: Container(
+                        Container(
                           width: 225,
                           height: 225,
+                          clipBehavior: Clip.hardEdge,
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
-                            color: Colors.transparent,
-                            border: Border.fromBorderSide(
-                              BorderSide(color: Colors.black, width: 2),
-                            ),
+                            color: Color(0x4D659FFF),
+                            // border: const Border.fromBorderSide(
+                            //   BorderSide(color: Colors.white, width: 2),
+                            // ),
                           ),
-                          child: Center(
-                            child: Container(
-                              width: 155,
-                              height: 155,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.transparent,
-                                border: Border.fromBorderSide(
-                                  BorderSide(color: Colors.black, width: 2),
-                                ),
-                              ),
-                              child: Center(
-                                child: Container(
-                                  width: 85,
-                                  height: 85,
-                                  decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: Colors.transparent,
-                                    border: Border.fromBorderSide(
-                                      BorderSide(color: Colors.black, width: 2),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
+                          child: const FillingBoxAnimation(
+                            duration: cycleDuration,
+                            cycle: Cycle.third,
+                            color: Color(0xFF659FFF),
                           ),
                         ),
-                      ),
+                        Container(
+                          width: 155,
+                          height: 155,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0x4D3F79FF),
+                            // border: const Border.fromBorderSide(
+                            //   BorderSide(color: Colors.white, width: 2),
+                            // ),
+                          ),
+                          child: const FillingBoxAnimation(
+                            duration: cycleDuration,
+                            cycle: Cycle.second,
+                            color: Color(0xFF3F79FF),
+                          ),
+                        ),
+                        Container(
+                          width: 85,
+                          height: 85,
+                          clipBehavior: Clip.hardEdge,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: Color(0x4D1852FE),
+                            // border: const Border.fromBorderSide(
+                            //   BorderSide(color: Colors.white, width: 2),
+                            // ),
+                          ),
+                          child: const FillingBoxAnimation(
+                            duration: cycleDuration,
+                            cycle: Cycle.first,
+                            color: Color(0xFF1852FE),
+                          ),
+                        ),
+                      ],
                     ),
+
+                    const SizedBox(height: 75),
                     TimerText(actualClock: state.timer),
-                    const SizedBox(height: 150),
+                    const SizedBox(height: 75),
                     buttons,
                   ],
                 );

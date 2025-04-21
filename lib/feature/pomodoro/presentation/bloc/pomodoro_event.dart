@@ -1,5 +1,4 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 
 part 'pomodoro_event.freezed.dart';
 
