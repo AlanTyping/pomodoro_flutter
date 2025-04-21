@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_event.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_state.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
@@ -11,11 +12,10 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   static const Duration _restDuration = Duration(minutes: 5);
 
   StreamSubscription<int>? _streamSubscription;
-  final InsertTaskUsecase _saveTaskUseCase;
+  final InsertTaskUsecase _saveTaskUseCase =
+      GetIt.instance.get<InsertTaskUsecase>();
 
-  PomodoroBloc({required InsertTaskUsecase insertUseCase})
-    : _saveTaskUseCase = insertUseCase,
-      super(PomodoroState.initial()) {
+  PomodoroBloc() : super(PomodoroState.initial()) {
     on<StartPomodoro>(_onStart);
     on<TickPomodoro>(_onTick);
     on<PausePomodoro>(_onPaused);

@@ -37,7 +37,9 @@ class _PomodoroViewState extends State<_PomodoroView> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(TaskHistoryPage.route());
+            },
             icon: const Icon(Icons.article, size: 40),
           ),
         ],
@@ -152,6 +154,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                 );
               } else {
                 return Column(
+                  spacing: 20,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
@@ -162,7 +165,6 @@ class _PomodoroViewState extends State<_PomodoroView> {
                         color: Color.fromARGB(221, 37, 37, 37),
                       ),
                     ),
-                    const SizedBox(height: 100),
                     Stack(
                       alignment: Alignment.center,
                       children: [
@@ -233,10 +235,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                         ),
                       ],
                     ),
-
-                    const SizedBox(height: 75),
                     TimerText(actualClock: state.timer),
-                    const SizedBox(height: 75),
                     buttons,
                   ],
                 );
