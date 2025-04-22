@@ -10,6 +10,7 @@ class _PomodoroView extends StatefulWidget {
 class _PomodoroViewState extends State<_PomodoroView> {
   final titleController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  bool hasStarted = false;
   // mock de duration config
   static const cycleDuration = Duration(minutes: 25);
 
@@ -57,7 +58,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                     children: [
                       PomodoroIcon(
                         icon: Icons.play_arrow,
-                        onPressed: () => bloc.add(const StartPomodoro()),
+                        onPressed: () => bloc.add(const ResumePomodoro()),
                       ),
                       const SizedBox(height: 45),
                     ],
@@ -139,7 +140,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                           ),
                         ),
                         child: Text(
-                          'Start',
+                          'Add',
                           style: Theme.of(
                             context,
                           ).textTheme.bodyLarge?.copyWith(
@@ -236,7 +237,38 @@ class _PomodoroViewState extends State<_PomodoroView> {
                       ],
                     ),
                     TimerText(actualClock: state.timer),
-                    buttons,
+                    !hasStarted
+                        ? ElevatedButton(
+                          onPressed: () {
+                            setState(() {
+                              hasStarted = true;
+                            });
+                            bloc.add(const StartPomodoro());
+                          },
+                          style: ElevatedButton.styleFrom(
+                            fixedSize: const Size(200, 60),
+                            backgroundColor: const Color.fromARGB(
+                              221,
+                              37,
+                              37,
+                              37,
+                            ),
+                            padding: const EdgeInsets.all(20),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          child: Text(
+                            'Start',
+                            style: Theme.of(
+                              context,
+                            ).textTheme.bodyLarge?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )
+                        : buttons,
                   ],
                 );
               }

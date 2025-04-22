@@ -17,6 +17,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
 
   PomodoroBloc() : super(PomodoroState.initial()) {
     on<StartPomodoro>(_onStart);
+    on<ResumePomodoro>(_onResumed);
     on<TickPomodoro>(_onTick);
     on<PausePomodoro>(_onPaused);
     on<StopPomodoro>(_onStop);
