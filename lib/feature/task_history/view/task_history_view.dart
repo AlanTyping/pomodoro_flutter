@@ -19,9 +19,21 @@ final class _TaskHistoryView extends StatelessWidget {
               );
 
               return ListTile(
+                leading: Icon(
+                  task.completed ? Icons.check : Icons.close,
+                  color: task.completed ? Colors.green : Colors.red,
+                ),
                 title: Text(task.title),
                 subtitle: Text(task.cyclesData.toString()),
-                trailing: Text(task.completed ? 'Check' : 'No Check'),
+                trailing: IconButton(
+                  icon: const Icon(
+                    Icons.delete,
+                    color: Color.fromARGB(255, 179, 59, 59),
+                  ),
+                  onPressed: () {
+                    context.read<TaskHistoryCubit>().deleteTask(task.id!);
+                  },
+                ),
               );
             },
           );
