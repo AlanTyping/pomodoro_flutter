@@ -17,6 +17,7 @@ final class TaskHistoryCubit extends Cubit<TaskHistoryState> {
 
   void deleteTask(int id) async {
     await _deleteTaskUseCase.execute(id);
+    _fetchData();
   }
 
   void _fetchData() async {

@@ -4,6 +4,7 @@ final class _TaskHistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: BlocBuilder<TaskHistoryCubit, TaskHistoryState>(
         builder: (context, state) {
           if (state.isLoading) {
