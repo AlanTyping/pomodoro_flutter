@@ -12,7 +12,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
   final formKey = GlobalKey<FormState>();
   bool hasStarted = false;
   // mock de duration config
-  static const cycleDuration = Duration(minutes: 25);
+  static const cycleDuration = Duration(minutes: 1);
 
   @override
   void dispose() {

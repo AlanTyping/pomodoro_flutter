@@ -13,7 +13,10 @@ final class _TaskHistoryView extends StatelessWidget {
           return ListView.builder(
             itemCount: state.tasks.length,
             itemBuilder: (context, index) {
-              final task = state.tasks.elementAt(index);
+              final task = state.tasks.elementAt(
+                // mostrar el último elemento primero, y así sucesivamente.
+                state.tasks.length - index - 1,
+              );
 
               return ListTile(
                 title: Text(task.title),
