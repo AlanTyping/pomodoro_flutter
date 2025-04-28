@@ -8,6 +8,7 @@ class FillingBoxAnimation extends StatefulWidget {
   final Duration duration;
   final Cycle cycle;
   final Color color;
+
   const FillingBoxAnimation({
     super.key,
     required this.duration,

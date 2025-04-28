@@ -11,19 +11,6 @@ class _PomodoroViewState extends State<_PomodoroView> {
   final titleController = TextEditingController();
   final formKey = GlobalKey<FormState>();
   bool hasStarted = false;
-  // mock de duration config
-  static const cycleDuration = Duration(minutes: 25);
-
-  @override
-  void dispose() {
-    super.dispose();
-    titleController.dispose();
-  }
-
-  static OutlineInputBorder _border(Color color) => OutlineInputBorder(
-    borderSide: BorderSide(color: color, width: 3.0),
-    borderRadius: BorderRadius.circular(10),
-  );
 
   @override
   Widget build(BuildContext context) {
@@ -51,37 +38,32 @@ class _PomodoroViewState extends State<_PomodoroView> {
           child: BlocBuilder<PomodoroBloc, PomodoroState>(
             builder: (context, state) {
               final bloc = context.read<PomodoroBloc>();
+
               final buttons = Row(
+                spacing: 20,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    children: [
-                      PomodoroIcon(
-                        icon: Icons.play_arrow,
-                        onPressed: () => bloc.add(const ResumePomodoro()),
-                      ),
-                      const SizedBox(height: 45),
-                    ],
+                  Transform(
+                    transform: Matrix4.translationValues(0, -40, 0),
+                    child: PomodoroIcon(
+                      icon: Icons.play_arrow,
+                      onPressed: () => bloc.add(const ResumePomodoro()),
+                    ),
                   ),
-                  const SizedBox(width: 20),
                   PomodoroIcon(
                     icon: Icons.pause,
                     onPressed: () => bloc.add(const PausePomodoro()),
                   ),
-                  const SizedBox(width: 20),
                   PomodoroIcon(
                     icon: Icons.stop,
                     onPressed: () => bloc.add(const StopPomodoro()),
                   ),
-                  const SizedBox(width: 20),
-                  Column(
-                    children: [
-                      PomodoroIcon(
-                        icon: Icons.skip_next,
-                        onPressed: () => bloc.add(const SkipCyclePomodoro()),
-                      ),
-                      const SizedBox(height: 45),
-                    ],
+                  Transform(
+                    transform: Matrix4.translationValues(0, -40, 0),
+                    child: PomodoroIcon(
+                      icon: Icons.skip_next,
+                      onPressed: () => bloc.add(const SkipCyclePomodoro()),
+                    ),
                   ),
                 ],
               );
@@ -177,10 +159,12 @@ class _PomodoroViewState extends State<_PomodoroView> {
                             color: Color(0x4D8DC5FE),
                             shape: BoxShape.circle,
                           ),
-                          child: const FillingBoxAnimation(
-                            duration: cycleDuration,
+                          child: FillingBoxAnimation(
+                            duration: Duration(
+                              seconds: state.cyclesData[Cycle.fourth] ?? 0,
+                            ),
                             cycle: Cycle.fourth,
-                            color: Color(0xFF8DC5FE),
+                            color: const Color(0xFF8DC5FE),
                           ),
                         ),
                         Container(
@@ -194,10 +178,12 @@ class _PomodoroViewState extends State<_PomodoroView> {
                             //   BorderSide(color: Colors.white, width: 2),
                             // ),
                           ),
-                          child: const FillingBoxAnimation(
-                            duration: cycleDuration,
+                          child: FillingBoxAnimation(
+                            duration: Duration(
+                              seconds: state.cyclesData[Cycle.third] ?? 0,
+                            ),
                             cycle: Cycle.third,
-                            color: Color(0xFF659FFF),
+                            color: const Color(0xFF659FFF),
                           ),
                         ),
                         Container(
@@ -211,10 +197,12 @@ class _PomodoroViewState extends State<_PomodoroView> {
                             //   BorderSide(color: Colors.white, width: 2),
                             // ),
                           ),
-                          child: const FillingBoxAnimation(
-                            duration: cycleDuration,
+                          child: FillingBoxAnimation(
+                            duration: Duration(
+                              seconds: state.cyclesData[Cycle.second] ?? 0,
+                            ),
                             cycle: Cycle.second,
-                            color: Color(0xFF3F79FF),
+                            color: const Color(0xFF3F79FF),
                           ),
                         ),
                         Container(
@@ -224,14 +212,13 @@ class _PomodoroViewState extends State<_PomodoroView> {
                           decoration: const BoxDecoration(
                             shape: BoxShape.circle,
                             color: Color(0x4D1852FE),
-                            // border: const Border.fromBorderSide(
-                            //   BorderSide(color: Colors.white, width: 2),
-                            // ),
                           ),
-                          child: const FillingBoxAnimation(
-                            duration: cycleDuration,
+                          child: FillingBoxAnimation(
+                            duration: Duration(
+                              seconds: state.cyclesData[Cycle.first] ?? 0,
+                            ),
                             cycle: Cycle.first,
-                            color: Color(0xFF1852FE),
+                            color: const Color(0xFF1852FE),
                           ),
                         ),
                       ],
@@ -279,4 +266,15 @@ class _PomodoroViewState extends State<_PomodoroView> {
       ),
     );
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    titleController.dispose();
+  }
+
+  static OutlineInputBorder _border(Color color) => OutlineInputBorder(
+    borderSide: BorderSide(color: color, width: 3.0),
+    borderRadius: BorderRadius.circular(10),
+  );
 }
