@@ -5,13 +5,11 @@ import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_sta
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 
 class FillingBoxAnimation extends StatefulWidget {
-  final Duration duration;
   final Cycle cycle;
   final Color color;
 
   const FillingBoxAnimation({
     super.key,
-    required this.duration,
     required this.cycle,
     required this.color,
   });
@@ -27,7 +25,10 @@ class _FillingBoxAnimationState extends State<FillingBoxAnimation>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this, duration: widget.duration);
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 10),
+    );
     //  ..forward(); // empieza la animación automáticamente
   }
 

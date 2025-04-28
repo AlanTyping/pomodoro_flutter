@@ -159,12 +159,9 @@ class _PomodoroViewState extends State<_PomodoroView> {
                             color: Color(0x4D8DC5FE),
                             shape: BoxShape.circle,
                           ),
-                          child: FillingBoxAnimation(
-                            duration: Duration(
-                              seconds: state.cyclesData[Cycle.fourth] ?? 0,
-                            ),
+                          child: const FillingBoxAnimation(
                             cycle: Cycle.fourth,
-                            color: const Color(0xFF8DC5FE),
+                            color: Color(0xFF8DC5FE),
                           ),
                         ),
                         Container(
@@ -178,12 +175,9 @@ class _PomodoroViewState extends State<_PomodoroView> {
                             //   BorderSide(color: Colors.white, width: 2),
                             // ),
                           ),
-                          child: FillingBoxAnimation(
-                            duration: Duration(
-                              seconds: state.cyclesData[Cycle.third] ?? 0,
-                            ),
+                          child: const FillingBoxAnimation(
                             cycle: Cycle.third,
-                            color: const Color(0xFF659FFF),
+                            color: Color(0xFF659FFF),
                           ),
                         ),
                         Container(
@@ -197,12 +191,9 @@ class _PomodoroViewState extends State<_PomodoroView> {
                             //   BorderSide(color: Colors.white, width: 2),
                             // ),
                           ),
-                          child: FillingBoxAnimation(
-                            duration: Duration(
-                              seconds: state.cyclesData[Cycle.second] ?? 0,
-                            ),
+                          child: const FillingBoxAnimation(
                             cycle: Cycle.second,
-                            color: const Color(0xFF3F79FF),
+                            color: Color(0xFF3F79FF),
                           ),
                         ),
                         Container(
@@ -213,12 +204,9 @@ class _PomodoroViewState extends State<_PomodoroView> {
                             shape: BoxShape.circle,
                             color: Color(0x4D1852FE),
                           ),
-                          child: FillingBoxAnimation(
-                            duration: Duration(
-                              seconds: state.cyclesData[Cycle.first] ?? 0,
-                            ),
+                          child: const FillingBoxAnimation(
                             cycle: Cycle.first,
-                            color: const Color(0xFF1852FE),
+                            color: Color(0xFF1852FE),
                           ),
                         ),
                       ],
