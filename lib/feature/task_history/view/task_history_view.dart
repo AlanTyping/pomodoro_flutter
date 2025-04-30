@@ -11,32 +11,49 @@ final class _TaskHistoryView extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          return ListView.builder(
-            itemCount: state.tasks.length,
-            itemBuilder: (context, index) {
-              final task = state.tasks.elementAt(
-                // mostrar el último elemento primero, y así sucesivamente.
-                state.tasks.length - index - 1,
-              );
+          return Padding(
+            padding: const EdgeInsets.all(12),
+            child: ListView.builder(
+              itemCount: state.tasks.length,
+              itemBuilder: (context, index) {
+                final task = state.tasks.elementAt(
+                  // mostrar el último elemento primero, y así sucesivamente.
+                  state.tasks.length - index - 1,
+                );
 
-              return ListTile(
-                leading: Icon(
-                  task.completed ? Icons.check : Icons.close,
-                  color: task.completed ? Colors.green : Colors.red,
-                ),
-                title: Text(task.title),
-                subtitle: Text(task.cyclesData.toString()),
-                trailing: IconButton(
-                  icon: const Icon(
-                    Icons.delete,
-                    color: Color.fromARGB(255, 179, 59, 59),
+                final ciclos = Cycle.values;
+
+                final porcentajes = Map.fromEntries(
+                  ciclos.map(
+                    (ciclo) => MapEntry(
+                      ciclo,
+                      (task.cyclesData[ciclo]! / 1500).clamp(0.0, 1.0),
+                    ),
                   ),
-                  onPressed: () {
-                    context.read<TaskHistoryCubit>().deleteTask(task.id!);
-                  },
-                ),
-              );
-            },
+                );
+
+                return Column(
+                  children: [
+                    if (index != 0)
+                      const SizedBox(
+                        height: 10,
+                        child: ColoredBox(color: Colors.green),
+                      ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [Text(task.title), Text(task.date.toString())],
+                    ),
+
+                    Row(
+                      children: [
+                        for (var ciclo in Cycle.values)
+                          CycleProgressBar(percentage: porcentajes[ciclo]!),
+                      ],
+                    ),
+                  ],
+                );
+              },
+            ),
           );
         },
       ),
