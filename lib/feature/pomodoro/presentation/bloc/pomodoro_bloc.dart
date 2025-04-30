@@ -36,7 +36,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   void _onStart(StartPomodoro event, Emitter<PomodoroState> emit) {
     final timer = state.isResting ? _restDuration : _workDuration;
 
-    emit(state.copyWith(isRunning: true, timer: timer));
+    emit(state.copyWith(timer: timer, status: PomodoroStatus.running));
 
     _streamSubscription?.cancel();
 
@@ -64,12 +64,12 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
 
   void _onPaused(PausePomodoro event, Emitter<PomodoroState> emit) {
     _streamSubscription?.pause();
-    emit(state.copyWith(isRunning: false));
+    emit(state.copyWith(status: PomodoroStatus.pause));
   }
 
   void _onResumed(ResumePomodoro event, Emitter<PomodoroState> emit) {
     _streamSubscription?.resume();
-    emit(state.copyWith(isRunning: true));
+    emit(state.copyWith(status: PomodoroStatus.running));
   }
 
   void _onStop(StopPomodoro event, Emitter<PomodoroState> emit) async {
@@ -92,14 +92,16 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
       completed: false,
       cyclesData: newCyclesData,
     );
+
     await _saveTaskUseCase.execute(registeredTask);
 
-    emit(PomodoroState.initial());
+    emit(state.copyWith(status: PomodoroStatus.done));
   }
 
   void _onSkipCycle(SkipCyclePomodoro event, Emitter<PomodoroState> emit) {
     if (state.cycle != Cycle.fourth) {
       emit(state.copyWith(cycle: _getNextCycle, isResting: false));
+
       add(const StartPomodoro());
       add(const PausePomodoro());
     } else {
@@ -109,6 +111,8 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
 
   void _onFinish(FinishPomodoro event, Emitter<PomodoroState> emit) async {
     add(const StopPomodoro());
+
+    emit(PomodoroState.initial());
   }
 
   Stream<int> _timerStream(Duration duration) {

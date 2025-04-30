@@ -3,6 +3,8 @@ import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart
 
 part 'pomodoro_state.freezed.dart';
 
+enum PomodoroStatus { initial, running, pause, done }
+
 @freezed
 abstract class PomodoroState with _$PomodoroState {
   const factory PomodoroState({
@@ -10,15 +12,15 @@ abstract class PomodoroState with _$PomodoroState {
     required Cycle cycle,
     required Duration timer,
     required Map<Cycle, int> cyclesData,
-    required bool isRunning,
     @Default(false) bool isResting,
+    required PomodoroStatus status,
   }) = _PomodoroState;
 
   factory PomodoroState.initial() => const PomodoroState(
     title: null,
     cycle: Cycle.first,
     timer: Duration(minutes: 25),
-    isRunning: false,
+    status: PomodoroStatus.initial,
     cyclesData: {
       Cycle.first: 0,
       Cycle.second: 0,
