@@ -74,19 +74,14 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   }
 
   void _onStop(StopPomodoro event, Emitter<PomodoroState> emit) async {
+    emit(state.copyWith(cyclesData: _updatedCycleData));
+
     _streamSubscription?.cancel();
     emit(state.copyWith(status: PomodoroStatus.done));
   }
 
   void _onSkipCycle(SkipCyclePomodoro event, Emitter<PomodoroState> emit) {
-    final newCycleData = Map<Cycle, int>.from(state.cyclesData)
-      ..[state.cycle] =
-          state.isResting
-              ? (_restDuration.inSeconds - state.timer.inSeconds) +
-                  _workDuration.inSeconds
-              : (_workDuration.inSeconds - state.timer.inSeconds);
-
-    emit(state.copyWith(cyclesData: newCycleData));
+    emit(state.copyWith(cyclesData: _updatedCycleData));
 
     if (state.cycle != Cycle.fourth) {
       emit(state.copyWith(cycle: _getNextCycle, isResting: false));
@@ -120,6 +115,17 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
       const Duration(seconds: 1),
       (tick) => duration.inSeconds - tick - 1,
     ).takeWhile((seconds) => seconds >= 0);
+  }
+
+  Map<Cycle, int> get _updatedCycleData {
+    final newCycleData = Map<Cycle, int>.from(state.cyclesData)
+      ..[state.cycle] =
+          state.isResting
+              ? (_restDuration.inSeconds - state.timer.inSeconds) +
+                  _workDuration.inSeconds
+              : (_workDuration.inSeconds - state.timer.inSeconds);
+
+    return newCycleData;
   }
 
   @override
