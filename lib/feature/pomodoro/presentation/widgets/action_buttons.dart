@@ -56,7 +56,7 @@ class _ActionButtons extends StatelessWidget {
                 offset: upperOffset,
                 child: IconButton.outlined(
                   onPressed: () => bloc.add(const PomodoroEvent.resume()),
-                  iconSize: iconSize * 1.2,
+                  iconSize: iconSize,
                   icon: const Icon(Icons.play_arrow),
                 ),
               ),
@@ -92,5 +92,5 @@ class _ActionButtons extends StatelessWidget {
   }
 
   ButtonStyle textButtonStyle(BuildContext context) =>
-      TextButton.styleFrom(textStyle: Theme.of(context).textTheme.labelLarge);
+      TextButton.styleFrom(textStyle: Theme.of(context).textTheme.titleMedium);
 }

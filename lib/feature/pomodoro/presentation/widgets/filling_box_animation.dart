@@ -10,7 +10,6 @@ class _FillingBoxAnimation extends StatelessWidget {
       builder: (context, timer) {
         final totalSeconds = const Duration(minutes: 25).inSeconds;
         final currentSeconds = totalSeconds - timer.inSeconds;
-        debugPrint("$currentSeconds / $totalSeconds");
 
         return Column(
           spacing: 10,
@@ -28,7 +27,7 @@ class _FillingBoxAnimation extends StatelessWidget {
             ),
 
             Text(
-              timer.toString(),
+              '${timer.inSeconds ~/ 60}:${timer.inSeconds.remainder(60)}',
               style: Theme.of(context).textTheme.displayMedium,
             ),
           ],
