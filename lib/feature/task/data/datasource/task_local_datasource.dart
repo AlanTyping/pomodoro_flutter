@@ -19,9 +19,16 @@ class SQLiteTaskLocalDatasource {
       return openDatabase(
         join(path, 'task_$dbVersion.db'),
         onCreate: (db, version) {
-          db.execute(
-            'CREATE TABLE taskTable(id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT NOT NULL, date TEXT NOT NULL, completed INTEGER NOT NULL, cycle TEXT NOT NULL)',
-          );
+          db.execute('''CREATE TABLE taskTable(
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            title TEXT NOT NULL,
+            date TEXT NOT NULL,
+            secondsFirstCycle int DEFAULT(0),
+            secondsSecondCycle int DEFAULT(0),
+            secondsThirdCycle int DEFAULT(0),
+            secondsFourthCycle int DEFAULT(0)
+            )''');
+
           deleteOldDatabases();
         },
         version: 1,

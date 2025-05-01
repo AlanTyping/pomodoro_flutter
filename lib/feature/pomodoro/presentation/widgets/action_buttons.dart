@@ -19,6 +19,7 @@ class _ActionButtons extends StatelessWidget {
           children: switch (status) {
             PomodoroStatus.initial => [
               TextButton.icon(
+                style: textButtonStyle(context),
                 onPressed: () => bloc.add(const PomodoroEvent.start()),
                 label: const Text('Iniciar'),
                 icon: const Icon(Icons.play_arrow_outlined),
@@ -55,7 +56,7 @@ class _ActionButtons extends StatelessWidget {
                 offset: upperOffset,
                 child: IconButton.outlined(
                   onPressed: () => bloc.add(const PomodoroEvent.resume()),
-                  iconSize: iconSize,
+                  iconSize: iconSize * 1.2,
                   icon: const Icon(Icons.play_arrow),
                 ),
               ),
@@ -78,6 +79,7 @@ class _ActionButtons extends StatelessWidget {
             ],
             PomodoroStatus.done => [
               TextButton.icon(
+                style: textButtonStyle(context),
                 onPressed: () => bloc.add(const PomodoroEvent.finish()),
                 label: const Text('Reiniciar'),
                 icon: const Icon(Icons.restore),
@@ -88,4 +90,7 @@ class _ActionButtons extends StatelessWidget {
       },
     );
   }
+
+  ButtonStyle textButtonStyle(BuildContext context) =>
+      TextButton.styleFrom(textStyle: Theme.of(context).textTheme.labelLarge);
 }

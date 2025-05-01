@@ -9,8 +9,10 @@ abstract class TaskModel with _$TaskModel {
     int? id,
     required String title,
     required String date,
-    required int completed,
-    required String cycle,
+    required int secondsFirstCycle,
+    required int secondsSecondCycle,
+    required int secondsThirdCycle,
+    required int secondsFourthCycle,
   }) = _TaskModel;
 
   factory TaskModel.fromJson(Map<String, Object?> json) =>

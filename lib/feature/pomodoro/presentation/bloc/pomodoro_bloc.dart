@@ -64,6 +64,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
 
   void _onPaused(PausePomodoro event, Emitter<PomodoroState> emit) {
     _streamSubscription?.pause();
+
     emit(state.copyWith(status: PomodoroStatus.pause));
   }
 
@@ -74,31 +75,19 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
 
   void _onStop(StopPomodoro event, Emitter<PomodoroState> emit) async {
     _streamSubscription?.cancel();
-
-    final newCyclesData = state.cyclesData.map<Cycle, int>((cycle, seconds) {
-      if (cycle.index < state.cycle.index) {
-        return MapEntry(cycle, (_workDuration + _restDuration).inSeconds);
-      }
-      if (cycle.index == state.cycle.index) {
-        return MapEntry(cycle, state.timer.inSeconds);
-      }
-
-      return MapEntry(cycle, seconds);
-    });
-
-    final registeredTask = Task(
-      title: state.title ?? '',
-      date: DateTime.now(),
-      completed: false,
-      cyclesData: newCyclesData,
-    );
-
-    await _saveTaskUseCase.execute(registeredTask);
-
     emit(state.copyWith(status: PomodoroStatus.done));
   }
 
   void _onSkipCycle(SkipCyclePomodoro event, Emitter<PomodoroState> emit) {
+    final newCycleData = Map<Cycle, int>.from(state.cyclesData)
+      ..[state.cycle] =
+          state.isResting
+              ? (_restDuration.inSeconds - state.timer.inSeconds) +
+                  _workDuration.inSeconds
+              : (_workDuration.inSeconds - state.timer.inSeconds);
+
+    emit(state.copyWith(cyclesData: newCycleData));
+
     if (state.cycle != Cycle.fourth) {
       emit(state.copyWith(cycle: _getNextCycle, isResting: false));
 
@@ -110,7 +99,18 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   }
 
   void _onFinish(FinishPomodoro event, Emitter<PomodoroState> emit) async {
-    add(const StopPomodoro());
+    final isCompleted = state.cyclesData.values.every(
+      (secondsPerCycle) => secondsPerCycle >= _workDuration.inSeconds,
+    );
+
+    final registeredTask = Task(
+      title: state.title ?? 'Null',
+      date: DateTime.now(),
+      completed: isCompleted,
+      cyclesData: state.cyclesData,
+    );
+
+    await _saveTaskUseCase.execute(registeredTask);
 
     emit(PomodoroState.initial());
   }

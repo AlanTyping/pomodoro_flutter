@@ -10,8 +10,10 @@ _TaskModel _$TaskModelFromJson(Map<String, dynamic> json) => _TaskModel(
   id: (json['id'] as num?)?.toInt(),
   title: json['title'] as String,
   date: json['date'] as String,
-  completed: (json['completed'] as num).toInt(),
-  cycle: json['cycle'] as String,
+  secondsFirstCycle: (json['secondsFirstCycle'] as num).toInt(),
+  secondsSecondCycle: (json['secondsSecondCycle'] as num).toInt(),
+  secondsThirdCycle: (json['secondsThirdCycle'] as num).toInt(),
+  secondsFourthCycle: (json['secondsFourthCycle'] as num).toInt(),
 );
 
 Map<String, dynamic> _$TaskModelToJson(_TaskModel instance) =>
@@ -19,6 +21,8 @@ Map<String, dynamic> _$TaskModelToJson(_TaskModel instance) =>
       'id': instance.id,
       'title': instance.title,
       'date': instance.date,
-      'completed': instance.completed,
-      'cycle': instance.cycle,
+      'secondsFirstCycle': instance.secondsFirstCycle,
+      'secondsSecondCycle': instance.secondsSecondCycle,
+      'secondsThirdCycle': instance.secondsThirdCycle,
+      'secondsFourthCycle': instance.secondsFourthCycle,
     };

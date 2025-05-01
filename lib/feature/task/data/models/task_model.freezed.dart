@@ -17,8 +17,10 @@ mixin _$TaskModel {
   int? get id;
   String get title;
   String get date;
-  int get completed;
-  String get cycle;
+  int get secondsFirstCycle;
+  int get secondsSecondCycle;
+  int get secondsThirdCycle;
+  int get secondsFourthCycle;
 
   /// Create a copy of TaskModel
   /// with the given fields replaced by the non-null parameter values.
@@ -38,19 +40,32 @@ mixin _$TaskModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.date, date) || other.date == date) &&
-            (identical(other.completed, completed) ||
-                other.completed == completed) &&
-            (identical(other.cycle, cycle) || other.cycle == cycle));
+            (identical(other.secondsFirstCycle, secondsFirstCycle) ||
+                other.secondsFirstCycle == secondsFirstCycle) &&
+            (identical(other.secondsSecondCycle, secondsSecondCycle) ||
+                other.secondsSecondCycle == secondsSecondCycle) &&
+            (identical(other.secondsThirdCycle, secondsThirdCycle) ||
+                other.secondsThirdCycle == secondsThirdCycle) &&
+            (identical(other.secondsFourthCycle, secondsFourthCycle) ||
+                other.secondsFourthCycle == secondsFourthCycle));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, title, date, completed, cycle);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    title,
+    date,
+    secondsFirstCycle,
+    secondsSecondCycle,
+    secondsThirdCycle,
+    secondsFourthCycle,
+  );
 
   @override
   String toString() {
-    return 'TaskModel(id: $id, title: $title, date: $date, completed: $completed, cycle: $cycle)';
+    return 'TaskModel(id: $id, title: $title, date: $date, secondsFirstCycle: $secondsFirstCycle, secondsSecondCycle: $secondsSecondCycle, secondsThirdCycle: $secondsThirdCycle, secondsFourthCycle: $secondsFourthCycle)';
   }
 }
 
@@ -59,7 +74,15 @@ abstract mixin class $TaskModelCopyWith<$Res> {
   factory $TaskModelCopyWith(TaskModel value, $Res Function(TaskModel) _then) =
       _$TaskModelCopyWithImpl;
   @useResult
-  $Res call({int? id, String title, String date, int completed, String cycle});
+  $Res call({
+    int? id,
+    String title,
+    String date,
+    int secondsFirstCycle,
+    int secondsSecondCycle,
+    int secondsThirdCycle,
+    int secondsFourthCycle,
+  });
 }
 
 /// @nodoc
@@ -77,8 +100,10 @@ class _$TaskModelCopyWithImpl<$Res> implements $TaskModelCopyWith<$Res> {
     Object? id = freezed,
     Object? title = null,
     Object? date = null,
-    Object? completed = null,
-    Object? cycle = null,
+    Object? secondsFirstCycle = null,
+    Object? secondsSecondCycle = null,
+    Object? secondsThirdCycle = null,
+    Object? secondsFourthCycle = null,
   }) {
     return _then(
       _self.copyWith(
@@ -97,16 +122,26 @@ class _$TaskModelCopyWithImpl<$Res> implements $TaskModelCopyWith<$Res> {
                 ? _self.date
                 : date // ignore: cast_nullable_to_non_nullable
                     as String,
-        completed:
-            null == completed
-                ? _self.completed
-                : completed // ignore: cast_nullable_to_non_nullable
+        secondsFirstCycle:
+            null == secondsFirstCycle
+                ? _self.secondsFirstCycle
+                : secondsFirstCycle // ignore: cast_nullable_to_non_nullable
                     as int,
-        cycle:
-            null == cycle
-                ? _self.cycle
-                : cycle // ignore: cast_nullable_to_non_nullable
-                    as String,
+        secondsSecondCycle:
+            null == secondsSecondCycle
+                ? _self.secondsSecondCycle
+                : secondsSecondCycle // ignore: cast_nullable_to_non_nullable
+                    as int,
+        secondsThirdCycle:
+            null == secondsThirdCycle
+                ? _self.secondsThirdCycle
+                : secondsThirdCycle // ignore: cast_nullable_to_non_nullable
+                    as int,
+        secondsFourthCycle:
+            null == secondsFourthCycle
+                ? _self.secondsFourthCycle
+                : secondsFourthCycle // ignore: cast_nullable_to_non_nullable
+                    as int,
       ),
     );
   }
@@ -119,8 +154,10 @@ class _TaskModel implements TaskModel {
     this.id,
     required this.title,
     required this.date,
-    required this.completed,
-    required this.cycle,
+    required this.secondsFirstCycle,
+    required this.secondsSecondCycle,
+    required this.secondsThirdCycle,
+    required this.secondsFourthCycle,
   });
   factory _TaskModel.fromJson(Map<String, dynamic> json) =>
       _$TaskModelFromJson(json);
@@ -132,9 +169,13 @@ class _TaskModel implements TaskModel {
   @override
   final String date;
   @override
-  final int completed;
+  final int secondsFirstCycle;
   @override
-  final String cycle;
+  final int secondsSecondCycle;
+  @override
+  final int secondsThirdCycle;
+  @override
+  final int secondsFourthCycle;
 
   /// Create a copy of TaskModel
   /// with the given fields replaced by the non-null parameter values.
@@ -157,19 +198,32 @@ class _TaskModel implements TaskModel {
             (identical(other.id, id) || other.id == id) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.date, date) || other.date == date) &&
-            (identical(other.completed, completed) ||
-                other.completed == completed) &&
-            (identical(other.cycle, cycle) || other.cycle == cycle));
+            (identical(other.secondsFirstCycle, secondsFirstCycle) ||
+                other.secondsFirstCycle == secondsFirstCycle) &&
+            (identical(other.secondsSecondCycle, secondsSecondCycle) ||
+                other.secondsSecondCycle == secondsSecondCycle) &&
+            (identical(other.secondsThirdCycle, secondsThirdCycle) ||
+                other.secondsThirdCycle == secondsThirdCycle) &&
+            (identical(other.secondsFourthCycle, secondsFourthCycle) ||
+                other.secondsFourthCycle == secondsFourthCycle));
   }
 
   @JsonKey(includeFromJson: false, includeToJson: false)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, title, date, completed, cycle);
+  int get hashCode => Object.hash(
+    runtimeType,
+    id,
+    title,
+    date,
+    secondsFirstCycle,
+    secondsSecondCycle,
+    secondsThirdCycle,
+    secondsFourthCycle,
+  );
 
   @override
   String toString() {
-    return 'TaskModel(id: $id, title: $title, date: $date, completed: $completed, cycle: $cycle)';
+    return 'TaskModel(id: $id, title: $title, date: $date, secondsFirstCycle: $secondsFirstCycle, secondsSecondCycle: $secondsSecondCycle, secondsThirdCycle: $secondsThirdCycle, secondsFourthCycle: $secondsFourthCycle)';
   }
 }
 
@@ -182,7 +236,15 @@ abstract mixin class _$TaskModelCopyWith<$Res>
   ) = __$TaskModelCopyWithImpl;
   @override
   @useResult
-  $Res call({int? id, String title, String date, int completed, String cycle});
+  $Res call({
+    int? id,
+    String title,
+    String date,
+    int secondsFirstCycle,
+    int secondsSecondCycle,
+    int secondsThirdCycle,
+    int secondsFourthCycle,
+  });
 }
 
 /// @nodoc
@@ -200,8 +262,10 @@ class __$TaskModelCopyWithImpl<$Res> implements _$TaskModelCopyWith<$Res> {
     Object? id = freezed,
     Object? title = null,
     Object? date = null,
-    Object? completed = null,
-    Object? cycle = null,
+    Object? secondsFirstCycle = null,
+    Object? secondsSecondCycle = null,
+    Object? secondsThirdCycle = null,
+    Object? secondsFourthCycle = null,
   }) {
     return _then(
       _TaskModel(
@@ -220,16 +284,26 @@ class __$TaskModelCopyWithImpl<$Res> implements _$TaskModelCopyWith<$Res> {
                 ? _self.date
                 : date // ignore: cast_nullable_to_non_nullable
                     as String,
-        completed:
-            null == completed
-                ? _self.completed
-                : completed // ignore: cast_nullable_to_non_nullable
+        secondsFirstCycle:
+            null == secondsFirstCycle
+                ? _self.secondsFirstCycle
+                : secondsFirstCycle // ignore: cast_nullable_to_non_nullable
                     as int,
-        cycle:
-            null == cycle
-                ? _self.cycle
-                : cycle // ignore: cast_nullable_to_non_nullable
-                    as String,
+        secondsSecondCycle:
+            null == secondsSecondCycle
+                ? _self.secondsSecondCycle
+                : secondsSecondCycle // ignore: cast_nullable_to_non_nullable
+                    as int,
+        secondsThirdCycle:
+            null == secondsThirdCycle
+                ? _self.secondsThirdCycle
+                : secondsThirdCycle // ignore: cast_nullable_to_non_nullable
+                    as int,
+        secondsFourthCycle:
+            null == secondsFourthCycle
+                ? _self.secondsFourthCycle
+                : secondsFourthCycle // ignore: cast_nullable_to_non_nullable
+                    as int,
       ),
     );
   }

@@ -6,24 +6,22 @@ final class TaskMapper {
   final totalDuration = const Duration(minutes: 30).inSeconds;
 
   Task fromModel(TaskModel model) {
+    final isCompleted =
+        model.secondsFirstCycle == totalDuration &&
+        model.secondsSecondCycle == totalDuration &&
+        model.secondsThirdCycle == totalDuration &&
+        model.secondsFourthCycle == totalDuration;
+
     return Task(
       id: model.id,
       title: model.title,
-      cyclesData:
-          model.completed == 1
-              ? {
-                Cycle.first: totalDuration,
-                Cycle.second: totalDuration,
-                Cycle.third: totalDuration,
-                Cycle.fourth: totalDuration,
-              }
-              : {
-                Cycle.first: 0,
-                Cycle.second: 0,
-                Cycle.third: 0,
-                Cycle.fourth: 0,
-              },
-      completed: model.completed == 1,
+      cyclesData: {
+        Cycle.first: model.secondsFirstCycle,
+        Cycle.second: model.secondsSecondCycle,
+        Cycle.third: model.secondsThirdCycle,
+        Cycle.fourth: model.secondsFourthCycle,
+      },
+      completed: isCompleted,
       date: DateTime.parse(model.date),
     );
   }
@@ -33,18 +31,16 @@ final class TaskMapper {
   }
 
   TaskModel fromTask(Task task) {
-    Cycle lastCycle = Cycle.first;
-
-    task.cyclesData.forEach((cycle, second) {
-      if (second > 0) lastCycle = cycle;
-    });
+    final cyclesData = task.cyclesData.values;
 
     return TaskModel(
       id: task.id,
       title: task.title,
       date: task.date.toIso8601String(),
-      completed: task.completed ? 1 : 0,
-      cycle: lastCycle.name,
+      secondsFirstCycle: cyclesData.elementAt(0),
+      secondsSecondCycle: cyclesData.elementAt(1),
+      secondsThirdCycle: cyclesData.elementAt(2),
+      secondsFourthCycle: cyclesData.elementAt(3),
     );
   }
 
