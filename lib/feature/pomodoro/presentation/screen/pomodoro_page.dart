@@ -7,7 +7,7 @@ import 'package:pomodoro_flutter/feature/pomodoro/presentation/widgets/filling_b
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/widgets/pomodoro_icon.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/widgets/timer_text.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
-import 'package:pomodoro_flutter/feature/task_history/view/task_history_page.dart';
+import 'package:pomodoro_flutter/feature/task_history/view/screen/task_history_page.dart';
 
 part './pomodoro_view.dart';
 

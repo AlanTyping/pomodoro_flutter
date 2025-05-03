@@ -39,6 +39,12 @@ final class TaskHistoryCubit extends Cubit<TaskHistoryState> {
       ),
     );
 
-    emit(state.copyWith(tasks: tasks, isLoading: false));
+    emit(
+      state.copyWith(
+        tasks: tasks,
+        isLoading: false,
+        filteredTasks: state.filteredTasks ?? tasks,
+      ),
+    );
   }
 }
