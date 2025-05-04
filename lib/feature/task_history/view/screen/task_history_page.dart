@@ -6,6 +6,7 @@ import 'package:pomodoro_flutter/feature/task_history/view/widgets/cycle-progres
 import '../cubit/cubit.dart';
 
 part 'task_history_view.dart';
+part 'task_history_view2.dart';
 
 final class TaskHistoryPage extends StatelessWidget {
   static Route route() => PageRouteBuilder(
@@ -16,7 +17,7 @@ final class TaskHistoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => TaskHistoryCubit(),
-      child: _TaskHistoryView(),
+      child: _TaskHistoryViewTest(),
     );
   }
 }
