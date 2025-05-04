@@ -11,7 +11,7 @@ class CycleProgressBar extends StatelessWidget {
     if (percentage == 1.0) {
       icon = Icons.check;
     } else if (percentage == 0.0) {
-      icon = Icons.cancel;
+      icon = Icons.close;
     } else {
       icon = Icons.restore_outlined;
     }
@@ -29,7 +29,23 @@ class CycleProgressBar extends StatelessWidget {
             ),
           ),
           Positioned.fill(
-            child: Align(alignment: Alignment.center, child: Icon(icon)),
+            child: Align(
+              alignment: Alignment.center,
+              child: Container(
+                height: 30,
+                width: 30,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(100),
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Positioned.fill(
+            child: Align(
+              alignment: Alignment.center,
+              child: Icon(icon, color: const Color.fromARGB(125, 76, 51, 187)),
+            ),
           ),
         ],
       ),
