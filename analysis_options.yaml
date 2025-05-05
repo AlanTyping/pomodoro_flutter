@@ -4,6 +4,7 @@ analyzer:
   errors:
     unused_element: ignore
     depend_on_referenced_packages: ignore
+    unused_element_parameter: ignore
   plugins:
     - custom_lint
 

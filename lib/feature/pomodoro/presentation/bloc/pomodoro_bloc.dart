@@ -8,8 +8,8 @@ import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart
 import 'package:pomodoro_flutter/feature/task/domain/usecases/insert_task_usecase.dart';
 
 final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
-  static const Duration workDuration = Duration(seconds: 15);
-  static const Duration restDuration = Duration(seconds: 8);
+  static const Duration workDuration = Duration(minutes: 25);
+  static const Duration restDuration = Duration(minutes: 5);
 
   StreamSubscription<int>? _streamSubscription;
   final InsertTaskUsecase _saveTaskUseCase =

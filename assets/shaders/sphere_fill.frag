@@ -1,3 +1,5 @@
+#version 460 core
+
 #include <flutter/runtime_effect.glsl>
 
 // The fill percentage (0.0 to 1.0)
@@ -8,9 +10,6 @@ uniform float uTime;
 uniform vec2 uResolution;
 // Color for the filled portion (RGBA)
 uniform vec4 uFilledColor;
-// Color for the unfilled portion (RGBA)
-uniform vec4 uUnfilledColor;
-
 
 out vec4 fragColor;
 
@@ -35,20 +34,20 @@ void main() {
 
         // Create a wavy threshold based on percentage and time
         float wave_amplitude = 0.05; // Adjust wave intensity
-        float wave_frequency = 10.0; // Adjust number of waves
+        float wave_frequency = 2.0; // Adjust number of waves
         float wave_speed = 2.0;    // Adjust wave speed
         float wave_offset = sin(uv.x * wave_frequency + uTime * wave_speed) * wave_amplitude;
 
         // Adjust the percentage threshold with the wave
         float fill_threshold = uPercentage + wave_offset;
 
-        // Determine if the fragment should be filled
-        if (normalized_v <= fill_threshold) {
-            // Filled color
+        // Determine if the fragment should be filled - INVERTED LOGIC HERE
+        if (normalized_v >= 1.0 - fill_threshold) {
+            // Filled color - now this is the rising liquid
             fragColor = uFilledColor;
         } else {
-            // Unfilled sphere color
-            fragColor = uUnfilledColor;
+            // Unfilled sphere color - now this is the void part
+            fragColor = vec4(0.1);
         }
     } else {
         // Background color (transparent)

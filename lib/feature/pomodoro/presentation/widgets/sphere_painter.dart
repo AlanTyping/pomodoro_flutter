@@ -1,10 +1,15 @@
 part of '../screen/pomodoro_page.dart';
 
 class _SphereShaderWidget extends StatefulWidget {
-  const _SphereShaderWidget({required this.total, required this.current});
+  const _SphereShaderWidget({
+    required this.total,
+    required this.current,
+    this.fillColor,
+  });
 
   final int total;
   final int current;
+  final Color? fillColor;
 
   @override
   State<_SphereShaderWidget> createState() => _SphereShaderWidgetState();
@@ -29,6 +34,7 @@ class _SphereShaderWidgetState extends State<_SphereShaderWidget> {
           painter: _SphereShaderPainter(
             shader: _fragmentProgram.fragmentShader(),
             percentage: percentage,
+            color: widget.fillColor ?? Theme.of(context).primaryColor,
             time: widget.current.toDouble(),
           ),
         )
@@ -52,14 +58,13 @@ class _SphereShaderPainter extends CustomPainter {
   final FragmentShader shader;
   final double percentage;
   final double time;
-
-  static Color get filledColor => Colors.teal;
-  static Color get unfilledColor => Colors.lightBlue;
+  final Color color;
 
   _SphereShaderPainter({
     required this.shader,
     required this.percentage,
     required this.time,
+    required this.color,
   });
 
   @override
@@ -71,16 +76,10 @@ class _SphereShaderPainter extends CustomPainter {
     shader.setFloat(3, size.height); // uResolution.y
 
     // uFilledColor (vec4: r, g, b, a)
-    shader.setFloat(4, filledColor.r / 255.0 * filledColor.a);
-    shader.setFloat(5, filledColor.g / 255.0 * filledColor.a);
-    shader.setFloat(6, filledColor.b / 255.0 * filledColor.a);
-    shader.setFloat(7, filledColor.a);
-
-    // uUnfilledColor (vec4: r, g, b, a)
-    shader.setFloat(8, unfilledColor.r / 255.0 * unfilledColor.a);
-    shader.setFloat(9, unfilledColor.g / 255.0 * unfilledColor.a);
-    shader.setFloat(10, unfilledColor.b / 255.0 * unfilledColor.a);
-    shader.setFloat(11, unfilledColor.a);
+    shader.setFloat(4, color.r);
+    shader.setFloat(5, color.g);
+    shader.setFloat(6, color.b);
+    shader.setFloat(7, color.a);
 
     // Draw a rectangle covering the entire canvas, using the shader
     canvas.drawRect(Offset.zero & size, Paint()..shader = shader);
