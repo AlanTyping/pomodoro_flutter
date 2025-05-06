@@ -4,7 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 import 'package:pomodoro_flutter/feature/task_history/view/widgets/cycle-progress-bar.dart';
 
-import 'cubit/cubit.dart';
+import '../cubit/cubit.dart';
 
 part 'task_history_view.dart';
 
