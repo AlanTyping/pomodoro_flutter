@@ -9,7 +9,7 @@ import 'package:pomodoro_flutter/feature/task_history/view/screen/task_history_p
 
 part './pomodoro_view.dart';
 part '../widgets/action_buttons.dart';
-part '../widgets/sphere_painter_with_animation_controller.dart';
+part '../widgets/sphere_painter.dart';
 part '../widgets/filling_box_animation.dart';
 
 class PomodoroPage extends StatelessWidget {
