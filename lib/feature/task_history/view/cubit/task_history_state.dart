@@ -7,8 +7,10 @@ part 'task_history_state.freezed.dart';
 abstract class TaskHistoryState with _$TaskHistoryState {
   const factory TaskHistoryState({
     required List<Task> tasks,
+    required List<Task> filteredTasks,
     @Default(false) bool isLoading,
   }) = _TaskHistoryState;
 
-  factory TaskHistoryState.initial() => const TaskHistoryState(tasks: []);
+  factory TaskHistoryState.initial() =>
+      const TaskHistoryState(tasks: [], filteredTasks: []);
 }

@@ -15,14 +15,28 @@ class _SphereShaderWidget extends StatefulWidget {
   State<_SphereShaderWidget> createState() => _SphereShaderWidgetState();
 }
 
-class _SphereShaderWidgetState extends State<_SphereShaderWidget> {
+class _SphereShaderWidgetState extends State<_SphereShaderWidget>
+    with SingleTickerProviderStateMixin {
   late FragmentProgram _fragmentProgram;
   bool _shaderLoaded = false;
+  late AnimationController _animationController;
 
   @override
   void initState() {
-    _loadShader();
     super.initState();
+    _loadShader();
+
+    // Create an animation controller that loops continuously
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 10), // Adjust duration as needed
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -30,13 +44,18 @@ class _SphereShaderWidgetState extends State<_SphereShaderWidget> {
     final percentage = (widget.current / widget.total).clamp(0.0, 1.0);
 
     return _shaderLoaded
-        ? CustomPaint(
-          painter: _SphereShaderPainter(
-            shader: _fragmentProgram.fragmentShader(),
-            percentage: percentage,
-            color: widget.fillColor ?? Theme.of(context).primaryColor,
-            time: widget.current.toDouble(),
-          ),
+        ? AnimatedBuilder(
+          animation: _animationController,
+          builder: (context, child) {
+            return CustomPaint(
+              painter: _SphereShaderPainter(
+                shader: _fragmentProgram.fragmentShader(),
+                percentage: percentage,
+                color: widget.fillColor ?? Theme.of(context).primaryColor,
+                time: _animationController.value * 10, // Scale as needed
+              ),
+            );
+          },
         )
         : const Center(child: CircularProgressIndicator.adaptive());
   }
@@ -87,6 +106,8 @@ class _SphereShaderPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(_SphereShaderPainter oldDelegate) {
-    return oldDelegate.percentage != percentage || oldDelegate.time != time;
+    return oldDelegate.percentage != percentage ||
+        oldDelegate.time != time ||
+        oldDelegate.color != color;
   }
 }

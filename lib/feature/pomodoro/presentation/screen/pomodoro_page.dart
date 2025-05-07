@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -6,11 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_bloc.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_event.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_state.dart';
-import 'package:pomodoro_flutter/feature/task_history/view/task_history_page.dart';
+import 'package:pomodoro_flutter/feature/task_history/view/screen/task_history_page.dart';
 
 part './pomodoro_view.dart';
 part '../widgets/action_buttons.dart';
-part '../widgets/sphere_painter.dart';
+part '../widgets/sphere_painter_with_animation_controller.dart';
 part '../widgets/filling_box_animation.dart';
 
 class PomodoroPage extends StatelessWidget {
