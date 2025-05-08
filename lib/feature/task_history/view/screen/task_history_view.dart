@@ -1,117 +1,194 @@
 part of 'task_history_page.dart';
 
-final class _TaskHistoryView extends StatelessWidget {
+class _TaskHistoryView extends StatelessWidget {
+  const _TaskHistoryView({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+    final textTheme = Theme.of(context).textTheme;
+
     return Scaffold(
-      appBar: AppBar(),
-      body: BlocBuilder<TaskHistoryCubit, TaskHistoryState>(
-        builder: (context, state) {
-          if (state.isLoading) {
-            return const Center(child: CircularProgressIndicator());
-          }
+      appBar: AppBar(title: const Text('Historial')),
+      body: SafeArea(
+        child: BlocBuilder<TaskHistoryCubit, TaskHistoryState>(
+          builder: (context, state) {
+            final cubit = context.read<TaskHistoryCubit>();
 
-          return Padding(
-            padding: const EdgeInsets.all(12),
-            child: ListView.separated(
-              itemCount: state.tasks.length,
-              separatorBuilder:
-                  (context, index) =>
-                      const SizedBox(height: 16), // 👈 Espacio entre ítems
-              itemBuilder: (context, index) {
-                final task = state.tasks.elementAt(
-                  state.tasks.length - index - 1,
-                );
-
-                final ciclos = Cycle.values;
-
-                final porcentajes = Map.fromEntries(
-                  ciclos.map(
-                    (ciclo) => MapEntry(
-                      ciclo,
-                      (task.cyclesData[ciclo]! / 1500).clamp(0.0, 1.0),
-                    ),
-                  ),
-                );
-
-                return Container(
-                  height: 200,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 2),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
+            return Padding(
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                spacing: 10,
+                children: [
+                  SizedBox(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      spacing: 8,
                       children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            task.completed
-                                ? const Text(
-                                  'Completed',
-                                  style: TextStyle(
-                                    color: Colors.green,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                )
-                                : const Text(
-                                  'Incomplete',
-                                  style: TextStyle(
-                                    color: Colors.red,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                            IconButton(
-                              onPressed: () {
-                                context.read<TaskHistoryCubit>().deleteTask(
-                                  task.id!,
-                                );
-                              },
-                              icon: const Icon(Icons.delete, color: Colors.red),
+                        TextField(
+                          onChanged: cubit.changeNameFilter,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide(
+                                color: colorScheme.secondary,
+                              ),
                             ),
-                          ],
+                            labelText: 'Filtro por Nombre',
+                            hintText: 'Nombre de la tarea',
+                          ),
+                        ),
+                        ElevatedButton.icon(
+                          onPressed: () async {
+                            final date = await showDatePicker(
+                              context: context,
+                              initialDate: state.dateFilter ?? DateTime.now(),
+                              firstDate: DateTime(2000),
+                              lastDate: DateTime(2100),
+                            );
+
+                            cubit.changeDateFilter(date);
+                          },
+                          icon: const Icon(Icons.calendar_today),
+                          label: Text(
+                            state.dateFilter != null
+                                ? 'Fecha: ${state.dateFilter!.day}/${state.dateFilter!.month}/${state.dateFilter!.year}/'
+                                : 'Seleccionar Fecha',
+                          ),
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          spacing: 15,
                           children: [
                             Expanded(
-                              child: Text(
-                                task.title,
-                                overflow: TextOverflow.ellipsis,
-                                softWrap: true,
-                                maxLines: 2,
-                                style: const TextStyle(
-                                  fontSize: 23,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                              child: ElevatedButton(
+                                onPressed: cubit.applyFilters,
+                                child: const Text('Aplicar Filtros'),
                               ),
                             ),
-                            Text(
-                              DateFormat('dd/MM/yyyy').format(task.date),
-                              style: const TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
+                            IconButton.filled(
+                              color: colorScheme.error,
+                              onPressed: cubit.clearFilters,
+                              tooltip: 'Limpiar Filtros',
+                              icon: const Icon(Icons.clear),
                             ),
-                          ],
-                        ),
-                        Row(
-                          spacing: 4,
-                          children: [
-                            for (var ciclo in Cycle.values)
-                              CycleProgressBar(percentage: porcentajes[ciclo]!),
                           ],
                         ),
                       ],
                     ),
                   ),
-                );
-              },
-            ),
-          );
-        },
+
+                  Expanded(
+                    child: ListView.separated(
+                      padding: const EdgeInsets.all(8),
+                      separatorBuilder:
+                          (context, index) => const SizedBox(height: 16),
+                      itemCount: state.filteredTasks.length,
+                      itemBuilder: (context, index) {
+                        final task = state.filteredTasks.elementAt(index);
+
+                        final cycles = Cycle.values;
+
+                        final percentages = Map.fromEntries(
+                          cycles.map(
+                            (ciclo) => MapEntry(
+                              ciclo,
+                              (task.cyclesData[ciclo]! / 1500).clamp(0.0, 1.0),
+                            ),
+                          ),
+                        );
+
+                        return Card(
+                          child: Padding(
+                            padding: const EdgeInsets.all(12),
+                            child: Column(
+                              spacing: 8,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Expanded(
+                                      child:
+                                          task.completed
+                                              ? Text(
+                                                'Completado',
+                                                style: textTheme.titleMedium
+                                                    ?.copyWith(
+                                                      color: Colors.greenAccent,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              )
+                                              : Text(
+                                                'Incompleto',
+                                                style: textTheme.titleSmall
+                                                    ?.copyWith(
+                                                      color: colorScheme.error,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
+                                    ),
+
+                                    IconButton(
+                                      onPressed: () => cubit.deleteTask(task),
+                                      icon: Icon(
+                                        Icons.delete,
+                                        color: colorScheme.error,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        task.title,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: true,
+                                        maxLines: 2,
+                                        style: textTheme.bodyLarge,
+                                      ),
+                                    ),
+                                    Text(
+                                      DateFormat(
+                                        'dd/MM/yyyy',
+                                      ).format(task.date),
+                                      style: textTheme.bodyLarge,
+                                    ),
+                                  ],
+                                ),
+
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(12),
+                                  child: Row(
+                                    spacing: 4,
+                                    children:
+                                        Cycle.values
+                                            .map(
+                                              (cycle) => Expanded(
+                                                child: CycleProgressBar(
+                                                  percentage:
+                                                      percentages[cycle],
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

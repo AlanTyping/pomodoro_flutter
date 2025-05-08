@@ -8,6 +8,8 @@ abstract class TaskHistoryState with _$TaskHistoryState {
   const factory TaskHistoryState({
     required List<Task> tasks,
     required List<Task> filteredTasks,
+    String? nameFilter,
+    DateTime? dateFilter,
     @Default(false) bool isLoading,
   }) = _TaskHistoryState;
 

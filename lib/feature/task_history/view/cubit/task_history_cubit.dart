@@ -16,112 +16,67 @@ final class TaskHistoryCubit extends Cubit<TaskHistoryState> {
 
   final DeleteTaskUsecase _deleteTaskUseCase = GetIt.I.get<DeleteTaskUsecase>();
 
-  void deleteTask(int id) async {
-    await _deleteTaskUseCase.execute(id);
-    _fetchData();
+  void deleteTask(Task task) async {
+    if (task.id != null) {
+      await _deleteTaskUseCase.execute(task.id!);
+      _fetchData();
+    }
   }
 
   void _fetchData() async {
     emit(state.copyWith(isLoading: true));
     final tasks = await _fetchAllTasksUseCase.execute();
 
-    /*tasks.add(
-      Task(
-        title: 'Mock task',
-        date: DateTime(2025, 4, 25),
-        completed: true,
-        cyclesData: {
-          Cycle.first: 1500,
-          Cycle.second: 1500,
-          Cycle.third: 500,
-          Cycle.fourth: 0,
-        },
-      ),
-    );*/
-    // Agregar tareas simuladas
-  tasks.addAll([
-    Task(
-      title: 'Estudiar Flutter',
-      date: DateTime(2025, 5, 1),
-      completed: true,
-      cyclesData: {
-        Cycle.first: 1500,
-        Cycle.second: 1200,
-        Cycle.third: 600,
-        Cycle.fourth: 0,
-      },
-    ),
-    Task(
-      title: 'Leer libro',
-      date: DateTime(2025, 5, 2),
-      completed: false,
-      cyclesData: {
-        Cycle.first: 1500,
-        Cycle.second: 0,
-        Cycle.third: 0,
-        Cycle.fourth: 0,
-      },
-    ),
-    Task(
-      title: 'Proyecto universidad',
-      date: DateTime(2025, 5, 3),
-      completed: false,
-      cyclesData: {
-        Cycle.first: 1500,
-        Cycle.second: 1500,
-        Cycle.third: 1500,
-        Cycle.fourth: 1500,
-      },
-    ),
-    Task(
-      title: 'Mock task',
-      date: DateTime(2025, 4, 25),
-      completed: true,
-      cyclesData: {
-        Cycle.first: 1500,
-        Cycle.second: 1500,
-        Cycle.third: 500,
-        Cycle.fourth: 0,
-      },
-    ),
-    Task(
-      title: 'Preparar presentación',
-      date: DateTime(2025, 5, 1),
-      completed: true,
-      cyclesData: {
-        Cycle.first: 1500,
-        Cycle.second: 300,
-        Cycle.third: 0,
-        Cycle.fourth: 0,
-      },
-    ),
-  ]);
+    emit(state.copyWith(tasks: tasks, isLoading: false, filteredTasks: tasks));
+  }
 
+  void changeNameFilter(String? value) {
+    if (value?.isEmpty ?? true) {
+      emit(state.copyWith(nameFilter: value));
+    }
+  }
+
+  void changeDateFilter(DateTime? date) {
+    emit(state.copyWith(dateFilter: date));
+  }
+
+  void applyFilters() {
+    final List<Task> filtered =
+        state.tasks.where((task) {
+          // Default to true when filter is not set
+          bool titleValidation =
+              state.nameFilter == null || state.nameFilter!.isEmpty;
+          bool dateValidation = state.dateFilter == null;
+
+          // Only check title if filter is set
+          if (state.nameFilter case final title? when title.isNotEmpty) {
+            titleValidation = task.title.toLowerCase().contains(
+              title.toLowerCase(),
+            );
+          }
+
+          // Only check date if filter is set
+          if (state.dateFilter case final date?) {
+            dateValidation =
+                date.day == task.date.day &&
+                date.month == task.date.month &&
+                date.year == task.date.year;
+          }
+
+          // Task passes if it matches all applied filters
+          return titleValidation && dateValidation;
+        }).toList();
+
+    emit(state.copyWith(filteredTasks: filtered));
+  }
+
+  void clearFilters() {
     emit(
       state.copyWith(
-        tasks: tasks,
-        isLoading: false,
-        filteredTasks:  tasks,
+        dateFilter: null,
+        nameFilter: null,
+        filteredTasks: state.tasks,
       ),
     );
   }
-
-  void filterTasks({String? titleQuery, DateTime? date}) {
-  final List<Task> filtered = state.tasks.where((task) {
-    final matchesTitle = titleQuery == null || titleQuery.isEmpty
-        ? true
-        : task.title.toLowerCase().contains(titleQuery.toLowerCase());
-
-    final matchesDate = date == null
-        ? true
-        : task.date.year == date.year &&
-            task.date.month == date.month &&
-            task.date.day == date.day;
-
-    return matchesTitle && matchesDate;
-  }).toList();
-
-  emit(state.copyWith(filteredTasks: filtered));
-}
-
 }

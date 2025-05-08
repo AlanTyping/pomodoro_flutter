@@ -16,6 +16,8 @@ T _$identity<T>(T value) => value;
 mixin _$TaskHistoryState {
   List<Task> get tasks;
   List<Task> get filteredTasks;
+  String? get nameFilter;
+  DateTime? get dateFilter;
   bool get isLoading;
 
   /// Create a copy of TaskHistoryState
@@ -38,6 +40,10 @@ mixin _$TaskHistoryState {
               other.filteredTasks,
               filteredTasks,
             ) &&
+            (identical(other.nameFilter, nameFilter) ||
+                other.nameFilter == nameFilter) &&
+            (identical(other.dateFilter, dateFilter) ||
+                other.dateFilter == dateFilter) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading));
   }
@@ -47,12 +53,14 @@ mixin _$TaskHistoryState {
     runtimeType,
     const DeepCollectionEquality().hash(tasks),
     const DeepCollectionEquality().hash(filteredTasks),
+    nameFilter,
+    dateFilter,
     isLoading,
   );
 
   @override
   String toString() {
-    return 'TaskHistoryState(tasks: $tasks, filteredTasks: $filteredTasks, isLoading: $isLoading)';
+    return 'TaskHistoryState(tasks: $tasks, filteredTasks: $filteredTasks, nameFilter: $nameFilter, dateFilter: $dateFilter, isLoading: $isLoading)';
   }
 }
 
@@ -63,7 +71,13 @@ abstract mixin class $TaskHistoryStateCopyWith<$Res> {
     $Res Function(TaskHistoryState) _then,
   ) = _$TaskHistoryStateCopyWithImpl;
   @useResult
-  $Res call({List<Task> tasks, List<Task> filteredTasks, bool isLoading});
+  $Res call({
+    List<Task> tasks,
+    List<Task> filteredTasks,
+    String? nameFilter,
+    DateTime? dateFilter,
+    bool isLoading,
+  });
 }
 
 /// @nodoc
@@ -81,6 +95,8 @@ class _$TaskHistoryStateCopyWithImpl<$Res>
   $Res call({
     Object? tasks = null,
     Object? filteredTasks = null,
+    Object? nameFilter = freezed,
+    Object? dateFilter = freezed,
     Object? isLoading = null,
   }) {
     return _then(
@@ -95,6 +111,16 @@ class _$TaskHistoryStateCopyWithImpl<$Res>
                 ? _self.filteredTasks
                 : filteredTasks // ignore: cast_nullable_to_non_nullable
                     as List<Task>,
+        nameFilter:
+            freezed == nameFilter
+                ? _self.nameFilter
+                : nameFilter // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        dateFilter:
+            freezed == dateFilter
+                ? _self.dateFilter
+                : dateFilter // ignore: cast_nullable_to_non_nullable
+                    as DateTime?,
         isLoading:
             null == isLoading
                 ? _self.isLoading
@@ -111,6 +137,8 @@ class _TaskHistoryState implements TaskHistoryState {
   const _TaskHistoryState({
     required final List<Task> tasks,
     required final List<Task> filteredTasks,
+    this.nameFilter,
+    this.dateFilter,
     this.isLoading = false,
   }) : _tasks = tasks,
        _filteredTasks = filteredTasks;
@@ -131,6 +159,10 @@ class _TaskHistoryState implements TaskHistoryState {
     return EqualUnmodifiableListView(_filteredTasks);
   }
 
+  @override
+  final String? nameFilter;
+  @override
+  final DateTime? dateFilter;
   @override
   @JsonKey()
   final bool isLoading;
@@ -153,6 +185,10 @@ class _TaskHistoryState implements TaskHistoryState {
               other._filteredTasks,
               _filteredTasks,
             ) &&
+            (identical(other.nameFilter, nameFilter) ||
+                other.nameFilter == nameFilter) &&
+            (identical(other.dateFilter, dateFilter) ||
+                other.dateFilter == dateFilter) &&
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading));
   }
@@ -162,12 +198,14 @@ class _TaskHistoryState implements TaskHistoryState {
     runtimeType,
     const DeepCollectionEquality().hash(_tasks),
     const DeepCollectionEquality().hash(_filteredTasks),
+    nameFilter,
+    dateFilter,
     isLoading,
   );
 
   @override
   String toString() {
-    return 'TaskHistoryState(tasks: $tasks, filteredTasks: $filteredTasks, isLoading: $isLoading)';
+    return 'TaskHistoryState(tasks: $tasks, filteredTasks: $filteredTasks, nameFilter: $nameFilter, dateFilter: $dateFilter, isLoading: $isLoading)';
   }
 }
 
@@ -180,7 +218,13 @@ abstract mixin class _$TaskHistoryStateCopyWith<$Res>
   ) = __$TaskHistoryStateCopyWithImpl;
   @override
   @useResult
-  $Res call({List<Task> tasks, List<Task> filteredTasks, bool isLoading});
+  $Res call({
+    List<Task> tasks,
+    List<Task> filteredTasks,
+    String? nameFilter,
+    DateTime? dateFilter,
+    bool isLoading,
+  });
 }
 
 /// @nodoc
@@ -198,6 +242,8 @@ class __$TaskHistoryStateCopyWithImpl<$Res>
   $Res call({
     Object? tasks = null,
     Object? filteredTasks = null,
+    Object? nameFilter = freezed,
+    Object? dateFilter = freezed,
     Object? isLoading = null,
   }) {
     return _then(
@@ -212,6 +258,16 @@ class __$TaskHistoryStateCopyWithImpl<$Res>
                 ? _self._filteredTasks
                 : filteredTasks // ignore: cast_nullable_to_non_nullable
                     as List<Task>,
+        nameFilter:
+            freezed == nameFilter
+                ? _self.nameFilter
+                : nameFilter // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        dateFilter:
+            freezed == dateFilter
+                ? _self.dateFilter
+                : dateFilter // ignore: cast_nullable_to_non_nullable
+                    as DateTime?,
         isLoading:
             null == isLoading
                 ? _self.isLoading
