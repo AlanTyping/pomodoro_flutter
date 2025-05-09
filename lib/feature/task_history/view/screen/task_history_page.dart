@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +7,9 @@ import 'package:pomodoro_flutter/feature/task_history/view/widgets/cycle_progres
 import '../cubit/cubit.dart';
 
 part 'task_history_view.dart';
+part '../widgets/name_filter_field.dart';
+part '../widgets/task_list_view.dart';
+part '../widgets/task_card.dart';
 
 final class TaskHistoryPage extends StatelessWidget {
   static Route route() => PageRouteBuilder(
