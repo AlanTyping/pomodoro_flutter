@@ -1,15 +1,27 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+part of 'pomodoro_bloc.dart';
 
-part 'pomodoro_event.freezed.dart';
+sealed class PomodoroEvent {}
 
-@freezed
-sealed class PomodoroEvent with _$PomodoroEvent {
-  const factory PomodoroEvent.start() = StartPomodoro;
-  const factory PomodoroEvent.pause() = PausePomodoro;
-  const factory PomodoroEvent.resume() = ResumePomodoro;
-  const factory PomodoroEvent.stop() = StopPomodoro;
-  const factory PomodoroEvent.skipCycle() = SkipCyclePomodoro;
-  const factory PomodoroEvent.updateTitle(String title) = UpdateTitlePomodoro;
-  const factory PomodoroEvent.tick(int currentSeconds) = TickPomodoro;
-  const factory PomodoroEvent.finish() = FinishPomodoro;
+final class StartPomodoro extends PomodoroEvent {}
+
+final class PausePomodoro extends PomodoroEvent {}
+
+final class ResumePomodoro extends PomodoroEvent {}
+
+final class StopPomodoro extends PomodoroEvent {}
+
+final class SkipCyclePomodoro extends PomodoroEvent {}
+
+final class UpdateTitlePomodoro extends PomodoroEvent {
+  final String title;
+
+  UpdateTitlePomodoro(this.title);
 }
+
+final class _TickPomodoro extends PomodoroEvent {
+  final int currentSeconds;
+
+  _TickPomodoro(this.currentSeconds);
+}
+
+final class FinishPomodoro extends PomodoroEvent {}

@@ -20,7 +20,7 @@ class _ActionButtons extends StatelessWidget {
             PomodoroStatus.initial => [
               TextButton.icon(
                 style: textButtonStyle(context),
-                onPressed: () => bloc.add(const PomodoroEvent.start()),
+                onPressed: () => bloc.add(StartPomodoro()),
                 label: const Text('Iniciar'),
                 icon: const Icon(Icons.play_arrow_outlined),
               ),
@@ -29,7 +29,7 @@ class _ActionButtons extends StatelessWidget {
               Transform.translate(
                 offset: upperOffset,
                 child: IconButton.outlined(
-                  onPressed: () => bloc.add(const PomodoroEvent.pause()),
+                  onPressed: () => bloc.add(PausePomodoro()),
                   iconSize: iconSize,
                   icon: const Icon(Icons.pause),
                 ),
@@ -37,7 +37,7 @@ class _ActionButtons extends StatelessWidget {
               Transform.translate(
                 offset: lowerOffset,
                 child: IconButton.outlined(
-                  onPressed: () => bloc.add(const PomodoroEvent.stop()),
+                  onPressed: () => bloc.add(StopPomodoro()),
                   iconSize: iconSize,
                   icon: const Icon(Icons.stop),
                 ),
@@ -45,7 +45,7 @@ class _ActionButtons extends StatelessWidget {
               Transform.translate(
                 offset: upperOffset,
                 child: IconButton.outlined(
-                  onPressed: () => bloc.add(const PomodoroEvent.skipCycle()),
+                  onPressed: () => bloc.add(SkipCyclePomodoro()),
                   iconSize: iconSize,
                   icon: const Icon(Icons.skip_next),
                 ),
@@ -55,7 +55,7 @@ class _ActionButtons extends StatelessWidget {
               Transform.translate(
                 offset: upperOffset,
                 child: IconButton.outlined(
-                  onPressed: () => bloc.add(const PomodoroEvent.resume()),
+                  onPressed: () => bloc.add(ResumePomodoro()),
                   iconSize: iconSize,
                   icon: const Icon(Icons.play_arrow),
                 ),
@@ -63,7 +63,7 @@ class _ActionButtons extends StatelessWidget {
               Transform.translate(
                 offset: lowerOffset,
                 child: IconButton.outlined(
-                  onPressed: () => bloc.add(const PomodoroEvent.stop()),
+                  onPressed: () => bloc.add(StopPomodoro()),
                   iconSize: iconSize,
                   icon: const Icon(Icons.stop),
                 ),
@@ -71,7 +71,7 @@ class _ActionButtons extends StatelessWidget {
               Transform.translate(
                 offset: upperOffset,
                 child: IconButton.outlined(
-                  onPressed: () => bloc.add(const PomodoroEvent.skipCycle()),
+                  onPressed: () => bloc.add(SkipCyclePomodoro()),
                   iconSize: iconSize,
                   icon: const Icon(Icons.skip_next),
                 ),
@@ -80,8 +80,8 @@ class _ActionButtons extends StatelessWidget {
             PomodoroStatus.done => [
               TextButton.icon(
                 style: textButtonStyle(context),
-                onPressed: () => bloc.add(const PomodoroEvent.finish()),
-                label: const Text('Reiniciar'),
+                onPressed: () => bloc.add(FinishPomodoro()),
+                label: const Text('Guardar y Reiniciar'),
                 icon: const Icon(Icons.restore),
               ),
             ],

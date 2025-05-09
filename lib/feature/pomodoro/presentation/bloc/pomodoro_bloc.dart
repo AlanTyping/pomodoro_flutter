@@ -2,10 +2,11 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_event.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_state.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 import 'package:pomodoro_flutter/feature/task/domain/usecases/insert_task_usecase.dart';
+
+part 'pomodoro_event.dart';
 
 final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   static const Duration workDuration = Duration(minutes: 25);
@@ -18,7 +19,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   PomodoroBloc() : super(PomodoroState.initial()) {
     on<StartPomodoro>(_onStart);
     on<ResumePomodoro>(_onResumed);
-    on<TickPomodoro>(_onTick);
+    on<_TickPomodoro>(_onTick);
     on<PausePomodoro>(_onPaused);
     on<StopPomodoro>(_onStop);
     on<SkipCyclePomodoro>(_onSkipCycle);
@@ -42,32 +43,28 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
 
     _streamSubscription = _timerStream(
       timer,
-    ).listen((value) => add(TickPomodoro(value)));
+    ).listen((value) => add(_TickPomodoro(value)));
   }
 
-  void _onTick(TickPomodoro event, Emitter<PomodoroState> emit) {
+  void _onTick(_TickPomodoro event, Emitter<PomodoroState> emit) {
     emit(state.copyWith(timer: Duration(seconds: event.currentSeconds)));
 
     // Handle timer completion
     if (event.currentSeconds == 0) {
       if (state.cycle == Cycle.fourth && state.isResting) {
-        add(const StopPomodoro());
+        add(StopPomodoro());
         return;
       }
 
-      // Update cycle data and toggle between work/rest states
       emit(
         state.copyWith(
-          // If currently resting, move to next cycle and set to work mode
-          // Otherwise, stay in same cycle but switch to rest mode
           cycle: state.isResting ? _getNextCycle : state.cycle,
           isResting: !state.isResting,
           cyclesData: _updatedCycleData,
         ),
       );
 
-      // Start the next timer
-      add(const StartPomodoro());
+      add(StartPomodoro());
     }
   }
 
@@ -95,10 +92,10 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     if (state.cycle != Cycle.fourth) {
       emit(state.copyWith(cycle: _getNextCycle, isResting: false));
 
-      add(const StartPomodoro());
-      add(const PausePomodoro());
+      add(StartPomodoro());
+      add(PausePomodoro());
     } else {
-      add(const StopPomodoro());
+      add(StopPomodoro());
     }
   }
 
@@ -134,7 +131,6 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
                   workDuration.inSeconds
               : (workDuration.inSeconds - state.timer.inSeconds);
 
-    print("Get newCycleData: $newCycleData");
     return newCycleData;
   }
 

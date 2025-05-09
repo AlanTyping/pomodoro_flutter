@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_bloc.dart';
-import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_event.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_state.dart';
 import 'package:pomodoro_flutter/feature/task_history/view/screen/task_history_page.dart';
 
