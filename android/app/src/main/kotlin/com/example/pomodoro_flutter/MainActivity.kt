@@ -1,4 +1,4 @@
-package com.example.flutter_git_testing
+package com.example.pomodoro_flutter
 
 import io.flutter.embedding.android.FlutterActivity
 
