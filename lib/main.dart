@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pomodoro_flutter/app.dart';
+import 'package:pomodoro_flutter/core/notifications/notification_api.dart';
 import 'package:pomodoro_flutter/feature/task/data/repository/task_repository_impl.dart';
 import 'package:pomodoro_flutter/feature/task/data/usecases/use_cases.dart';
 import 'package:pomodoro_flutter/feature/task/domain/repository/task_repository.dart';
 import 'package:pomodoro_flutter/feature/task/domain/usecases/use_cases.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await LocalNotificationService.initialize();
   _insertDependecies();
 
   runApp(const MainApp());

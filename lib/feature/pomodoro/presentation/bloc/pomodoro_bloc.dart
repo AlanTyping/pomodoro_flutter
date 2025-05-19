@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pomodoro_flutter/core/notifications/notification_api.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_state.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 import 'package:pomodoro_flutter/feature/task/domain/usecases/insert_task_usecase.dart';
@@ -38,6 +39,12 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     final timer = state.isResting ? restDuration : workDuration;
 
     emit(state.copyWith(timer: timer, status: PomodoroStatus.running));
+
+    LocalNotificationService.showNotification(
+      id: 0,
+      title: '¡Sesión iniciada!',
+      body: 'Es momento de concentrarse.',
+    );
 
     _streamSubscription?.cancel();
 
@@ -83,6 +90,11 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     emit(state.copyWith(cyclesData: _updatedCycleData));
 
     _streamSubscription?.cancel();
+    LocalNotificationService.showNotification(
+      id: 0,
+      title: '¡Pomodoro completo!',
+      body: 'Es momento de descansar.',
+    );
     emit(state.copyWith(status: PomodoroStatus.done));
   }
 
