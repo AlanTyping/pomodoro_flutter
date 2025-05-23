@@ -77,3 +77,14 @@ class LocalNotificationService {
     );
   }
 }
+
+Future<void> emmitNotification({
+  required String title,
+  required String description,
+}) {
+  return LocalNotificationService.showNotification(
+    id: 0,
+    title: title,
+    body: description,
+  );
+}

@@ -38,24 +38,24 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   void _onStart(StartPomodoro event, Emitter<PomodoroState> emit) {
     final timer = state.isResting ? restDuration : workDuration;
 
-    emit(state.copyWith(timer: timer, status: PomodoroStatus.running));
+    // emit(state.copyWith(timer: timer, status: PomodoroStatus.running));
 
-    LocalNotificationService.showNotification(
-      id: 0,
-      title: '¡Sesión iniciada!',
-      body: 'Es momento de concentrarse.',
-    );
+    emit(state.copyWith(status: PomodoroStatus.running));
 
     _streamSubscription?.cancel();
 
     _streamSubscription = _timerStream(
       timer,
     ).listen((value) => add(_TickPomodoro(value)));
+
+    emmitNotification(
+      title: '¡Sesión iniciada!',
+      description: 'Es momento de concentrarse.',
+    );
   }
 
   void _onTick(_TickPomodoro event, Emitter<PomodoroState> emit) {
     emit(state.copyWith(timer: Duration(seconds: event.currentSeconds)));
-
     // Handle timer completion
     if (event.currentSeconds == 0) {
       if (state.cycle == Cycle.fourth && state.isResting) {
@@ -63,15 +63,43 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
         return;
       }
 
-      emit(
-        state.copyWith(
-          cycle: state.isResting ? _getNextCycle : state.cycle,
-          isResting: !state.isResting,
-          cyclesData: _updatedCycleData,
-        ),
-      );
+      add(PausePomodoro());
+      _streamSubscription?.cancel();
 
-      add(StartPomodoro());
+      if (state.isResting) {
+        _streamSubscription = _timerStream(
+          workDuration,
+        ).listen((value) => add(_TickPomodoro(value)));
+        emit(
+          state.copyWith(
+            timer: workDuration,
+            cycle: _getNextCycle,
+            isResting: false,
+          ),
+        );
+        emmitNotification(
+          title: '¡Descanso terminado!',
+          description: 'Momento de trabajar',
+        );
+      } else {
+        _streamSubscription = _timerStream(
+          restDuration,
+        ).listen((value) => add(_TickPomodoro(value)));
+        emit(
+          state.copyWith(
+            timer: restDuration,
+            cycle: state.cycle,
+            isResting: true,
+            cyclesData: _updatedCycleData,
+          ),
+        );
+        emmitNotification(
+          title: '¡Sesión terminada!',
+          description: 'Momento de descansar',
+        );
+      }
+
+      // add(StartPomodoro());
     }
   }
 
@@ -82,6 +110,18 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   }
 
   void _onResumed(ResumePomodoro event, Emitter<PomodoroState> emit) {
+    if (state.isResting && state.timer == restDuration) {
+      emmitNotification(
+        title: '¡A descansar!',
+        description: 'Descanso de ${restDuration.inMinutes} minutos',
+      );
+    }
+    if (!state.isResting && state.timer == workDuration) {
+      emmitNotification(
+        title: '¡Sesión iniciada!',
+        description: 'Es momento de concentrarse.',
+      );
+    }
     _streamSubscription?.resume();
     emit(state.copyWith(status: PomodoroStatus.running));
   }
@@ -90,22 +130,40 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     emit(state.copyWith(cyclesData: _updatedCycleData));
 
     _streamSubscription?.cancel();
-    LocalNotificationService.showNotification(
-      id: 0,
+
+    emmitNotification(
       title: '¡Pomodoro completo!',
-      body: 'Es momento de descansar.',
+      description: 'Es momento de descansar.',
     );
+
     emit(state.copyWith(status: PomodoroStatus.done));
   }
 
   void _onSkipCycle(SkipCyclePomodoro event, Emitter<PomodoroState> emit) {
-    emit(state.copyWith(cyclesData: _updatedCycleData));
+    if (!state.isResting) {
+      emit(state.copyWith(cyclesData: _updatedCycleData));
+    }
 
     if (state.cycle != Cycle.fourth) {
-      emit(state.copyWith(cycle: _getNextCycle, isResting: false));
-
-      add(StartPomodoro());
       add(PausePomodoro());
+      _streamSubscription?.cancel();
+      if (!state.isResting) {
+        _streamSubscription = _timerStream(
+          restDuration,
+        ).listen((value) => add(_TickPomodoro(value)));
+        emit(state.copyWith(timer: restDuration, isResting: true));
+      } else {
+        _streamSubscription = _timerStream(
+          workDuration,
+        ).listen((value) => add(_TickPomodoro(value)));
+        emit(
+          state.copyWith(
+            timer: workDuration,
+            cycle: _getNextCycle,
+            isResting: false,
+          ),
+        );
+      }
     } else {
       add(StopPomodoro());
     }
@@ -137,11 +195,12 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
 
   Map<Cycle, int> get _updatedCycleData {
     final newCycleData = Map<Cycle, int>.from(state.cyclesData)
-      ..[state.cycle] =
-          state.isResting
-              ? (restDuration.inSeconds - state.timer.inSeconds) +
-                  workDuration.inSeconds
-              : (workDuration.inSeconds - state.timer.inSeconds);
+      ..[state.cycle] = workDuration.inSeconds - state.timer.inSeconds;
+    // ..[state.cycle] =
+    //     state.isResting
+    //         ? (restDuration.inSeconds - state.timer.inSeconds) +
+    //             workDuration.inSeconds
+    //         : (workDuration.inSeconds - state.timer.inSeconds);
 
     return newCycleData;
   }
