@@ -10,6 +10,7 @@ uniform float uTime;
 uniform vec2 uResolution;
 // Color for the filled portion (RGBA)
 uniform vec4 uFilledColor;
+uniform vec4 uUnFilledColor;
 
 out vec4 fragColor;
 
@@ -34,8 +35,8 @@ void main() {
 
         // Create a wavy threshold based on percentage and time
         float wave_amplitude = 0.05; // Adjust wave intensity
-        float wave_frequency = 2.0; // Adjust number of waves
-        float wave_speed = 2.0;    // Adjust wave speed
+        float wave_frequency = 3.0; // Adjust number of waves
+        float wave_speed = 1.0;    // Adjust wave speed
         float wave_offset = sin(uv.x * wave_frequency + uTime * wave_speed) * wave_amplitude;
 
         // Adjust the percentage threshold with the wave
@@ -43,11 +44,9 @@ void main() {
 
         // Determine if the fragment should be filled - INVERTED LOGIC HERE
         if (normalized_v >= 1.0 - fill_threshold) {
-            // Filled color - now this is the rising liquid
             fragColor = uFilledColor;
         } else {
-            // Unfilled sphere color - now this is the void part
-            fragColor = vec4(0.1);
+            fragColor = uUnFilledColor;
         }
     } else {
         // Background color (transparent)

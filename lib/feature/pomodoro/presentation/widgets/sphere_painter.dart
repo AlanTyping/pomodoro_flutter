@@ -5,11 +5,13 @@ class _SphereShaderWidget extends StatefulWidget {
     required this.total,
     required this.current,
     this.fillColor,
+    this.unFillColor,
   });
 
   final int total;
   final int current;
   final Color? fillColor;
+  final Color? unFillColor;
 
   @override
   State<_SphereShaderWidget> createState() => _SphereShaderWidgetState();
@@ -52,6 +54,9 @@ class _SphereShaderWidgetState extends State<_SphereShaderWidget>
                 shader: _fragmentProgram.fragmentShader(),
                 percentage: percentage,
                 color: widget.fillColor ?? Theme.of(context).primaryColor,
+                backgroundColor:
+                    widget.unFillColor ??
+                    Theme.of(context).colorScheme.surfaceContainer,
                 time: _animationController.value * 10, // Scale as needed
               ),
             );
@@ -78,12 +83,14 @@ class _SphereShaderPainter extends CustomPainter {
   final double percentage;
   final double time;
   final Color color;
+  final Color backgroundColor;
 
   _SphereShaderPainter({
     required this.shader,
     required this.percentage,
     required this.time,
     required this.color,
+    required this.backgroundColor,
   });
 
   @override
@@ -99,6 +106,12 @@ class _SphereShaderPainter extends CustomPainter {
     shader.setFloat(5, color.g);
     shader.setFloat(6, color.b);
     shader.setFloat(7, color.a);
+
+    // uFilledColor (vec4: r, g, b, a)
+    shader.setFloat(8, backgroundColor.r);
+    shader.setFloat(9, backgroundColor.g);
+    shader.setFloat(10, backgroundColor.b);
+    shader.setFloat(11, backgroundColor.a);
 
     // Draw a rectangle covering the entire canvas, using the shader
     canvas.drawRect(Offset.zero & size, Paint()..shader = shader);

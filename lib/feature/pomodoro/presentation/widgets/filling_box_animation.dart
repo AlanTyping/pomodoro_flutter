@@ -32,6 +32,7 @@ class _FillingBoxAnimation extends StatelessWidget {
                               ? colorScheme.tertiary
                               : colorScheme.primary,
                       current: currentSeconds,
+                      unFillColor: colorScheme.surface,
                     ),
                   ),
             ),
