@@ -15,7 +15,8 @@ dependencies:
   flutter_bloc: ^9.1.0
   get_it: ^8.0.3
   google_fonts: ^6.2.1
-  intl: ^0.20.2
+  intl: any
+  flutter_local_notifications: ^19.2.1
 
 dev_dependencies:
   flutter_test:
