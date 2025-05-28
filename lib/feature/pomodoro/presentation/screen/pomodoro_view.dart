@@ -25,20 +25,31 @@ class _UpperButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(
-          onPressed: () {},
-          iconSize: 25,
-          icon: const Icon(Icons.info),
-        ),
-        const Spacer(),
-        IconButton(
-          onPressed: () => Navigator.of(context).push(TaskHistoryPage.route()),
-          iconSize: 25,
-          icon: const Icon(Icons.article),
-        ),
-      ],
+    return BlocBuilder<PomodoroBloc, PomodoroState>(
+      builder: (context, state) {
+        final _backgroundColor =
+            !state.isResting
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.tertiary;
+        return Row(
+          children: [
+            IconButton(
+              onPressed: () {},
+              iconSize: 25,
+              color: _backgroundColor,
+              icon: const Icon(Icons.info),
+            ),
+            const Spacer(),
+            IconButton(
+              onPressed:
+                  () => Navigator.of(context).push(TaskHistoryPage.route()),
+              iconSize: 25,
+              color: _backgroundColor,
+              icon: const Icon(Icons.article),
+            ),
+          ],
+        );
+      },
     );
   }
 }
