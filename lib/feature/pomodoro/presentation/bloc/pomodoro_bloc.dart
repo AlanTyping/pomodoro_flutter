@@ -70,6 +70,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
         _streamSubscription = _timerStream(
           workDuration,
         ).listen((value) => add(_TickPomodoro(value)));
+
         emit(
           state.copyWith(
             timer: workDuration,
@@ -77,6 +78,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
             isResting: false,
           ),
         );
+
         emmitNotification(
           title: '¡Descanso terminado!',
           description: 'Momento de trabajar',
