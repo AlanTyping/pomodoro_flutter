@@ -349,13 +349,8 @@ class PomodoroTheme {
         )
         .copyWith(
           titleLarge: const TextStyle(
-            fontSize: 40,
+            fontSize: 27,
             fontWeight: FontWeight.bold,
-          ),
-          bodyLarge: TextStyle(
-            fontSize: 25,
-            fontWeight: FontWeight.bold,
-            color: colorScheme.primary,
           ),
         ),
     scaffoldBackgroundColor: colorScheme.background,

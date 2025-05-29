@@ -27,10 +27,13 @@ class _ActionButtons extends StatelessWidget {
                 onPressed:
                     () =>
                         state.title == null
-                            ? showSnackBar(context, 'Add a task!')
+                            ? showSnackBar(context, 'Añadí una tarea!')
                             : bloc.add(StartPomodoro()),
-                label: const Text('Iniciar'),
-                icon: const Icon(Icons.play_arrow_outlined),
+                label: Text(
+                  'Iniciar',
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+                icon: const Icon(Icons.play_arrow_outlined, size: 25),
               ),
             ],
             PomodoroStatus.running => [

@@ -23,15 +23,19 @@ class _PomodoroViewState extends State<_PomodoroView> {
       body: SafeArea(
         child: BlocListener<PomodoroBloc, PomodoroState>(
           listener: (context, state) {
-            switch (state.status) {
-              case PomodoroStatus.initial:
-                audioPlayer.setLoopMode(LoopMode.one);
-              case PomodoroStatus.running:
-                audioPlayer.play();
-              case PomodoroStatus.pause:
-                audioPlayer.pause();
-              case PomodoroStatus.done:
-                audioPlayer.pause();
+            if (!state.isResting) {
+              switch (state.status) {
+                case PomodoroStatus.initial:
+                  audioPlayer.setLoopMode(LoopMode.one);
+                case PomodoroStatus.running:
+                  audioPlayer.play();
+                case PomodoroStatus.pause:
+                  audioPlayer.pause();
+                case PomodoroStatus.done:
+                  audioPlayer.pause();
+              }
+            } else {
+              audioPlayer.pause();
             }
           },
           child: const Column(
@@ -73,8 +77,10 @@ class _TitleWidget extends StatelessWidget {
               maxLength: 60,
               textAlign: TextAlign.center,
               decoration: InputDecoration(
-                hintText: 'Add new task!',
-                hintStyle: TextStyle(color: colorScheme.onPrimary),
+                hintText: 'Añadir tarea',
+                hintStyle: Theme.of(
+                  context,
+                ).textTheme.titleLarge!.copyWith(color: colorScheme.onPrimary),
                 contentPadding: const EdgeInsets.symmetric(
                   vertical: 20,
                   horizontal: 12,
@@ -84,7 +90,9 @@ class _TitleWidget extends StatelessWidget {
                   borderSide: BorderSide(color: colorScheme.outline),
                 ),
               ),
-              style: Theme.of(context).textTheme.bodyLarge,
+              style: Theme.of(
+                context,
+              ).textTheme.titleLarge!.copyWith(color: colorScheme.primary),
               onChanged:
                   (value) => context.read<PomodoroBloc>().add(
                     UpdateTitlePomodoro(value),
