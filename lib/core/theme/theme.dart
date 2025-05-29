@@ -352,6 +352,11 @@ class PomodoroTheme {
             fontSize: 40,
             fontWeight: FontWeight.bold,
           ),
+          bodyLarge: TextStyle(
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: colorScheme.primary,
+          ),
         ),
     scaffoldBackgroundColor: colorScheme.background,
     canvasColor: colorScheme.surface,

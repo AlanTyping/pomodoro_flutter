@@ -38,9 +38,9 @@ class _PomodoroViewState extends State<_PomodoroView> {
             mainAxisSize: MainAxisSize.max,
             children: [
               Expanded(flex: 0, child: _UpperButtons()),
-              Expanded(flex: 1, child: Center(child: _TitleWidget())),
-              Expanded(flex: 2, child: _FillingBoxAnimation()),
-              Expanded(flex: 2, child: _ActionButtons()),
+              Expanded(flex: 2, child: Center(child: _TitleWidget())),
+              Expanded(flex: 4, child: _FillingBoxAnimation()),
+              Expanded(flex: 3, child: _ActionButtons()),
             ],
           ),
         ),
@@ -62,24 +62,26 @@ class _TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PomodoroBloc, PomodoroState>(
       builder: (context, state) {
+        final colorScheme = Theme.of(context).colorScheme;
         final backgroundColor =
-            !state.isResting
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.tertiary;
+            !state.isResting ? colorScheme.primary : colorScheme.tertiary;
         if (state.status == PomodoroStatus.initial) {
           return Padding(
             padding: const EdgeInsets.all(16),
             child: TextField(
               maxLines: 1,
               maxLength: 60,
+              textAlign: TextAlign.center,
               decoration: InputDecoration(
-                labelText: 'Tituto de la tarea',
-                hintText: 'Titulo',
+                hintText: 'Add new task!',
+                hintStyle: TextStyle(color: colorScheme.onPrimary),
+                contentPadding: const EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: 12,
+                ),
                 border: OutlineInputBorder(
                   borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(
-                    color: Theme.of(context).colorScheme.outline,
-                  ),
+                  borderSide: BorderSide(color: colorScheme.outline),
                 ),
               ),
               style: Theme.of(context).textTheme.bodyLarge,
