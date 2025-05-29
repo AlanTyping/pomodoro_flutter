@@ -12,19 +12,23 @@ class _ActionButtons extends StatelessWidget {
     return BlocBuilder<PomodoroBloc, PomodoroState>(
       builder: (context, state) {
         final bloc = context.read<PomodoroBloc>();
-        final _status = state.status;
-        final _backgroundColor =
+        final status = state.status;
+        final backgroundColor =
             !state.isResting
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.tertiary;
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: switch (_status) {
+          children: switch (status) {
             PomodoroStatus.initial => [
               TextButton.icon(
                 style: textButtonStyle(context),
-                onPressed: () => bloc.add(StartPomodoro()),
+                onPressed:
+                    () =>
+                        state.title == null
+                            ? showSnackBar(context, 'Add a task!')
+                            : bloc.add(StartPomodoro()),
                 label: const Text('Iniciar'),
                 icon: const Icon(Icons.play_arrow_outlined),
               ),
@@ -35,7 +39,7 @@ class _ActionButtons extends StatelessWidget {
                 child: IconButton.outlined(
                   onPressed: () => bloc.add(PausePomodoro()),
                   iconSize: iconSize,
-                  color: _backgroundColor,
+                  color: backgroundColor,
                   icon: const Icon(Icons.pause),
                 ),
               ),
@@ -44,7 +48,7 @@ class _ActionButtons extends StatelessWidget {
                 child: IconButton.outlined(
                   onPressed: () => bloc.add(StopPomodoro()),
                   iconSize: iconSize,
-                  color: _backgroundColor,
+                  color: backgroundColor,
                   icon: const Icon(Icons.stop),
                 ),
               ),
@@ -53,7 +57,7 @@ class _ActionButtons extends StatelessWidget {
                 child: IconButton.outlined(
                   onPressed: () => bloc.add(SkipCyclePomodoro()),
                   iconSize: iconSize,
-                  color: _backgroundColor,
+                  color: backgroundColor,
                   icon: const Icon(Icons.skip_next),
                 ),
               ),
@@ -64,7 +68,7 @@ class _ActionButtons extends StatelessWidget {
                 child: IconButton.outlined(
                   onPressed: () => bloc.add(ResumePomodoro()),
                   iconSize: iconSize,
-                  color: _backgroundColor,
+                  color: backgroundColor,
                   icon: const Icon(Icons.play_arrow),
                 ),
               ),
@@ -73,7 +77,7 @@ class _ActionButtons extends StatelessWidget {
                 child: IconButton.outlined(
                   onPressed: () => bloc.add(StopPomodoro()),
                   iconSize: iconSize,
-                  color: _backgroundColor,
+                  color: backgroundColor,
                   icon: const Icon(Icons.stop),
                 ),
               ),
@@ -82,7 +86,7 @@ class _ActionButtons extends StatelessWidget {
                 child: IconButton.outlined(
                   onPressed: () => bloc.add(SkipCyclePomodoro()),
                   iconSize: iconSize,
-                  color: _backgroundColor,
+                  color: backgroundColor,
                   icon: const Icon(Icons.skip_next),
                 ),
               ),

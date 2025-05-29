@@ -37,10 +37,10 @@ class _PomodoroViewState extends State<_PomodoroView> {
           child: const Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Flexible(flex: 1, child: _UpperButtons()),
-              Flexible(flex: 2, child: _TitleWidget()),
-              Expanded(flex: 11, child: _FillingBoxAnimation()),
-              Flexible(flex: 2, child: _ActionButtons()),
+              Expanded(flex: 0, child: _UpperButtons()),
+              Expanded(flex: 1, child: Center(child: _TitleWidget())),
+              Expanded(flex: 2, child: _FillingBoxAnimation()),
+              Expanded(flex: 2, child: _ActionButtons()),
             ],
           ),
         ),
@@ -60,29 +60,42 @@ class _TitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.titleMedium;
     return BlocBuilder<PomodoroBloc, PomodoroState>(
       builder: (context, state) {
+        final backgroundColor =
+            !state.isResting
+                ? Theme.of(context).colorScheme.primary
+                : Theme.of(context).colorScheme.tertiary;
         if (state.status == PomodoroStatus.initial) {
-          return const TextField(
-            maxLines: 1,
-            maxLength: 60,
-            decoration: InputDecoration(
-              labelText: 'Tituto de la tarea',
-              hintText: 'Titulo',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(10),
-                borderSide: BorderSide(color: colorScheme.outline),
-              ),
-            ),
-            style: textStyle,
-            onChanged:
-                (value) => context.read<PomodoroBloc>().add(
-                  UpdateTitlePomodoro(value),
+          return Padding(
+            padding: const EdgeInsets.all(16),
+            child: TextField(
+              maxLines: 1,
+              maxLength: 60,
+              decoration: InputDecoration(
+                labelText: 'Tituto de la tarea',
+                hintText: 'Titulo',
+                border: OutlineInputBorder(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  borderSide: BorderSide(
+                    color: Theme.of(context).colorScheme.outline,
+                  ),
                 ),
+              ),
+              style: Theme.of(context).textTheme.bodyLarge,
+              onChanged:
+                  (value) => context.read<PomodoroBloc>().add(
+                    UpdateTitlePomodoro(value),
+                  ),
+            ),
           );
         } else {
-          return Text(state.title ?? 'N/A', style: textStyle);
+          return Text(
+            state.title ?? 'N/A',
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge!.copyWith(color: backgroundColor),
+          );
         }
       },
     );
@@ -96,7 +109,7 @@ class _UpperButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PomodoroBloc, PomodoroState>(
       builder: (context, state) {
-        final _backgroundColor =
+        final backgroundColor =
             !state.isResting
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.tertiary;
@@ -105,7 +118,7 @@ class _UpperButtons extends StatelessWidget {
             IconButton(
               onPressed: () {},
               iconSize: 25,
-              color: _backgroundColor,
+              color: backgroundColor,
               icon: const Icon(Icons.info),
             ),
             const Spacer(),
@@ -113,7 +126,7 @@ class _UpperButtons extends StatelessWidget {
               onPressed:
                   () => Navigator.of(context).push(TaskHistoryPage.route()),
               iconSize: 25,
-              color: _backgroundColor,
+              color: backgroundColor,
               icon: const Icon(Icons.article),
             ),
           ],

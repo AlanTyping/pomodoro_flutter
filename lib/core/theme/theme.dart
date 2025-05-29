@@ -342,10 +342,17 @@ class PomodoroTheme {
     useMaterial3: true,
     brightness: colorScheme.brightness,
     colorScheme: colorScheme,
-    textTheme: textTheme.apply(
-      bodyColor: colorScheme.onSurface,
-      displayColor: colorScheme.onSurface,
-    ),
+    textTheme: textTheme
+        .apply(
+          bodyColor: colorScheme.onSurface,
+          displayColor: colorScheme.onSurface,
+        )
+        .copyWith(
+          titleLarge: const TextStyle(
+            fontSize: 40,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
     scaffoldBackgroundColor: colorScheme.background,
     canvasColor: colorScheme.surface,
   );
