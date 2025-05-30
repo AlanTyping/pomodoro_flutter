@@ -8,24 +8,33 @@ class _PomodoroView extends StatefulWidget {
 }
 
 class _PomodoroViewState extends State<_PomodoroView> {
-  final _player = AudioPlayer();
-  final String _audioPath = 'assets/audio/rain.m4a';
+  bool audioConfig = false;
+  final player = AudioPlayer();
+  final String audioPath = 'assets/audio/rain.m4a';
 
-  Future<void> _startPomodoro() async {
-    await _player.setLoopMode(LoopMode.one);
-    await _player.setAsset(_audioPath);
-    await _player.setVolume(0.5);
+  Future<void> startPomodoro() async {
+    await player.setLoopMode(LoopMode.one);
+    await player.setAsset(audioPath);
+    await player.setVolume(0.5);
+  }
+
+  void setAudioConfig() {
+    print('this is supost to work');
+    setState(() {
+      audioConfig = !audioConfig;
+    });
   }
 
   @override
   void initState() {
     super.initState();
-    _startPomodoro();
+    startPomodoro();
+    audioConfig;
   }
 
   @override
   void dispose() {
-    _player.dispose();
+    player.dispose();
     super.dispose();
   }
 
@@ -38,25 +47,33 @@ class _PomodoroViewState extends State<_PomodoroView> {
             if (!state.isResting) {
               switch (state.status) {
                 case PomodoroStatus.initial:
-                  _player.setLoopMode(LoopMode.one);
+                  player.setLoopMode(LoopMode.one);
                 case PomodoroStatus.running:
-                  _player.play();
+                  player.play();
                 case PomodoroStatus.pause:
-                  _player.pause();
+                  player.pause();
                 case PomodoroStatus.done:
-                  _player.pause();
+                  player.pause();
               }
             } else {
-              _player.pause();
+              player.pause();
             }
           },
-          child: const Column(
-            mainAxisSize: MainAxisSize.max,
+          child: Stack(
             children: [
-              Expanded(flex: 0, child: _UpperButtons()),
-              Expanded(flex: 2, child: Center(child: _TitleWidget())),
-              Expanded(flex: 4, child: _FillingBoxAnimation()),
-              Expanded(flex: 3, child: _ActionButtons()),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    flex: 0,
+                    child: _UpperButtons(onAudioPress: setAudioConfig),
+                  ),
+                  const Expanded(flex: 2, child: Center(child: _TitleWidget())),
+                  const Expanded(flex: 4, child: _FillingBoxAnimation()),
+                  const Expanded(flex: 3, child: _ActionButtons()),
+                ],
+              ),
+              ...[if (audioConfig) AudioConfig(onPress: setAudioConfig)],
             ],
           ),
         ),
@@ -118,7 +135,8 @@ class _TitleWidget extends StatelessWidget {
 }
 
 class _UpperButtons extends StatelessWidget {
-  const _UpperButtons();
+  final VoidCallback onAudioPress;
+  const _UpperButtons({required this.onAudioPress});
 
   @override
   Widget build(BuildContext context) {
@@ -135,6 +153,13 @@ class _UpperButtons extends StatelessWidget {
               iconSize: 25,
               color: backgroundColor,
               icon: const Icon(Icons.info),
+            ),
+            const Spacer(),
+            IconButton(
+              onPressed: onAudioPress,
+              iconSize: 25,
+              color: backgroundColor,
+              icon: const Icon(Icons.music_note),
             ),
             const Spacer(),
             IconButton(
