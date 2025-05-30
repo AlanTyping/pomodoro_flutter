@@ -108,6 +108,9 @@ class _ActionButtons extends StatelessWidget {
     );
   }
 
-  ButtonStyle textButtonStyle(BuildContext context) =>
-      TextButton.styleFrom(textStyle: Theme.of(context).textTheme.titleMedium);
+  ButtonStyle textButtonStyle(BuildContext context) => TextButton.styleFrom(
+    textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+      color: Theme.of(context).colorScheme.onSurface,
+    ),
+  );
 }

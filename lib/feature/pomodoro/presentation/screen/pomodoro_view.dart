@@ -8,13 +8,29 @@ class _PomodoroView extends StatefulWidget {
 }
 
 class _PomodoroViewState extends State<_PomodoroView> {
-  final audioPlayer = AudioPlayer();
+  final _player = AudioPlayer();
+  final String _audioPath = 'assets/audio/rain.m4a';
+
+  Timer? _pomodoroTimer;
+
+  Future<void> _startPomodoro() async {
+    // Cargar y preparar el loop
+    await _player.setLoopMode(LoopMode.one);
+    await _player.setAsset(_audioPath);
+    await _player.setVolume(0.5);
+  }
 
   @override
   void initState() {
     super.initState();
-    audioPlayer.setAsset('assets/audio/water.m4a');
-    audioPlayer.setVolume(0.5);
+    _startPomodoro();
+  }
+
+  @override
+  void dispose() {
+    _pomodoroTimer?.cancel();
+    _player.dispose();
+    super.dispose();
   }
 
   @override
@@ -26,16 +42,16 @@ class _PomodoroViewState extends State<_PomodoroView> {
             if (!state.isResting) {
               switch (state.status) {
                 case PomodoroStatus.initial:
-                  audioPlayer.setLoopMode(LoopMode.one);
+                  _player.setLoopMode(LoopMode.one);
                 case PomodoroStatus.running:
-                  audioPlayer.play();
+                  _player.play();
                 case PomodoroStatus.pause:
-                  audioPlayer.pause();
+                  _player.pause();
                 case PomodoroStatus.done:
-                  audioPlayer.pause();
+                  _player.pause();
               }
             } else {
-              audioPlayer.pause();
+              _player.pause();
             }
           },
           child: const Column(
@@ -50,12 +66,6 @@ class _PomodoroViewState extends State<_PomodoroView> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    audioPlayer.dispose();
-    super.dispose();
   }
 }
 

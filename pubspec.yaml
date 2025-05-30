@@ -33,6 +33,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/audio/water.m4a
+    - assets/audio/
   shaders:
     - assets/shaders/sphere_fill.frag
