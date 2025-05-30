@@ -78,31 +78,30 @@ class _TitleWidget extends StatelessWidget {
         if (state.status == PomodoroStatus.initial) {
           return Padding(
             padding: const EdgeInsets.all(16),
-            child: TextField(
-              maxLines: 1,
-              maxLength: 60,
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(
-                hintText: 'Añadir tarea',
-                hintStyle: Theme.of(
-                  context,
-                ).textTheme.titleLarge!.copyWith(color: colorScheme.onPrimary),
-                contentPadding: const EdgeInsets.symmetric(
-                  vertical: 20,
-                  horizontal: 12,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: const BorderRadius.all(Radius.circular(10)),
-                  borderSide: BorderSide(color: colorScheme.outline),
-                ),
-              ),
-              style: Theme.of(
-                context,
-              ).textTheme.titleLarge!.copyWith(color: colorScheme.primary),
-              onChanged:
-                  (value) => context.read<PomodoroBloc>().add(
-                    UpdateTitlePomodoro(value),
+            child: SizedBox(
+              width: 200,
+              child: TextField(
+                maxLines: 1,
+                maxLength: 60,
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  hintText: 'tarea',
+                  hintStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
+                    color: colorScheme.onPrimary,
                   ),
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 20,
+                    horizontal: 12,
+                  ),
+                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.titleLarge!.copyWith(color: colorScheme.primary),
+                onChanged:
+                    (value) => context.read<PomodoroBloc>().add(
+                      UpdateTitlePomodoro(value),
+                    ),
+              ),
             ),
           );
         } else {
