@@ -30,12 +30,21 @@ class AudioConfigButton extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Row(
+          spacing: 25,
           children: [
-            IconButton.outlined(
-              onPressed: () {},
-              icon: Icon(icon, color: iconColor),
+            Container(
+              decoration: BoxDecoration(
+                color: iconBackgroundColor,
+                borderRadius: BorderRadius.circular(50),
+              ),
+              height: 50,
+              width: 50,
+              child: Icon(icon, color: iconColor, size: 30),
             ),
-            Text(title, style: TextStyle(color: titleColor)),
+            Text(
+              title,
+              style: TextStyle(color: titleColor, fontWeight: FontWeight.bold),
+            ),
           ],
         ),
       ),

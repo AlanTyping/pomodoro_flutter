@@ -14,7 +14,7 @@ class AudioConfig extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 60),
           child: Container(
-            height: 485,
+            height: 500,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               color: colorScheme.primary,
@@ -30,8 +30,8 @@ class AudioConfig extends StatelessWidget {
                         AudioConfigButton(
                           backgroundColor: colorScheme.surface,
                           icon: Icons.music_off_rounded,
-                          iconColor: colorScheme.error,
-                          iconBackgroundColor: colorScheme.primary,
+                          iconColor: colorScheme.surface,
+                          iconBackgroundColor: colorScheme.error,
                           title: "sin audio",
                           titleColor: colorScheme.error,
                         ),
@@ -42,7 +42,7 @@ class AudioConfig extends StatelessWidget {
                         ),
                         AudioConfigButton(
                           backgroundColor: colorScheme.surface,
-                          icon: Icons.book,
+                          icon: Icons.local_fire_department,
                           iconColor: colorScheme.surface,
                           iconBackgroundColor: colorScheme.primary,
                           title: "fuego",
@@ -50,7 +50,7 @@ class AudioConfig extends StatelessWidget {
                         ),
                         AudioConfigButton(
                           backgroundColor: colorScheme.surface,
-                          icon: Icons.book,
+                          icon: Icons.water_drop,
                           iconColor: colorScheme.surface,
                           iconBackgroundColor: colorScheme.primary,
                           title: "goteo",
@@ -58,7 +58,7 @@ class AudioConfig extends StatelessWidget {
                         ),
                         AudioConfigButton(
                           backgroundColor: colorScheme.surface,
-                          icon: Icons.book,
+                          icon: Icons.cloudy_snowing,
                           iconColor: colorScheme.surface,
                           iconBackgroundColor: colorScheme.primary,
                           title: "lluvia",
@@ -80,8 +80,13 @@ class AudioConfig extends StatelessWidget {
                     child: Center(
                       child: Text(
                         "guardar",
-                        style: Theme.of(context).textTheme.displaySmall!
-                            .copyWith(fontSize: 20, color: colorScheme.surface),
+                        style: Theme.of(
+                          context,
+                        ).textTheme.displaySmall!.copyWith(
+                          fontSize: 20,
+                          color: colorScheme.surface,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),
