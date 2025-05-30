@@ -11,10 +11,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
   final _player = AudioPlayer();
   final String _audioPath = 'assets/audio/rain.m4a';
 
-  Timer? _pomodoroTimer;
-
   Future<void> _startPomodoro() async {
-    // Cargar y preparar el loop
     await _player.setLoopMode(LoopMode.one);
     await _player.setAsset(_audioPath);
     await _player.setVolume(0.5);
@@ -28,7 +25,6 @@ class _PomodoroViewState extends State<_PomodoroView> {
 
   @override
   void dispose() {
-    _pomodoroTimer?.cancel();
     _player.dispose();
     super.dispose();
   }
