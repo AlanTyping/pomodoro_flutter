@@ -16,7 +16,7 @@ class AudioConfig extends StatelessWidget {
           child: Container(
             height: 500,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(10),
               color: colorScheme.primary,
             ),
             child: Column(
@@ -75,7 +75,12 @@ class AudioConfig extends StatelessWidget {
                     height: 70,
                     decoration: BoxDecoration(
                       color: colorScheme.onPrimary,
-                      borderRadius: BorderRadius.circular(15),
+                      borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(10),
+                        bottomRight: Radius.circular(10),
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
                     ),
                     child: Center(
                       child: Text(
