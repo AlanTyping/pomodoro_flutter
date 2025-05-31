@@ -11,7 +11,7 @@ class PomodoroTheme {
   static ColorScheme lightScheme() {
     return const ColorScheme(
       brightness: Brightness.light,
-      primary: Color(0xff415f91),
+      primary: Color(0xff284777),
       surfaceTint: Color(0xff415f91),
       onPrimary: Color(0xFF7791BE),
       primaryContainer: Color(0xffd6e3ff),

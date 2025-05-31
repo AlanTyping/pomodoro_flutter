@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/widgets/ui/audio_config_button.dart';
 
 class AudioConfig extends StatelessWidget {
@@ -8,11 +9,11 @@ class AudioConfig extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return Center(
-      child: Transform.translate(
-        offset: const Offset(0, -50),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 60),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 60),
+      child: Center(
+        child: Transform.translate(
+          offset: const Offset(0, -50),
           child: Container(
             height: 500,
             decoration: BoxDecoration(
@@ -101,6 +102,6 @@ class AudioConfig extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ).animate().slide(begin: const Offset(0, 1), duration: .18.seconds); //
   }
 }
