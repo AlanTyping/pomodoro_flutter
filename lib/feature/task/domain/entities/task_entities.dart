@@ -19,4 +19,8 @@ class Task {
       Cycle.fourth: 0,
     },
   });
+
+  @override
+  String toString() =>
+      'Task ($id, $title, $date, isConpleted: $completed, $cyclesData)';
 }

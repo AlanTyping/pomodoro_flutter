@@ -27,7 +27,10 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     on<UpdateTitlePomodoro>(
       (event, emit) => emit(state.copyWith(title: event.title)),
     );
-    on<FinishPomodoro>(_onFinish); // Add this in constructor
+    on<FinishPomodoro>(_onFinish);
+    on<UpdateSoundPomodoro>(
+      (event, emit) => emit(state.copyWith(audioAsset: event.asset)),
+    );
   }
 
   Cycle get _getNextCycle {
@@ -37,8 +40,6 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
 
   void _onStart(StartPomodoro event, Emitter<PomodoroState> emit) {
     final timer = state.isResting ? restDuration : workDuration;
-
-    // emit(state.copyWith(timer: timer, status: PomodoroStatus.running));
 
     emit(state.copyWith(status: PomodoroStatus.running));
 
@@ -56,7 +57,6 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
 
   void _onTick(_TickPomodoro event, Emitter<PomodoroState> emit) {
     emit(state.copyWith(timer: Duration(seconds: event.currentSeconds)));
-    // Handle timer completion
     if (event.currentSeconds == 0) {
       if (state.cycle == Cycle.fourth && state.isResting) {
         add(StopPomodoro());

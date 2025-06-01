@@ -17,7 +17,9 @@ class _NameFilterField extends StatelessWidget {
         ),
         labelText: 'Filtro por Nombre',
         hintText: 'Nombre de la tarea',
-        hintStyle: textTheme.bodyMedium?.copyWith(color: colorScheme.outline),
+        hintStyle: textTheme.bodyMedium?.copyWith(
+          color: colorScheme.outline.withValues(alpha: 0.5),
+        ),
       ),
     );
   }

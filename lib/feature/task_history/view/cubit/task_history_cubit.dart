@@ -11,12 +11,11 @@ final class TaskHistoryCubit extends Cubit<TaskHistoryState> {
     _fetchData();
   }
 
-  final GetAllTasksUsecase _fetchAllTasksUseCase =
-      GetIt.I.get<GetAllTasksUsecase>();
+  final _fetchAllTasksUseCase = GetIt.I.get<GetAllTasksUsecase>();
 
-  final DeleteTaskUsecase _deleteTaskUseCase = GetIt.I.get<DeleteTaskUsecase>();
+  final _deleteTaskUseCase = GetIt.I.get<DeleteTaskUsecase>();
 
-  void deleteTask(Task task) async {
+  Future<void> deleteTask(Task task) async {
     if (task.id != null) {
       await _deleteTaskUseCase.execute(task.id!);
       _fetchData();
@@ -25,58 +24,46 @@ final class TaskHistoryCubit extends Cubit<TaskHistoryState> {
 
   void _fetchData() async {
     emit(state.copyWith(isLoading: true));
+
     final tasks = await _fetchAllTasksUseCase.execute();
 
     emit(state.copyWith(tasks: tasks, isLoading: false, filteredTasks: tasks));
   }
 
-  void changeNameFilter(String? value) {
-    if (value?.isEmpty ?? true) {
+  void changeNameFilter(String? value) =>
       emit(state.copyWith(nameFilter: value));
-    }
-  }
 
-  void changeDateFilter(DateTime? date) {
-    emit(state.copyWith(dateFilter: date));
-  }
+  void changeDateFilter(DateTime? date) =>
+      emit(state.copyWith(dateFilter: date));
 
   void applyFilters() {
-    final List<Task> filtered =
+    final nameFilter = state.nameFilter?.toLowerCase();
+    final dateFilter = state.dateFilter;
+
+    final filtered =
         state.tasks.where((task) {
-          // Default to true when filter is not set
-          bool titleValidation =
-              state.nameFilter == null || state.nameFilter!.isEmpty;
-          bool dateValidation = state.dateFilter == null;
+          final passesNameFilter =
+              nameFilter == null ||
+              nameFilter.isEmpty ||
+              task.title.toLowerCase().contains(nameFilter);
 
-          // Only check title if filter is set
-          if (state.nameFilter case final title? when title.isNotEmpty) {
-            titleValidation = task.title.toLowerCase().contains(
-              title.toLowerCase(),
-            );
-          }
+          final passesDateFilter =
+              dateFilter == null ||
+              (dateFilter.day == task.date.day &&
+                  dateFilter.month == task.date.month &&
+                  dateFilter.year == task.date.year);
 
-          // Only check date if filter is set
-          if (state.dateFilter case final date?) {
-            dateValidation =
-                date.day == task.date.day &&
-                date.month == task.date.month &&
-                date.year == task.date.year;
-          }
-
-          // Task passes if it matches all applied filters
-          return titleValidation && dateValidation;
+          return passesNameFilter && passesDateFilter;
         }).toList();
 
     emit(state.copyWith(filteredTasks: filtered));
   }
 
-  void clearFilters() {
-    emit(
-      state.copyWith(
-        dateFilter: null,
-        nameFilter: null,
-        filteredTasks: state.tasks,
-      ),
-    );
-  }
+  void clearFilters() => emit(
+    state.copyWith(
+      dateFilter: null,
+      nameFilter: null,
+      filteredTasks: state.tasks,
+    ),
+  );
 }

@@ -8,34 +8,21 @@ class _PomodoroView extends StatefulWidget {
 }
 
 class _PomodoroViewState extends State<_PomodoroView> {
-  bool audioConfig = false;
+  bool _viewAudioConfiguration = false;
+
   final player = AudioPlayer();
-  final String audioPath = 'assets/audio/rain.m4a';
-
-  Future<void> startPomodoro() async {
-    await player.setLoopMode(LoopMode.one);
-    await player.setAsset(audioPath);
-    await player.setVolume(0.5);
-  }
-
-  void setAudioConfig() {
-    print('this is supost to work');
-    setState(() {
-      audioConfig = !audioConfig;
-    });
-  }
+  final String _defaultAudioAsset = 'assets/audio/rain.m4a';
 
   @override
   void initState() {
     super.initState();
     startPomodoro();
-    audioConfig;
   }
 
-  @override
-  void dispose() {
-    player.dispose();
-    super.dispose();
+  Future<void> startPomodoro() async {
+    await player.setLoopMode(LoopMode.one);
+    await player.setAsset(_defaultAudioAsset);
+    await player.setVolume(0.5);
   }
 
   @override
@@ -53,7 +40,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
                 case PomodoroStatus.pause:
                   player.pause();
                 case PomodoroStatus.done:
-                  player.pause();
+                  player.stop();
               }
             } else {
               player.pause();
@@ -61,24 +48,48 @@ class _PomodoroViewState extends State<_PomodoroView> {
           },
           child: Stack(
             children: [
-              Column(
+              const Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Expanded(
-                    flex: 0,
-                    child: _UpperButtons(onAudioPress: setAudioConfig),
-                  ),
-                  const Expanded(flex: 2, child: Center(child: _TitleWidget())),
-                  const Expanded(flex: 4, child: _FillingBoxAnimation()),
-                  const Expanded(flex: 3, child: _ActionButtons()),
+                  Expanded(flex: 1, child: _UpperButtons()),
+                  Expanded(flex: 2, child: Center(child: _TitleWidget())),
+                  Expanded(flex: 4, child: _FillingBoxAnimation()),
+                  Expanded(flex: 3, child: _ActionButtons()),
                 ],
               ),
-              ...[if (audioConfig) AudioConfig(onPress: setAudioConfig)],
+              if (_viewAudioConfiguration)
+                AudioConfig(
+                  updatePlayerAsset: () {
+                    final assetSource =
+                        context.read<PomodoroBloc>().state.audioAsset;
+
+                    if (assetSource != null) {
+                      final name = assetSource.split('/').last;
+
+                      showSnackBar(context, 'Actualizado a $name');
+
+                      player.setAsset(assetSource);
+                    }
+
+                    setState(() => _viewAudioConfiguration = false);
+                  },
+                  turnOffPlayer: () => player.stop(),
+                ),
             ],
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton.small(
+        onPressed: () => setState(() => _viewAudioConfiguration = true),
+        child: const Icon(Icons.settings_voice_rounded),
+      ),
     );
+  }
+
+  @override
+  void dispose() {
+    player.dispose();
+    super.dispose();
   }
 }
 
@@ -90,8 +101,7 @@ class _TitleWidget extends StatelessWidget {
     return BlocBuilder<PomodoroBloc, PomodoroState>(
       builder: (context, state) {
         final colorScheme = Theme.of(context).colorScheme;
-        final backgroundColor =
-            !state.isResting ? colorScheme.primary : colorScheme.tertiary;
+
         if (state.status == PomodoroStatus.initial) {
           return Padding(
             padding: const EdgeInsets.all(16),
@@ -102,18 +112,18 @@ class _TitleWidget extends StatelessWidget {
                 maxLength: 60,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  hintText: 'tarea',
-                  hintStyle: Theme.of(context).textTheme.titleLarge!.copyWith(
-                    color: colorScheme.onPrimary,
+                  border: const OutlineInputBorder(),
+                  counterText: '',
+                  hintText: 'Nueva Tarea',
+                  hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 20,
-                    horizontal: 12,
-                  ),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 24),
+                  constraints: BoxConstraints.loose(const Size(300, 60)),
                 ),
                 style: Theme.of(
                   context,
-                ).textTheme.titleLarge!.copyWith(color: colorScheme.primary),
+                ).textTheme.bodyMedium?.copyWith(color: colorScheme.onPrimary),
                 onChanged:
                     (value) => context.read<PomodoroBloc>().add(
                       UpdateTitlePomodoro(value),
@@ -126,7 +136,7 @@ class _TitleWidget extends StatelessWidget {
             state.title ?? 'N/A',
             style: Theme.of(
               context,
-            ).textTheme.titleLarge!.copyWith(color: backgroundColor),
+            ).textTheme.titleLarge?.copyWith(color: colorScheme.onPrimary),
           );
         }
       },
@@ -135,8 +145,7 @@ class _TitleWidget extends StatelessWidget {
 }
 
 class _UpperButtons extends StatelessWidget {
-  final VoidCallback onAudioPress;
-  const _UpperButtons({required this.onAudioPress});
+  const _UpperButtons();
 
   @override
   Widget build(BuildContext context) {
@@ -146,6 +155,7 @@ class _UpperButtons extends StatelessWidget {
             !state.isResting
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.tertiary;
+
         return Row(
           children: [
             IconButton(
@@ -153,13 +163,6 @@ class _UpperButtons extends StatelessWidget {
               iconSize: 25,
               color: backgroundColor,
               icon: const Icon(Icons.info),
-            ),
-            const Spacer(),
-            IconButton(
-              onPressed: onAudioPress,
-              iconSize: 25,
-              color: backgroundColor,
-              icon: const Icon(Icons.music_note),
             ),
             const Spacer(),
             IconButton(

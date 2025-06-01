@@ -19,6 +19,7 @@ mixin _$PomodoroState {
   Duration get timer;
   Map<Cycle, int> get cyclesData;
   bool get isResting;
+  String? get audioAsset;
   PomodoroStatus get status;
 
   /// Create a copy of PomodoroState
@@ -45,6 +46,8 @@ mixin _$PomodoroState {
             ) &&
             (identical(other.isResting, isResting) ||
                 other.isResting == isResting) &&
+            (identical(other.audioAsset, audioAsset) ||
+                other.audioAsset == audioAsset) &&
             (identical(other.status, status) || other.status == status));
   }
 
@@ -56,12 +59,13 @@ mixin _$PomodoroState {
     timer,
     const DeepCollectionEquality().hash(cyclesData),
     isResting,
+    audioAsset,
     status,
   );
 
   @override
   String toString() {
-    return 'PomodoroState(title: $title, cycle: $cycle, timer: $timer, cyclesData: $cyclesData, isResting: $isResting, status: $status)';
+    return 'PomodoroState(title: $title, cycle: $cycle, timer: $timer, cyclesData: $cyclesData, isResting: $isResting, audioAsset: $audioAsset, status: $status)';
   }
 }
 
@@ -78,6 +82,7 @@ abstract mixin class $PomodoroStateCopyWith<$Res> {
     Duration timer,
     Map<Cycle, int> cyclesData,
     bool isResting,
+    String? audioAsset,
     PomodoroStatus status,
   });
 }
@@ -100,6 +105,7 @@ class _$PomodoroStateCopyWithImpl<$Res>
     Object? timer = null,
     Object? cyclesData = null,
     Object? isResting = null,
+    Object? audioAsset = freezed,
     Object? status = null,
   }) {
     return _then(
@@ -129,6 +135,11 @@ class _$PomodoroStateCopyWithImpl<$Res>
                 ? _self.isResting
                 : isResting // ignore: cast_nullable_to_non_nullable
                     as bool,
+        audioAsset:
+            freezed == audioAsset
+                ? _self.audioAsset
+                : audioAsset // ignore: cast_nullable_to_non_nullable
+                    as String?,
         status:
             null == status
                 ? _self.status
@@ -148,6 +159,7 @@ class _PomodoroState implements PomodoroState {
     required this.timer,
     required final Map<Cycle, int> cyclesData,
     this.isResting = false,
+    this.audioAsset,
     required this.status,
   }) : _cyclesData = cyclesData;
 
@@ -168,6 +180,8 @@ class _PomodoroState implements PomodoroState {
   @override
   @JsonKey()
   final bool isResting;
+  @override
+  final String? audioAsset;
   @override
   final PomodoroStatus status;
 
@@ -193,6 +207,8 @@ class _PomodoroState implements PomodoroState {
             ) &&
             (identical(other.isResting, isResting) ||
                 other.isResting == isResting) &&
+            (identical(other.audioAsset, audioAsset) ||
+                other.audioAsset == audioAsset) &&
             (identical(other.status, status) || other.status == status));
   }
 
@@ -204,12 +220,13 @@ class _PomodoroState implements PomodoroState {
     timer,
     const DeepCollectionEquality().hash(_cyclesData),
     isResting,
+    audioAsset,
     status,
   );
 
   @override
   String toString() {
-    return 'PomodoroState(title: $title, cycle: $cycle, timer: $timer, cyclesData: $cyclesData, isResting: $isResting, status: $status)';
+    return 'PomodoroState(title: $title, cycle: $cycle, timer: $timer, cyclesData: $cyclesData, isResting: $isResting, audioAsset: $audioAsset, status: $status)';
   }
 }
 
@@ -228,6 +245,7 @@ abstract mixin class _$PomodoroStateCopyWith<$Res>
     Duration timer,
     Map<Cycle, int> cyclesData,
     bool isResting,
+    String? audioAsset,
     PomodoroStatus status,
   });
 }
@@ -250,6 +268,7 @@ class __$PomodoroStateCopyWithImpl<$Res>
     Object? timer = null,
     Object? cyclesData = null,
     Object? isResting = null,
+    Object? audioAsset = freezed,
     Object? status = null,
   }) {
     return _then(
@@ -279,6 +298,11 @@ class __$PomodoroStateCopyWithImpl<$Res>
                 ? _self.isResting
                 : isResting // ignore: cast_nullable_to_non_nullable
                     as bool,
+        audioAsset:
+            freezed == audioAsset
+                ? _self.audioAsset
+                : audioAsset // ignore: cast_nullable_to_non_nullable
+                    as String?,
         status:
             null == status
                 ? _self.status

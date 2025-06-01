@@ -13,6 +13,7 @@ abstract class PomodoroState with _$PomodoroState {
     required Duration timer,
     required Map<Cycle, int> cyclesData,
     @Default(false) bool isResting,
+    String? audioAsset,
     required PomodoroStatus status,
   }) = _PomodoroState;
 
