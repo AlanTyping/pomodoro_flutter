@@ -19,7 +19,7 @@ class AudioConfig extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
 
-    return Center(
+    return Dialog(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 320, maxHeight: 600),
         padding: const EdgeInsets.all(20),

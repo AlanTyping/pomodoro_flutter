@@ -8,8 +8,6 @@ class _PomodoroView extends StatefulWidget {
 }
 
 class _PomodoroViewState extends State<_PomodoroView> {
-  bool _viewAudioConfiguration = false;
-
   final player = AudioPlayer();
   final String _defaultAudioAsset = 'assets/audio/rain.m4a';
 
@@ -46,43 +44,49 @@ class _PomodoroViewState extends State<_PomodoroView> {
               player.pause();
             }
           },
-          child: Stack(
+          child: const Column(
+            mainAxisSize: MainAxisSize.max,
             children: [
-              const Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(flex: 1, child: _UpperButtons()),
-                  Expanded(flex: 2, child: Center(child: _TitleWidget())),
-                  Expanded(flex: 4, child: _FillingBoxAnimation()),
-                  Expanded(flex: 3, child: _ActionButtons()),
-                ],
-              ),
-              if (_viewAudioConfiguration)
-                AudioConfig(
-                  updatePlayerAsset: () {
-                    final assetSource =
-                        context.read<PomodoroBloc>().state.audioAsset;
-
-                    if (assetSource != null) {
-                      final name = assetSource.split('/').last;
-
-                      showSnackBar(context, 'Actualizado a $name');
-
-                      player.setAsset(assetSource);
-                    }
-
-                    setState(() => _viewAudioConfiguration = false);
-                  },
-                  turnOffPlayer: () => player.stop(),
-                ),
+              Expanded(flex: 1, child: _UpperButtons()),
+              Expanded(flex: 2, child: Center(child: _TitleWidget())),
+              Expanded(flex: 4, child: _FillingBoxAnimation()),
+              Expanded(flex: 3, child: _ActionButtons()),
             ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton.small(
-        onPressed: () => setState(() => _viewAudioConfiguration = true),
+        onPressed: () => _dialogBuilder(context),
         child: const Icon(Icons.settings_voice_rounded),
       ),
+    );
+  }
+
+  Future<void> _dialogBuilder(BuildContext context) {
+    final pomodoroBloc = context.read<PomodoroBloc>();
+
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return BlocProvider.value(
+          value: pomodoroBloc,
+          child: AudioConfig(
+            updatePlayerAsset: () {
+              final assetSource = pomodoroBloc.state.audioAsset;
+
+              if (assetSource != null) {
+                final name = assetSource.split('/').last;
+
+                showSnackBar(context, 'Actualizado a $name');
+                player.setAsset(assetSource);
+              }
+
+              Navigator.pop(context);
+            },
+            turnOffPlayer: () => player.stop(),
+          ),
+        );
+      },
     );
   }
 
