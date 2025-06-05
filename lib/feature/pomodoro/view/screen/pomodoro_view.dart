@@ -77,7 +77,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
               if (assetSource != null) {
                 final name = assetSource.split('/').last;
 
-                showSnackBar(context, 'Actualizado a $name');
+                showSnackBar(context, AppLocalizations.of(context)!.change_to_label(name));
                 player.setAsset(assetSource);
               }
 
@@ -95,15 +95,6 @@ class _PomodoroViewState extends State<_PomodoroView> {
     player.dispose();
     super.dispose();
   }
-}
-
-Future<void> _infoDialogBuilder(BuildContext context) {
-  return showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return const InformationScreen();
-    },
-  );
 }
 
 class _TitleWidget extends StatelessWidget {
@@ -137,19 +128,14 @@ class _TitleWidget extends StatelessWidget {
                 style: Theme.of(
                   context,
                 ).textTheme.bodyMedium?.copyWith(color: colorScheme.onPrimary),
-                onChanged:
-                    (value) => context.read<PomodoroBloc>().add(
-                      UpdateTitlePomodoro(value),
-                    ),
+                onChanged: (value) => context.read<PomodoroBloc>().add(UpdateTitlePomodoro(value)),
               ),
             ),
           );
         } else {
           return Text(
             state.title ?? 'N/A',
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(color: colorScheme.onPrimary),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: colorScheme.onPrimary),
           );
         }
       },
@@ -164,23 +150,20 @@ class _UpperButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<PomodoroBloc, PomodoroState>(
       builder: (context, state) {
-        final backgroundColor =
-            !state.isResting
-                ? Theme.of(context).colorScheme.primary
-                : Theme.of(context).colorScheme.tertiary;
+        final colorScheme = Theme.of(context).colorScheme;
+        final backgroundColor = !state.isResting ? colorScheme.primary : colorScheme.tertiary;
 
         return Row(
           children: [
             IconButton(
-              onPressed: () => _infoDialogBuilder(context),
+              onPressed: () => Navigator.of(context).push(InformationPage.route()),
               iconSize: 25,
               color: backgroundColor,
               icon: const Icon(Icons.info),
             ),
             const Spacer(),
             IconButton(
-              onPressed:
-                  () => Navigator.of(context).push(TaskHistoryPage.route()),
+              onPressed: () => Navigator.of(context).push(TaskHistoryPage.route()),
               iconSize: 25,
               color: backgroundColor,
               icon: const Icon(Icons.article),

@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pomodoro_flutter/feature/pomodoro/presentation/widgets/ui/audio_config_button.dart';
 
 import '../bloc/pomodoro_bloc.dart';
+import 'audio_config_button.dart';
 
 class AudioConfig extends StatelessWidget {
   final VoidCallback updatePlayerAsset;
   final VoidCallback turnOffPlayer;
 
-  const AudioConfig({
-    super.key,
-    required this.updatePlayerAsset,
-    required this.turnOffPlayer,
-  });
+  const AudioConfig({super.key, required this.updatePlayerAsset, required this.turnOffPlayer});
 
   @override
   Widget build(BuildContext context) {
@@ -66,27 +62,16 @@ class AudioConfig extends StatelessWidget {
               onPressed: updatePlayerAsset,
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(60),
-                padding: const EdgeInsets.symmetric(
-                  vertical: 5,
-                  horizontal: 50,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadiusGeometry.circular(10),
-                ),
+                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10)),
                 backgroundColor: colorScheme.primaryContainer,
                 foregroundColor: colorScheme.onPrimaryContainer,
               ),
-              child: Text(
-                "Guardar",
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
+              child: Text("Guardar", style: Theme.of(context).textTheme.bodyLarge),
             ),
           ],
         ),
       ),
-    ).animate().slide(
-      begin: const Offset(0, 1),
-      duration: const Duration(microseconds: 500),
-    ); //
+    ).animate().slide(begin: const Offset(0, 1), duration: const Duration(microseconds: 500)); //
   }
 }

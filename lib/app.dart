@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_flutter/core/core.dart';
+import 'package:pomodoro_flutter/feature/pomodoro/view/screen/pomodoro_page.dart';
 import 'package:pomodoro_flutter/l10n/l10n.dart';
-
-import 'feature/pomodoro/presentation/screen/pomodoro_page.dart';
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});

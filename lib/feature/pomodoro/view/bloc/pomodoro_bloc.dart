@@ -3,9 +3,10 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pomodoro_flutter/core/notifications/notification_api.dart';
-import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_state.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 import 'package:pomodoro_flutter/feature/task/domain/usecases/insert_task_usecase.dart';
+
+import './pomodoro_state.dart';
 
 part 'pomodoro_event.dart';
 

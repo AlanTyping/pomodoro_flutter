@@ -100,6 +100,12 @@ abstract class AppLocalizations {
   /// **'Pomodoro Flutter'**
   String get app_name;
 
+  /// No description provided for @pomodoro_title.
+  ///
+  /// In es, this message translates to:
+  /// **'Metodo Pomodoro'**
+  String get pomodoro_title;
+
   /// No description provided for @btn_start.
   ///
   /// In es, this message translates to:
@@ -111,6 +117,102 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Guardar y Reiniciar'**
   String get btn_save_and_restart;
+
+  /// Texto que dice que se actualizo a otro ASSET
+  ///
+  /// In es, this message translates to:
+  /// **'Cambiado a {asset}'**
+  String change_to_label(String asset);
+
+  /// No description provided for @pomodoro_description_first_paragraph.
+  ///
+  /// In es, this message translates to:
+  /// **'La Técnica Pomodoro es una estrategia para la gestión del tiempo que se basa en trabajar en sesiones de 25 minutos (llamadas \"pomodoros\") seguidas de breves descansos, para así maximizar la concentración y la productividad. Este método fue desarrollado por Francesco Cirillo en la década de 1980 como estudiante universitario.'**
+  String get pomodoro_description_first_paragraph;
+
+  /// No description provided for @pomodoro_how_works.
+  ///
+  /// In es, this message translates to:
+  /// **'Cómo funciona'**
+  String get pomodoro_how_works;
+
+  /// No description provided for @pomodoro_1_step_description.
+  ///
+  /// In es, this message translates to:
+  /// **'Selección de tareas: Elige una tarea o actividad a realizar'**
+  String get pomodoro_1_step_description;
+
+  /// No description provided for @pomodoro_2_step_description.
+  ///
+  /// In es, this message translates to:
+  /// **'Establecer el pomodoro: Configura un temporizador para 25 minutos'**
+  String get pomodoro_2_step_description;
+
+  /// No description provided for @pomodoro_3_step_description.
+  ///
+  /// In es, this message translates to:
+  /// **'Trabajar: Durante estos 25 minutos, concéntrate únicamente en la tarea seleccionada, evitando distracciones'**
+  String get pomodoro_3_step_description;
+
+  /// No description provided for @pomodoro_4_step_description.
+  ///
+  /// In es, this message translates to:
+  /// **'Descanso breve: Después de 25 minutos, toma un descanso de 5 minutos'**
+  String get pomodoro_4_step_description;
+
+  /// No description provided for @pomodoro_5_step_description.
+  ///
+  /// In es, this message translates to:
+  /// **'Repetición: Repite los pasos 1 a 4 cuatro veces consecutivas'**
+  String get pomodoro_5_step_description;
+
+  /// No description provided for @pomodoro_6_step_description.
+  ///
+  /// In es, this message translates to:
+  /// **'Descanso más largo: Después de la cuarta sesión (cuatro pomodoros), toma un descanso más largo de 15 a 30 minutos'**
+  String get pomodoro_6_step_description;
+
+  /// No description provided for @pomodoro_7_step_description.
+  ///
+  /// In es, this message translates to:
+  /// **'Continuar: Reinicia el ciclo y continúa trabajando en tus tareas'**
+  String get pomodoro_7_step_description;
+
+  /// No description provided for @benefits.
+  ///
+  /// In es, this message translates to:
+  /// **'Beneficios'**
+  String get benefits;
+
+  /// No description provided for @pomodoro_1_benefit.
+  ///
+  /// In es, this message translates to:
+  /// **'Mejor concentración: Las sesiones cortas y los descansos te ayudan a mantener la atención'**
+  String get pomodoro_1_benefit;
+
+  /// No description provided for @pomodoro_2_benefit.
+  ///
+  /// In es, this message translates to:
+  /// **'Mayor productividad: Al trabajar en bloques, puedes completar más tareas en menos tiempo'**
+  String get pomodoro_2_benefit;
+
+  /// No description provided for @pomodoro_3_benefit.
+  ///
+  /// In es, this message translates to:
+  /// **'Reducción del estrés: Los descansos regulares pueden ayudar a prevenir el agotamiento'**
+  String get pomodoro_3_benefit;
+
+  /// No description provided for @pomodoro_4_benefit.
+  ///
+  /// In es, this message translates to:
+  /// **'Mejor organización: La estructura de la técnica te permite planificar mejor tu tiempo y priorizar tus tareas'**
+  String get pomodoro_4_benefit;
+
+  /// No description provided for @pomodoro_5_benefit.
+  ///
+  /// In es, this message translates to:
+  /// **'Fácil de implementar: La técnica es sencilla y puede ser adaptada a diversas situaciones y actividades'**
+  String get pomodoro_5_benefit;
 }
 
 class _AppLocalizationsDelegate

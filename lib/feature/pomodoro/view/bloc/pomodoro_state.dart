@@ -18,7 +18,6 @@ abstract class PomodoroState with _$PomodoroState {
   }) = _PomodoroState;
 
   factory PomodoroState.initial() => const PomodoroState(
-    title: null,
     cycle: Cycle.first,
     timer: Duration(minutes: 25),
     status: PomodoroStatus.initial,

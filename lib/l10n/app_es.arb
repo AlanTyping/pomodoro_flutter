@@ -8,5 +8,30 @@
   "btn_start": "Iniciar",
   "@btn_start": {},
   "btn_save_and_restart": "Guardar y Reiniciar",
-  "@btn_save_and_restart": {}
+  "@btn_save_and_restart": {},
+  "change_to_label": "Cambiado a {asset}",
+  "@change_to_label": {
+    "description": "Texto que dice que se actualizo a otro ASSET",
+    "placeholders":{
+      "asset": {
+        "type": "String",
+        "example": "water.mp3"
+      }
+    }
+  },
+  "pomodoro_description_first_paragraph": "La Técnica Pomodoro es una estrategia para la gestión del tiempo que se basa en trabajar en sesiones de 25 minutos (llamadas \"pomodoros\") seguidas de breves descansos, para así maximizar la concentración y la productividad. Este método fue desarrollado por Francesco Cirillo en la década de 1980 como estudiante universitario.",
+  "pomodoro_how_works": "Cómo funciona",
+  "pomodoro_1_step_description": "Selección de tareas: Elige una tarea o actividad a realizar",
+  "pomodoro_2_step_description": "Establecer el pomodoro: Configura un temporizador para 25 minutos",
+  "pomodoro_3_step_description": "Trabajar: Durante estos 25 minutos, concéntrate únicamente en la tarea seleccionada, evitando distracciones",
+  "pomodoro_4_step_description": "Descanso breve: Después de 25 minutos, toma un descanso de 5 minutos",
+  "pomodoro_5_step_description": "Repetición: Repite los pasos 1 a 4 cuatro veces consecutivas",
+  "pomodoro_6_step_description": "Descanso más largo: Después de la cuarta sesión (cuatro pomodoros), toma un descanso más largo de 15 a 30 minutos",
+  "pomodoro_7_step_description": "Continuar: Reinicia el ciclo y continúa trabajando en tus tareas",
+  "benefits": "Beneficios",
+  "pomodoro_1_benefit": "Mejor concentración: Las sesiones cortas y los descansos te ayudan a mantener la atención",
+  "pomodoro_2_benefit": "Mayor productividad: Al trabajar en bloques, puedes completar más tareas en menos tiempo",
+  "pomodoro_3_benefit": "Reducción del estrés: Los descansos regulares pueden ayudar a prevenir el agotamiento",
+  "pomodoro_4_benefit": "Mejor organización: La estructura de la técnica te permite planificar mejor tu tiempo y priorizar tus tareas",
+  "pomodoro_5_benefit": "Fácil de implementar: La técnica es sencilla y puede ser adaptada a diversas situaciones y actividades"
 }

@@ -18,3 +18,8 @@ linter:
     prefer_asserts_with_message: true
     use_key_in_widget_constructors: false
     camel_case_types: true
+
+dart_code_metrics:
+  metrics:
+    maximun-nesting-level: 5
+    widgets-nesting-level: 5
