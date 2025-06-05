@@ -1,0 +1,12 @@
+{
+  "@@locale": "es",
+  "@@context": "pomodoro_app",
+  "app_name": "Pomodoro Flutter",
+  "@app_name": {},
+  "pomodoro_title": "Metodo Pomodoro",
+  "@pomodoro_title": {},
+  "btn_start": "Iniciar",
+  "@btn_start": {},
+  "btn_save_and_restart": "Guardar y Reiniciar",
+  "@btn_save_and_restart": {}
+}

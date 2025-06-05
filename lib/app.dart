@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pomodoro_flutter/core/core.dart';
+import 'package:pomodoro_flutter/l10n/l10n.dart';
 
 import 'feature/pomodoro/presentation/screen/pomodoro_page.dart';
 
@@ -14,9 +15,11 @@ class MainApp extends StatelessWidget {
     );
 
     return MaterialApp(
-      title: 'Pomodoro Flutter',
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.app_name,
       theme: brightness == Brightness.dark ? theme.dark() : theme.light(),
       home: const PomodoroPage(),
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
+      supportedLocales: AppLocalizations.supportedLocales,
     );
   }
 }
