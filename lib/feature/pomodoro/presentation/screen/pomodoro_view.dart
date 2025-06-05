@@ -56,13 +56,13 @@ class _PomodoroViewState extends State<_PomodoroView> {
         ),
       ),
       floatingActionButton: FloatingActionButton.small(
-        onPressed: () => _dialogBuilder(context),
+        onPressed: () => _audioDialogBuilder(context),
         child: const Icon(Icons.settings_voice_rounded),
       ),
     );
   }
 
-  Future<void> _dialogBuilder(BuildContext context) {
+  Future<void> _audioDialogBuilder(BuildContext context) {
     final pomodoroBloc = context.read<PomodoroBloc>();
 
     return showDialog(
@@ -95,6 +95,15 @@ class _PomodoroViewState extends State<_PomodoroView> {
     player.dispose();
     super.dispose();
   }
+}
+
+Future<void> _infoDialogBuilder(BuildContext context) {
+  return showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return const InformationScreen();
+    },
+  );
 }
 
 class _TitleWidget extends StatelessWidget {
@@ -163,7 +172,7 @@ class _UpperButtons extends StatelessWidget {
         return Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () => _infoDialogBuilder(context),
               iconSize: 25,
               color: backgroundColor,
               icon: const Icon(Icons.info),

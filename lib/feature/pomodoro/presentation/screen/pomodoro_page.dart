@@ -8,6 +8,7 @@ import 'package:pomodoro_flutter/core/utils/show_snackbar.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_bloc.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/bloc/pomodoro_state.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/presentation/widgets/audio_config.dart';
+import 'package:pomodoro_flutter/feature/pomodoro/presentation/widgets/information_screen.dart';
 import 'package:pomodoro_flutter/feature/task_history/view/screen/task_history_page.dart';
 
 part './pomodoro_view.dart';
