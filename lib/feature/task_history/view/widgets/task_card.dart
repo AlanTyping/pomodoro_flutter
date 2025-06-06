@@ -65,6 +65,7 @@ class _TaskStatusHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final intl = AppLocalizations.of(context)!;
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
@@ -72,14 +73,14 @@ class _TaskStatusHeader extends StatelessWidget {
           child:
               isCompleted
                   ? Text(
-                    'Completado',
+                    intl.task_card_complete,
                     style: textTheme.titleMedium?.copyWith(
                       color: Colors.greenAccent,
                       fontWeight: FontWeight.bold,
                     ),
                   )
                   : Text(
-                    'Incompleto',
+                    intl.task_card_incomplete,
                     style: textTheme.titleSmall?.copyWith(
                       color: colorScheme.error,
                       fontWeight: FontWeight.bold,
@@ -92,7 +93,9 @@ class _TaskStatusHeader extends StatelessWidget {
               context: context,
               builder:
                   (context) => AlertDialog.adaptive(
-                    title: Text('Desear borrar esta tarea $taskTitle?'),
+                    title: Text(
+                      intl.task_history_delete_task_confirmation(taskTitle),
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.of(context).pop(),

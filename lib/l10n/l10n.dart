@@ -106,6 +106,12 @@ abstract class AppLocalizations {
   /// **'Metodo Pomodoro'**
   String get pomodoro_title;
 
+  /// No description provided for @task_input_placeholder.
+  ///
+  /// In es, this message translates to:
+  /// **'Nueva Tarea'**
+  String get task_input_placeholder;
+
   /// No description provided for @btn_start.
   ///
   /// In es, this message translates to:
@@ -117,6 +123,120 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Guardar y Reiniciar'**
   String get btn_save_and_restart;
+
+  /// No description provided for @task_card_complete.
+  ///
+  /// In es, this message translates to:
+  /// **'Completado'**
+  String get task_card_complete;
+
+  /// No description provided for @task_card_incomplete.
+  ///
+  /// In es, this message translates to:
+  /// **'Incompleto'**
+  String get task_card_incomplete;
+
+  /// No description provided for @task_history_appbar_title.
+  ///
+  /// In es, this message translates to:
+  /// **'Historial'**
+  String get task_history_appbar_title;
+
+  /// No description provided for @task_history_apply_filters_button.
+  ///
+  /// In es, this message translates to:
+  /// **'Aplicar Filtros'**
+  String get task_history_apply_filters_button;
+
+  /// No description provided for @task_history_input_labelText.
+  ///
+  /// In es, this message translates to:
+  /// **'Filtrar por nombre'**
+  String get task_history_input_labelText;
+
+  /// No description provided for @task_history_input_hintText.
+  ///
+  /// In es, this message translates to:
+  /// **'Nombre de la tarea'**
+  String get task_history_input_hintText;
+
+  /// No description provided for @task_history_delete_task_confirmation.
+  ///
+  /// In es, this message translates to:
+  /// **'Deseas borrar esta tarea {taskTitle}?'**
+  String task_history_delete_task_confirmation(String taskTitle);
+
+  /// No description provided for @task_history_input_empyDate.
+  ///
+  /// In es, this message translates to:
+  /// **'Seleccionar Fecha'**
+  String get task_history_input_empyDate;
+
+  /// No description provided for @task_history_input_date.
+  ///
+  /// In es, this message translates to:
+  /// **'Fecha: {formatedDate}'**
+  String task_history_input_date(String formatedDate);
+
+  /// No description provided for @notification_init_working_session_title.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Sesión iniciada!'**
+  String get notification_init_working_session_title;
+
+  /// No description provided for @notification_init_working_session_description.
+  ///
+  /// In es, this message translates to:
+  /// **'Es momento de concentrarse.'**
+  String get notification_init_working_session_description;
+
+  /// No description provided for @notification_finish_working_session_title.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Sesión terminada!'**
+  String get notification_finish_working_session_title;
+
+  /// No description provided for @notification_finish_working_session_description.
+  ///
+  /// In es, this message translates to:
+  /// **'Es momento de descansar.'**
+  String get notification_finish_working_session_description;
+
+  /// No description provided for @notification_init_resting_session_title.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Tiempo de descanso!'**
+  String get notification_init_resting_session_title;
+
+  /// No description provided for @notification_init_resting_session_description.
+  ///
+  /// In es, this message translates to:
+  /// **'Descanso de {restDuration} minutos'**
+  String notification_init_resting_session_description(int restDuration);
+
+  /// No description provided for @notification_finish_resting_session_title.
+  ///
+  /// In es, this message translates to:
+  /// **'¡Descanso terminado!'**
+  String get notification_finish_resting_session_title;
+
+  /// No description provided for @notification_finish_resting_session_description.
+  ///
+  /// In es, this message translates to:
+  /// **'Es momento de concentrarse'**
+  String get notification_finish_resting_session_description;
+
+  /// No description provided for @notification_finish_pomodoro_title.
+  ///
+  /// In es, this message translates to:
+  /// **'Pomodoro completado'**
+  String get notification_finish_pomodoro_title;
+
+  /// No description provided for @notification_finish_pomodoro_description.
+  ///
+  /// In es, this message translates to:
+  /// **'Buen trabajo!'**
+  String get notification_finish_pomodoro_description;
 
   /// Texto que dice que se actualizo a otro ASSET
   ///

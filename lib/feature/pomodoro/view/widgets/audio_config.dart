@@ -9,7 +9,11 @@ class AudioConfig extends StatelessWidget {
   final VoidCallback updatePlayerAsset;
   final VoidCallback turnOffPlayer;
 
-  const AudioConfig({super.key, required this.updatePlayerAsset, required this.turnOffPlayer});
+  const AudioConfig({
+    super.key,
+    required this.updatePlayerAsset,
+    required this.turnOffPlayer,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class AudioConfig extends StatelessWidget {
             AudioConfigButton(
               onPressed: turnOffPlayer,
               icon: Icons.music_off_rounded,
-              title: "sin audio",
+              title: 'sin audio',
             ),
             Divider(height: 2, color: colorScheme.outline),
             AudioConfigButton(
@@ -39,7 +43,7 @@ class AudioConfig extends StatelessWidget {
                     UpdateSoundPomodoro(asset: 'assets/audio/fire.m4a'),
                   ),
               icon: Icons.fireplace,
-              title: "fuego",
+              title: 'fuego',
             ),
             AudioConfigButton(
               onPressed:
@@ -47,7 +51,7 @@ class AudioConfig extends StatelessWidget {
                     UpdateSoundPomodoro(asset: 'assets/audio/water.m4a'),
                   ),
               icon: Icons.water_drop_rounded,
-              title: "goteo",
+              title: 'goteo',
             ),
             AudioConfigButton(
               onPressed:
@@ -55,23 +59,34 @@ class AudioConfig extends StatelessWidget {
                     UpdateSoundPomodoro(asset: 'assets/audio/rain.m4a'),
                   ),
               icon: Icons.waterfall_chart_rounded,
-              title: "lluvia",
+              title: 'lluvia',
             ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: updatePlayerAsset,
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(60),
-                padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 50),
-                shape: RoundedRectangleBorder(borderRadius: BorderRadiusGeometry.circular(10)),
+                padding: const EdgeInsets.symmetric(
+                  vertical: 5,
+                  horizontal: 50,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadiusGeometry.circular(10),
+                ),
                 backgroundColor: colorScheme.primaryContainer,
                 foregroundColor: colorScheme.onPrimaryContainer,
               ),
-              child: Text("Guardar", style: Theme.of(context).textTheme.bodyLarge),
+              child: Text(
+                'Guardar',
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
             ),
           ],
         ),
       ),
-    ).animate().slide(begin: const Offset(0, 1), duration: const Duration(microseconds: 500)); //
+    ).animate().slide(
+      begin: const Offset(0, 1),
+      duration: const Duration(microseconds: 500),
+    ); //
   }
 }

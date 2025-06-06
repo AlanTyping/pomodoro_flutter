@@ -5,10 +5,13 @@ import 'package:get_it/get_it.dart';
 import 'package:pomodoro_flutter/core/notifications/notification_api.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 import 'package:pomodoro_flutter/feature/task/domain/usecases/insert_task_usecase.dart';
+import 'package:pomodoro_flutter/l10n/l10n.dart';
 
 import './pomodoro_state.dart';
 
 part 'pomodoro_event.dart';
+
+final l10n = GetIt.instance<AppLocalizations>();
 
 final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   static const Duration workDuration = Duration(minutes: 25);
@@ -51,8 +54,8 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     ).listen((value) => add(_TickPomodoro(value)));
 
     emmitNotification(
-      title: '¡Sesión iniciada!',
-      description: 'Es momento de concentrarse.',
+      title: l10n.notification_init_working_session_title,
+      description: l10n.notification_init_working_session_description,
     );
   }
 
@@ -81,8 +84,8 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
         );
 
         emmitNotification(
-          title: '¡Descanso terminado!',
-          description: 'Momento de trabajar',
+          title: l10n.notification_finish_resting_session_title,
+          description: l10n.notification_finish_resting_session_description,
         );
       } else {
         _streamSubscription = _timerStream(
@@ -97,8 +100,8 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
           ),
         );
         emmitNotification(
-          title: '¡Sesión terminada!',
-          description: 'Momento de descansar',
+          title: l10n.notification_finish_working_session_title,
+          description: l10n.notification_finish_working_session_description,
         );
       }
 
@@ -115,14 +118,16 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   void _onResumed(ResumePomodoro event, Emitter<PomodoroState> emit) {
     if (state.isResting && state.timer == restDuration) {
       emmitNotification(
-        title: '¡A descansar!',
-        description: 'Descanso de ${restDuration.inMinutes} minutos',
+        title: l10n.notification_init_resting_session_title,
+        description: l10n.notification_init_resting_session_description(
+          restDuration.inMinutes,
+        ),
       );
     }
     if (!state.isResting && state.timer == workDuration) {
       emmitNotification(
-        title: '¡Sesión iniciada!',
-        description: 'Es momento de concentrarse.',
+        title: l10n.notification_init_working_session_title,
+        description: l10n.notification_init_working_session_description,
       );
     }
     _streamSubscription?.resume();
@@ -135,8 +140,8 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     _streamSubscription?.cancel();
 
     emmitNotification(
-      title: '¡Pomodoro completo!',
-      description: 'Es momento de descansar.',
+      title: l10n.notification_finish_pomodoro_title,
+      description: l10n.notification_finish_pomodoro_description,
     );
 
     emit(state.copyWith(status: PomodoroStatus.done));

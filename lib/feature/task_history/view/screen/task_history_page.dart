@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 import 'package:pomodoro_flutter/feature/task_history/view/widgets/cycle_progress_bar.dart';
+import 'package:pomodoro_flutter/l10n/l10n.dart';
 
 import '../cubit/cubit.dart';
 

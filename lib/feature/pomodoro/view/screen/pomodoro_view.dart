@@ -77,7 +77,10 @@ class _PomodoroViewState extends State<_PomodoroView> {
               if (assetSource != null) {
                 final name = assetSource.split('/').last;
 
-                showSnackBar(context, AppLocalizations.of(context)!.change_to_label(name));
+                showSnackBar(
+                  context,
+                  AppLocalizations.of(context)!.change_to_label(name),
+                );
                 player.setAsset(assetSource);
               }
 
@@ -118,7 +121,8 @@ class _TitleWidget extends StatelessWidget {
                 decoration: InputDecoration(
                   border: const OutlineInputBorder(),
                   counterText: '',
-                  hintText: 'Nueva Tarea',
+                  hintText:
+                      AppLocalizations.of(context)!.task_input_placeholder,
                   hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
                   ),
@@ -128,14 +132,19 @@ class _TitleWidget extends StatelessWidget {
                 style: Theme.of(
                   context,
                 ).textTheme.bodyMedium?.copyWith(color: colorScheme.onPrimary),
-                onChanged: (value) => context.read<PomodoroBloc>().add(UpdateTitlePomodoro(value)),
+                onChanged:
+                    (value) => context.read<PomodoroBloc>().add(
+                      UpdateTitlePomodoro(value),
+                    ),
               ),
             ),
           );
         } else {
           return Text(
             state.title ?? 'N/A',
-            style: Theme.of(context).textTheme.titleLarge?.copyWith(color: colorScheme.onPrimary),
+            style: Theme.of(
+              context,
+            ).textTheme.titleLarge?.copyWith(color: colorScheme.onPrimary),
           );
         }
       },
@@ -151,19 +160,22 @@ class _UpperButtons extends StatelessWidget {
     return BlocBuilder<PomodoroBloc, PomodoroState>(
       builder: (context, state) {
         final colorScheme = Theme.of(context).colorScheme;
-        final backgroundColor = !state.isResting ? colorScheme.primary : colorScheme.tertiary;
+        final backgroundColor =
+            !state.isResting ? colorScheme.primary : colorScheme.tertiary;
 
         return Row(
           children: [
             IconButton(
-              onPressed: () => Navigator.of(context).push(InformationPage.route()),
+              onPressed:
+                  () => Navigator.of(context).push(InformationPage.route()),
               iconSize: 25,
               color: backgroundColor,
               icon: const Icon(Icons.info),
             ),
             const Spacer(),
             IconButton(
-              onPressed: () => Navigator.of(context).push(TaskHistoryPage.route()),
+              onPressed:
+                  () => Navigator.of(context).push(TaskHistoryPage.route()),
               iconSize: 25,
               color: backgroundColor,
               icon: const Icon(Icons.article),

@@ -98,7 +98,7 @@ class _ActionButtons extends StatelessWidget {
               TextButton.icon(
                 style: textButtonStyle(context),
                 onPressed: () => bloc.add(FinishPomodoro()),
-                label: const Text('Guardar y Reiniciar'),
+                label: Text(AppLocalizations.of(context)!.btn_save_and_restart),
                 icon: const Icon(Icons.restore),
               ),
             ],
@@ -109,7 +109,7 @@ class _ActionButtons extends StatelessWidget {
   }
 
   ButtonStyle textButtonStyle(BuildContext context) => TextButton.styleFrom(
-    textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+    textStyle: Theme.of(context).textTheme.bodyMedium!.copyWith(
       color: Theme.of(context).colorScheme.onSurface,
     ),
   );

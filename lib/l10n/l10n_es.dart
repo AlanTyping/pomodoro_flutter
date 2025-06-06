@@ -15,10 +15,80 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pomodoro_title => 'Metodo Pomodoro';
 
   @override
+  String get task_input_placeholder => 'Nueva Tarea';
+
+  @override
   String get btn_start => 'Iniciar';
 
   @override
   String get btn_save_and_restart => 'Guardar y Reiniciar';
+
+  @override
+  String get task_card_complete => 'Completado';
+
+  @override
+  String get task_card_incomplete => 'Incompleto';
+
+  @override
+  String get task_history_appbar_title => 'Historial';
+
+  @override
+  String get task_history_apply_filters_button => 'Aplicar Filtros';
+
+  @override
+  String get task_history_input_labelText => 'Filtrar por nombre';
+
+  @override
+  String get task_history_input_hintText => 'Nombre de la tarea';
+
+  @override
+  String task_history_delete_task_confirmation(String taskTitle) {
+    return 'Deseas borrar esta tarea $taskTitle?';
+  }
+
+  @override
+  String get task_history_input_empyDate => 'Seleccionar Fecha';
+
+  @override
+  String task_history_input_date(String formatedDate) {
+    return 'Fecha: $formatedDate';
+  }
+
+  @override
+  String get notification_init_working_session_title => '¡Sesión iniciada!';
+
+  @override
+  String get notification_init_working_session_description =>
+      'Es momento de concentrarse.';
+
+  @override
+  String get notification_finish_working_session_title => '¡Sesión terminada!';
+
+  @override
+  String get notification_finish_working_session_description =>
+      'Es momento de descansar.';
+
+  @override
+  String get notification_init_resting_session_title => '¡Tiempo de descanso!';
+
+  @override
+  String notification_init_resting_session_description(int restDuration) {
+    return 'Descanso de $restDuration minutos';
+  }
+
+  @override
+  String get notification_finish_resting_session_title =>
+      '¡Descanso terminado!';
+
+  @override
+  String get notification_finish_resting_session_description =>
+      'Es momento de concentrarse';
+
+  @override
+  String get notification_finish_pomodoro_title => 'Pomodoro completado';
+
+  @override
+  String get notification_finish_pomodoro_description => 'Buen trabajo!';
 
   @override
   String change_to_label(String asset) {

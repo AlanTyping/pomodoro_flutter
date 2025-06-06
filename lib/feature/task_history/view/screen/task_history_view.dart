@@ -5,8 +5,10 @@ class _TaskHistoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final intl = AppLocalizations.of(context)!;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Historial')),
+      appBar: AppBar(title: Text(intl.task_history_appbar_title)),
       body: SafeArea(
         child: BlocBuilder<TaskHistoryCubit, TaskHistoryState>(
           builder: (context, state) {
@@ -61,6 +63,7 @@ class _DateFilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<TaskHistoryCubit>();
+    final intl = AppLocalizations.of(context)!;
 
     return BlocSelector<TaskHistoryCubit, TaskHistoryState, DateTime?>(
       selector: (state) => state.dateFilter,
@@ -79,8 +82,8 @@ class _DateFilterButton extends StatelessWidget {
             icon: const Icon(Icons.calendar_today),
             label: Text(
               dateFilter != null
-                  ? 'Fecha: ${dateFormat.format(dateFilter)}'
-                  : 'Seleccionar Fecha',
+                  ? intl.task_history_input_date(dateFormat.format(dateFilter))
+                  : intl.task_history_input_empyDate,
             ),
           ),
     );
@@ -94,6 +97,7 @@ class _FilterActionButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final cubit = context.read<TaskHistoryCubit>();
+    final intl = AppLocalizations.of(context)!;
 
     return Row(
       spacing: 15,
@@ -101,7 +105,7 @@ class _FilterActionButtons extends StatelessWidget {
         Expanded(
           child: ElevatedButton(
             onPressed: cubit.applyFilters,
-            child: const Text('Aplicar Filtros'),
+            child: Text(intl.task_history_apply_filters_button),
           ),
         ),
         IconButton.filled(

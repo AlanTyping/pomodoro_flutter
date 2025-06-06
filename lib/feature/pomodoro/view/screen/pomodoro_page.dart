@@ -3,6 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:pomodoro_flutter/core/utils/show_snackbar.dart';
 import 'package:pomodoro_flutter/feature/information/view/screen/information_page.dart';
@@ -22,6 +23,13 @@ class PomodoroPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(create: (context) => PomodoroBloc(), child: const _PomodoroView());
+    final localizations = AppLocalizations.of(context)!;
+    if (!GetIt.instance.isRegistered<AppLocalizations>()) {
+      GetIt.instance.registerSingleton<AppLocalizations>(localizations);
+    }
+    return BlocProvider(
+      create: (context) => PomodoroBloc(),
+      child: const _PomodoroView(),
+    );
   }
 }

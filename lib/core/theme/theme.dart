@@ -357,7 +357,7 @@ class PomodoroTheme {
             fontWeight: FontWeight.bold,
           ),
         ),
-    scaffoldBackgroundColor: colorScheme.background,
+    scaffoldBackgroundColor: colorScheme.surface,
     canvasColor: colorScheme.surface,
   );
 

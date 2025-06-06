@@ -5,10 +5,69 @@
   "@app_name": {},
   "pomodoro_title": "Metodo Pomodoro",
   "@pomodoro_title": {},
+  "task_input_placeholder": "Nueva Tarea",
+  "@task_input_placeholder": {},
   "btn_start": "Iniciar",
   "@btn_start": {},
   "btn_save_and_restart": "Guardar y Reiniciar",
   "@btn_save_and_restart": {},
+  "task_card_complete": "Completado",
+  "@task_card_complete": {},
+  "task_card_incomplete": "Incompleto",
+  "@task_card_incomplete": {},
+  "task_history_appbar_title": "Historial",
+  "@task_history_appbar_title": {},
+  "task_history_apply_filters_button": "Aplicar Filtros",
+  "@task_history_apply_filters_button": {},
+  "task_history_input_labelText": "Filtrar por nombre",
+  "@task_history_input_labelText": {},
+  "task_history_input_hintText": "Nombre de la tarea",
+  "@task_history_input_hintText": {},
+  "task_history_delete_task_confirmation": "Deseas borrar esta tarea {taskTitle}?",
+  "@task_history_delete_task_confirmation": {
+    "placeholders": {
+      "taskTitle": {
+        "type": "String"
+      }
+    }
+  },
+  "task_history_input_empyDate": "Seleccionar Fecha",
+  "@task_history_input_empyDate": {},
+  "task_history_input_date": "Fecha: {formatedDate}",
+  "@task_history_input_date": {
+    "placeholders": {
+      "formatedDate": {
+        "type": "String"
+      }
+    }
+  },
+
+  "notification_init_working_session_title": "¡Sesión iniciada!",
+  "@notification_init_working_session_title": {},
+  "notification_init_working_session_description": "Es momento de concentrarse.",
+  "@notification_init_working_session_description": {},
+  "notification_finish_working_session_title": "¡Sesión terminada!",
+  "@notification_finish_working_session_title": {},
+  "notification_finish_working_session_description": "Es momento de descansar.",
+  "@notification_finish_working_session_description": {},
+  "notification_init_resting_session_title": "¡Tiempo de descanso!",
+  "@notification_init_resting_session_title": {},
+  "notification_init_resting_session_description": "Descanso de {restDuration} minutos",
+  "@notification_init_resting_session_description": {
+    "placeholders": {
+      "restDuration": {
+        "type": "int"
+      }
+    }
+  },
+  "notification_finish_resting_session_title": "¡Descanso terminado!",
+  "@notification_finish_resting_session_title": {},
+  "notification_finish_resting_session_description": "Es momento de concentrarse",
+  "@notification_finish_resting_session_description": {},
+  "notification_finish_pomodoro_title": "Pomodoro completado",
+  "@notification_finish_pomodoro_title": {},
+  "notification_finish_pomodoro_description": "Buen trabajo!",
+  "@notification_finish_pomodoro_description": {},
   "change_to_label": "Cambiado a {asset}",
   "@change_to_label": {
     "description": "Texto que dice que se actualizo a otro ASSET",
