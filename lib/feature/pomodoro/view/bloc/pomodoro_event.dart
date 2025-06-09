@@ -26,8 +26,10 @@ final class _TickPomodoro extends PomodoroEvent {
 
 final class FinishPomodoro extends PomodoroEvent {}
 
-final class UpdateSoundPomodoro extends PomodoroEvent {
+final class UpdatePomodoroSound extends PomodoroEvent {
   final String asset;
 
-  UpdateSoundPomodoro({required this.asset});
+  UpdatePomodoroSound({required this.asset});
 }
+
+final class MutePomodoroSound extends PomodoroEvent {}

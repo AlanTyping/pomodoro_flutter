@@ -32,8 +32,11 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
       (event, emit) => emit(state.copyWith(title: event.title)),
     );
     on<FinishPomodoro>(_onFinish);
-    on<UpdateSoundPomodoro>(
+    on<UpdatePomodoroSound>(
       (event, emit) => emit(state.copyWith(audioAsset: event.asset)),
+    );
+    on<MutePomodoroSound>(
+      (event, emit) => emit(state.copyWith(audioAsset: null)),
     );
   }
 

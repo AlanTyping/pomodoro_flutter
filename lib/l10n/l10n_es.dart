@@ -24,6 +24,21 @@ class AppLocalizationsEs extends AppLocalizations {
   String get btn_save_and_restart => 'Guardar y Reiniciar';
 
   @override
+  String get audio_config_btn_without_audio => 'sin audio';
+
+  @override
+  String get audio_config_btn_fire => 'fuego';
+
+  @override
+  String get audio_config_btn_drip => 'goteo';
+
+  @override
+  String get audio_config_btn_rain => 'lluvia';
+
+  @override
+  String get audio_config_btn_save => 'Guardar';
+
+  @override
   String get task_card_complete => 'Completado';
 
   @override

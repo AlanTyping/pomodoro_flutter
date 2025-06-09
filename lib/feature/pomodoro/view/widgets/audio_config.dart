@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pomodoro_flutter/l10n/l10n.dart';
 
-import '../bloc/pomodoro_bloc.dart';
 import 'audio_config_button.dart';
 
-class AudioConfig extends StatelessWidget {
-  final VoidCallback updatePlayerAsset;
-  final VoidCallback turnOffPlayer;
+class AudioConfig extends StatefulWidget {
+  final Future<void> Function(String? asset) updatePlayerAsset;
 
-  const AudioConfig({
-    super.key,
-    required this.updatePlayerAsset,
-    required this.turnOffPlayer,
-  });
+  const AudioConfig({super.key, required this.updatePlayerAsset});
+
+  @override
+  State<AudioConfig> createState() => _AudioConfigState();
+}
+
+class _AudioConfigState extends State<AudioConfig> {
+  String? selectedAudio;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedAudio = null;
+  }
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final intl = AppLocalizations.of(context)!;
+    final brightnessDark =
+        View.of(context).platformDispatcher.platformBrightness ==
+                Brightness.dark
+            ? true
+            : false;
 
     return Dialog(
       child: Container(
@@ -25,47 +37,61 @@ class AudioConfig extends StatelessWidget {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: colorScheme.tertiaryContainer,
+          color: brightnessDark ? colorScheme.surface : colorScheme.primary,
         ),
         child: Column(
           spacing: 8,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             AudioConfigButton(
-              onPressed: turnOffPlayer,
+              onPressed: () => {selectedAudio = 'mute'},
               icon: Icons.music_off_rounded,
-              title: 'sin audio',
+              title: intl.audio_config_btn_without_audio,
             ),
-            Divider(height: 2, color: colorScheme.outline),
+            Divider(
+              height: 2,
+              color:
+                  brightnessDark ? colorScheme.primary : colorScheme.onPrimary,
+            ),
             AudioConfigButton(
               onPressed:
-                  () => context.read<PomodoroBloc>().add(
-                    UpdateSoundPomodoro(asset: 'assets/audio/fire.m4a'),
-                  ),
+              // () => context.read<PomodoroBloc>().add(
+              //   UpdatePomodoroSound(asset: 'assets/audio/fire.m4a'),
+              // ),
+              () {
+                selectedAudio = 'assets/audio/fire.m4a';
+              },
               icon: Icons.fireplace,
-              title: 'fuego',
+              title: intl.audio_config_btn_fire,
             ),
             AudioConfigButton(
               onPressed:
-                  () => context.read<PomodoroBloc>().add(
-                    UpdateSoundPomodoro(asset: 'assets/audio/water.m4a'),
-                  ),
+              // () => context.read<PomodoroBloc>().add(
+              //   UpdatePomodoroSound(asset: 'assets/audio/water.m4a'),
+              // ),
+              () {
+                selectedAudio = 'assets/audio/water.m4a';
+              },
               icon: Icons.water_drop_rounded,
-              title: 'goteo',
+              title: intl.audio_config_btn_drip,
             ),
             AudioConfigButton(
               onPressed:
-                  () => context.read<PomodoroBloc>().add(
-                    UpdateSoundPomodoro(asset: 'assets/audio/rain.m4a'),
-                  ),
+              // () => context.read<PomodoroBloc>().add(
+              //   UpdatePomodoroSound(asset: 'assets/audio/rain.m4a'),
+              // ),
+              () {
+                selectedAudio = 'assets/audio/rain.m4a';
+              },
               icon: Icons.waterfall_chart_rounded,
-              title: 'lluvia',
+              title: intl.audio_config_btn_rain,
             ),
-            const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: updatePlayerAsset,
+              onPressed: () {
+                widget.updatePlayerAsset(selectedAudio);
+              },
               style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(60),
+                minimumSize: const Size.fromHeight(70),
                 padding: const EdgeInsets.symmetric(
                   vertical: 5,
                   horizontal: 50,
@@ -73,20 +99,26 @@ class AudioConfig extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadiusGeometry.circular(10),
                 ),
-                backgroundColor: colorScheme.primaryContainer,
+                backgroundColor:
+                    brightnessDark
+                        ? colorScheme.secondaryContainer
+                        : colorScheme.onPrimary,
                 foregroundColor: colorScheme.onPrimaryContainer,
               ),
               child: Text(
-                'Guardar',
-                style: Theme.of(context).textTheme.bodyLarge,
+                intl.audio_config_btn_save,
+                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  fontWeight: FontWeight.bold,
+                  color:
+                      brightnessDark
+                          ? colorScheme.inverseSurface
+                          : colorScheme.surface,
+                ),
               ),
             ),
           ],
         ),
       ),
-    ).animate().slide(
-      begin: const Offset(0, 1),
-      duration: const Duration(microseconds: 500),
-    ); //
+    );
   }
 }

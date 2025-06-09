@@ -124,6 +124,36 @@ abstract class AppLocalizations {
   /// **'Guardar y Reiniciar'**
   String get btn_save_and_restart;
 
+  /// No description provided for @audio_config_btn_without_audio.
+  ///
+  /// In es, this message translates to:
+  /// **'sin audio'**
+  String get audio_config_btn_without_audio;
+
+  /// No description provided for @audio_config_btn_fire.
+  ///
+  /// In es, this message translates to:
+  /// **'fuego'**
+  String get audio_config_btn_fire;
+
+  /// No description provided for @audio_config_btn_drip.
+  ///
+  /// In es, this message translates to:
+  /// **'goteo'**
+  String get audio_config_btn_drip;
+
+  /// No description provided for @audio_config_btn_rain.
+  ///
+  /// In es, this message translates to:
+  /// **'lluvia'**
+  String get audio_config_btn_rain;
+
+  /// No description provided for @audio_config_btn_save.
+  ///
+  /// In es, this message translates to:
+  /// **'Guardar'**
+  String get audio_config_btn_save;
+
   /// No description provided for @task_card_complete.
   ///
   /// In es, this message translates to:

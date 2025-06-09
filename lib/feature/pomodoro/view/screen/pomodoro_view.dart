@@ -18,7 +18,6 @@ class _PomodoroViewState extends State<_PomodoroView> {
   }
 
   Future<void> startPomodoro() async {
-    await player.setLoopMode(LoopMode.one);
     await player.setAsset(_defaultAudioAsset);
     await player.setVolume(0.5);
   }
@@ -29,7 +28,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
       body: SafeArea(
         child: BlocListener<PomodoroBloc, PomodoroState>(
           listener: (context, state) {
-            if (!state.isResting) {
+            if (!state.isResting && state.audioAsset != null) {
               switch (state.status) {
                 case PomodoroStatus.initial:
                   player.setLoopMode(LoopMode.one);
@@ -57,7 +56,16 @@ class _PomodoroViewState extends State<_PomodoroView> {
       ),
       floatingActionButton: FloatingActionButton.small(
         onPressed: () => _audioDialogBuilder(context),
-        child: const Icon(Icons.settings_voice_rounded),
+        elevation: 0,
+        backgroundColor: Theme.of(context).colorScheme.onSecondary,
+        child: BlocBuilder<PomodoroBloc, PomodoroState>(
+          builder: (context, state) {
+            if (state.audioAsset != null) {
+              return const Icon(Icons.volume_up_outlined);
+            }
+            return const Icon(Icons.volume_off);
+          },
+        ),
       ),
     );
   }
@@ -71,22 +79,25 @@ class _PomodoroViewState extends State<_PomodoroView> {
         return BlocProvider.value(
           value: pomodoroBloc,
           child: AudioConfig(
-            updatePlayerAsset: () {
-              final assetSource = pomodoroBloc.state.audioAsset;
+            updatePlayerAsset: (String? asset) async {
+              if (asset != null) {
+                if (asset != 'mute') {
+                  final name = asset.split('/').last;
+                  pomodoroBloc.add(UpdatePomodoroSound(asset: name));
 
-              if (assetSource != null) {
-                final name = assetSource.split('/').last;
-
-                showSnackBar(
-                  context,
-                  AppLocalizations.of(context)!.change_to_label(name),
-                );
-                player.setAsset(assetSource);
+                  showSnackBar(
+                    context,
+                    AppLocalizations.of(context)!.change_to_label(name),
+                  );
+                  player.setAsset(asset);
+                } else {
+                  pomodoroBloc.add(MutePomodoroSound());
+                  await player.stop();
+                }
               }
 
               Navigator.pop(context);
             },
-            turnOffPlayer: () => player.stop(),
           ),
         );
       },
