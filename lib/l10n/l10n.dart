@@ -274,6 +274,18 @@ abstract class AppLocalizations {
   /// **'Cambiado a {asset}'**
   String change_to_label(String asset);
 
+  /// No description provided for @pomodoro_description_app_developers_presentation.
+  ///
+  /// In es, this message translates to:
+  /// **'Desarrolladores'**
+  String get pomodoro_description_app_developers_presentation;
+
+  /// No description provided for @pomodoro_description_appbar_title.
+  ///
+  /// In es, this message translates to:
+  /// **'Información'**
+  String get pomodoro_description_appbar_title;
+
   /// No description provided for @pomodoro_description_first_paragraph.
   ///
   /// In es, this message translates to:

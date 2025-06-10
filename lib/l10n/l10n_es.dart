@@ -111,6 +111,13 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get pomodoro_description_app_developers_presentation =>
+      'Desarrolladores';
+
+  @override
+  String get pomodoro_description_appbar_title => 'Información';
+
+  @override
   String get pomodoro_description_first_paragraph =>
       'La Técnica Pomodoro es una estrategia para la gestión del tiempo que se basa en trabajar en sesiones de 25 minutos (llamadas \"pomodoros\") seguidas de breves descansos, para así maximizar la concentración y la productividad. Este método fue desarrollado por Francesco Cirillo en la década de 1980 como estudiante universitario.';
 

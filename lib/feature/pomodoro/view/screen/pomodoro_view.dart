@@ -19,6 +19,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
 
   Future<void> startPomodoro() async {
     await player.setAsset(_defaultAudioAsset);
+    await player.setLoopMode(LoopMode.one);
     await player.setVolume(0.5);
   }
 
@@ -27,20 +28,24 @@ class _PomodoroViewState extends State<_PomodoroView> {
     return Scaffold(
       body: SafeArea(
         child: BlocListener<PomodoroBloc, PomodoroState>(
-          listener: (context, state) {
+          listener: (context, state) async {
             if (!state.isResting && state.audioAsset != null) {
               switch (state.status) {
                 case PomodoroStatus.initial:
-                  player.setLoopMode(LoopMode.one);
+                  await player.setLoopMode(LoopMode.one);
+                  break;
                 case PomodoroStatus.running:
-                  player.play();
+                  await player.play();
+                  break;
                 case PomodoroStatus.pause:
-                  player.pause();
+                  await player.pause();
+                  break;
                 case PomodoroStatus.done:
-                  player.stop();
+                  await player.stop();
+                  break;
               }
             } else {
-              player.pause();
+              await player.pause();
             }
           },
           child: const Column(
