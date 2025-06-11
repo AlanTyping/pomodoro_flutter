@@ -6,9 +6,15 @@ class _TaskHistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final intl = AppLocalizations.of(context)!;
+    final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(title: Text(intl.task_history_appbar_title)),
+      appBar: AppBar(
+        title: Text(
+          intl.task_history_appbar_title,
+          style: TextStyle(color: colorScheme.primary),
+        ),
+      ),
       body: SafeArea(
         child: BlocBuilder<TaskHistoryCubit, TaskHistoryState>(
           builder: (context, state) {
@@ -47,8 +53,13 @@ class _FilterSection extends StatelessWidget {
     return Column(
       spacing: 8,
       children: [
-        const _NameFilterField(),
-        _DateFilterButton(dateFormat: dateFormat),
+        Row(
+          spacing: 8,
+          children: [
+            const Expanded(child: _NameFilterField()),
+            _DateFilterButton(dateFormat: dateFormat),
+          ],
+        ),
         const _FilterActionButtons(),
       ],
     );
@@ -63,29 +74,26 @@ class _DateFilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<TaskHistoryCubit>();
-    final intl = AppLocalizations.of(context)!;
 
     return BlocSelector<TaskHistoryCubit, TaskHistoryState, DateTime?>(
       selector: (state) => state.dateFilter,
-      builder:
-          (context, dateFilter) => ElevatedButton.icon(
-            onPressed: () async {
-              final date = await showDatePicker(
-                context: context,
-                initialDate: dateFilter ?? DateTime.now(),
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2100),
-              );
+      builder: (context, dateFilter) {
+        final colorScheme = Theme.of(context).colorScheme;
 
-              cubit.changeDateFilter(date);
-            },
-            icon: const Icon(Icons.calendar_today),
-            label: Text(
-              dateFilter != null
-                  ? intl.task_history_input_date(dateFormat.format(dateFilter))
-                  : intl.task_history_input_empyDate,
-            ),
-          ),
+        return IconButton(
+          onPressed: () async {
+            final date = await showDatePicker(
+              context: context,
+              initialDate: dateFilter ?? DateTime.now(),
+              firstDate: DateTime(2000),
+              lastDate: DateTime(2100),
+            );
+
+            cubit.changeDateFilter(date);
+          },
+          icon: Icon(Icons.calendar_today, color: colorScheme.primary),
+        );
+      },
     );
   }
 }

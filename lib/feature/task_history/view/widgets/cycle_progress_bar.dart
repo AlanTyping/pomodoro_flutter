@@ -7,9 +7,10 @@ class CycleProgressBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
     Icon icon;
     if (percentage == 1.0) {
-      icon = const Icon(Icons.check, color: Colors.green);
+      icon = Icon(Icons.check, color: colorScheme.primary);
     } else if (percentage == 0.0) {
       icon = const Icon(Icons.close, color: Colors.red);
     } else {
@@ -25,9 +26,9 @@ class CycleProgressBar extends StatelessWidget {
         FractionallySizedBox(
           widthFactor: percentage,
           alignment: Alignment.centerLeft,
-          child: const ColoredBox(
-            color: Colors.green,
-            child: SizedBox(height: 50),
+          child: ColoredBox(
+            color: colorScheme.primary,
+            child: const SizedBox(height: 50),
           ),
         ),
         Positioned.fill(
