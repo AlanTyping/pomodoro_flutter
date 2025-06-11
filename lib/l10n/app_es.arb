@@ -8,6 +8,7 @@
   "task_input_placeholder": "Nueva Tarea",
   "@task_input_placeholder": {},
   "btn_start": "Iniciar",
+  "add_new_task_snackbar": "Añade una nueva tarea!",
   "@btn_start": {},
   "btn_save_and_restart": "Guardar y Reiniciar",
   "@btn_save_and_restart": {},

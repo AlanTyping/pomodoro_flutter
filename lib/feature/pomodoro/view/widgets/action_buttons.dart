@@ -17,6 +17,7 @@ class _ActionButtons extends StatelessWidget {
             !state.isResting
                 ? Theme.of(context).colorScheme.primary
                 : Theme.of(context).colorScheme.tertiary;
+        final intl = AppLocalizations.of(context)!;
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -27,7 +28,7 @@ class _ActionButtons extends StatelessWidget {
                 onPressed:
                     () =>
                         state.title == null
-                            ? showSnackBar(context, 'Añadí una tarea!')
+                            ? showSnackBar(context, intl.add_new_task_snackbar)
                             : bloc.add(StartPomodoro()),
                 label: Text(
                   'Iniciar',

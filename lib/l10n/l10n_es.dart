@@ -21,6 +21,9 @@ class AppLocalizationsEs extends AppLocalizations {
   String get btn_start => 'Iniciar';
 
   @override
+  String get add_new_task_snackbar => 'Añade una nueva tarea!';
+
+  @override
   String get btn_save_and_restart => 'Guardar y Reiniciar';
 
   @override

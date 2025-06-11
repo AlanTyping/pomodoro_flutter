@@ -118,6 +118,12 @@ abstract class AppLocalizations {
   /// **'Iniciar'**
   String get btn_start;
 
+  /// No description provided for @add_new_task_snackbar.
+  ///
+  /// In es, this message translates to:
+  /// **'Añade una nueva tarea!'**
+  String get add_new_task_snackbar;
+
   /// No description provided for @btn_save_and_restart.
   ///
   /// In es, this message translates to:
