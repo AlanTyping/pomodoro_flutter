@@ -57,6 +57,12 @@ class AppLocalizationsEs extends AppLocalizations {
   String get task_history_input_hintText => 'Nombre de la tarea';
 
   @override
+  String get task_history_delete_task_confirmation_confirm => 'Eliminar';
+
+  @override
+  String get task_history_delete_task_confirmation_cancel => 'cancelar';
+
+  @override
   String task_history_delete_task_confirmation(String taskTitle) {
     return 'Deseas borrar esta tarea $taskTitle?';
   }

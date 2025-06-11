@@ -33,6 +33,8 @@
   "@task_history_input_labelText": {},
   "task_history_input_hintText": "Nombre de la tarea",
   "@task_history_input_hintText": {},
+    "task_history_delete_task_confirmation_confirm": "Eliminar",
+  "task_history_delete_task_confirmation_cancel": "cancelar",
   "task_history_delete_task_confirmation": "Deseas borrar esta tarea {taskTitle}?",
   "@task_history_delete_task_confirmation": {
     "placeholders": {

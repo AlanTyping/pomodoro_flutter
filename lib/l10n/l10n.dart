@@ -190,6 +190,18 @@ abstract class AppLocalizations {
   /// **'Nombre de la tarea'**
   String get task_history_input_hintText;
 
+  /// No description provided for @task_history_delete_task_confirmation_confirm.
+  ///
+  /// In es, this message translates to:
+  /// **'Eliminar'**
+  String get task_history_delete_task_confirmation_confirm;
+
+  /// No description provided for @task_history_delete_task_confirmation_cancel.
+  ///
+  /// In es, this message translates to:
+  /// **'cancelar'**
+  String get task_history_delete_task_confirmation_cancel;
+
   /// No description provided for @task_history_delete_task_confirmation.
   ///
   /// In es, this message translates to:

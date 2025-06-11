@@ -99,14 +99,18 @@ class _TaskStatusHeader extends StatelessWidget {
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.of(context).pop(),
-                        child: const Text('Cancelar'),
+                        child: Text(
+                          intl.task_history_delete_task_confirmation_confirm,
+                        ),
                       ),
                       TextButton(
                         onPressed: () {
                           Navigator.of(context).pop();
                           onDelete();
                         },
-                        child: const Text('Eliminar'),
+                        child: Text(
+                          intl.task_history_delete_task_confirmation_cancel,
+                        ),
                       ),
                     ],
                   ),
