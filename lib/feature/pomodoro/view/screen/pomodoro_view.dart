@@ -84,9 +84,9 @@ class _PomodoroViewState extends State<_PomodoroView> {
           value: pomodoroBloc,
           child: AudioConfig(
             updatePlayerAsset: (String? asset) async {
+              Navigator.pop(context);
               if (asset != null) {
                 if (asset != 'mute') {
-                  await AudioConfigSharedPreferences.setAudioConfig(asset);
                   final name = asset.split('/').last;
                   pomodoroBloc.add(UpdatePomodoroSound(asset: name));
 
@@ -94,6 +94,8 @@ class _PomodoroViewState extends State<_PomodoroView> {
                     context,
                     AppLocalizations.of(context)!.change_to_label(name),
                   );
+
+                  await AudioConfigSharedPreferences.setAudioConfig(asset);
                   await player.setAsset(asset);
                 } else {
                   await AudioConfigSharedPreferences.setAudioConfig('');
@@ -101,8 +103,6 @@ class _PomodoroViewState extends State<_PomodoroView> {
                   await player.stop();
                 }
               }
-
-              Navigator.pop(context);
             },
           ),
         );

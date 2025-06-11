@@ -11,7 +11,7 @@ import 'package:pomodoro_flutter/feature/task/domain/usecases/use_cases.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await LocalNotificationService.initialize();
-  _insertDependecies();
+  await _insertDependecies();
 
   runApp(const MainApp());
 }
