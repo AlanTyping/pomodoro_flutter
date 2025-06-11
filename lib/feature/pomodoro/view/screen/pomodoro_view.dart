@@ -14,10 +14,10 @@ class _PomodoroViewState extends State<_PomodoroView> {
   @override
   void initState() {
     super.initState();
-    startPomodoro();
+    startPomodoroAudio();
   }
 
-  Future<void> startPomodoro() async {
+  Future<void> startPomodoroAudio() async {
     await player.setAsset(_defaultAudioAsset);
     await player.setLoopMode(LoopMode.one);
     await player.setVolume(0.5);
@@ -32,7 +32,6 @@ class _PomodoroViewState extends State<_PomodoroView> {
             if (!state.isResting && state.audioAsset != null) {
               switch (state.status) {
                 case PomodoroStatus.initial:
-                  await player.setLoopMode(LoopMode.one);
                   break;
                 case PomodoroStatus.running:
                   await player.play();
@@ -87,6 +86,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
             updatePlayerAsset: (String? asset) async {
               if (asset != null) {
                 if (asset != 'mute') {
+                  await AudioConfigSharedPreferences.setAudioConfig(asset);
                   final name = asset.split('/').last;
                   pomodoroBloc.add(UpdatePomodoroSound(asset: name));
 
@@ -94,8 +94,9 @@ class _PomodoroViewState extends State<_PomodoroView> {
                     context,
                     AppLocalizations.of(context)!.change_to_label(name),
                   );
-                  player.setAsset(asset);
+                  await player.setAsset(asset);
                 } else {
+                  await AudioConfigSharedPreferences.setAudioConfig('');
                   pomodoroBloc.add(MutePomodoroSound());
                   await player.stop();
                 }

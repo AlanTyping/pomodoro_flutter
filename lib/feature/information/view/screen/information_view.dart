@@ -75,6 +75,7 @@ final class _InformationView extends StatelessWidget {
             Text('Alan Nicolás Rosales', style: textTheme.titleSmall),
             Text('Anthony Hernandez Flores', style: textTheme.titleSmall),
             Text('Junior', style: textTheme.titleSmall),
+            const SizedBox(height: 5),
           ],
         ),
       ),

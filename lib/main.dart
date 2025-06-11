@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pomodoro_flutter/app.dart';
 import 'package:pomodoro_flutter/core/notifications/notification_api.dart';
+import 'package:pomodoro_flutter/feature/pomodoro/data/audio_config_shared_preferences.dart';
 import 'package:pomodoro_flutter/feature/task/data/repository/task_repository_impl.dart';
 import 'package:pomodoro_flutter/feature/task/data/usecases/use_cases.dart';
 import 'package:pomodoro_flutter/feature/task/domain/repository/task_repository.dart';
@@ -15,10 +16,13 @@ void main() async {
   runApp(const MainApp());
 }
 
-void _insertDependecies() {
+Future<void> _insertDependecies() async {
+  await AudioConfigSharedPreferences.init();
+
   GetIt.instance.registerSingleton<TaskRepository>(TaskRepositoryImpl());
 
   final taskRepo = GetIt.I.get<TaskRepository>();
+
   GetIt.instance.registerSingleton<GetAllTasksUsecase>(
     SqlGetAllTasksUsecase(taskRepo),
   );

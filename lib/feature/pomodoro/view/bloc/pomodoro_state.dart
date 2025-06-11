@@ -21,7 +21,6 @@ abstract class PomodoroState with _$PomodoroState {
     cycle: Cycle.first,
     timer: Duration(minutes: 25),
     status: PomodoroStatus.initial,
-    audioAsset: 'assets/audio/rain.m4a',
     cyclesData: {
       Cycle.first: 0,
       Cycle.second: 0,

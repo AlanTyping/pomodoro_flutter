@@ -7,6 +7,7 @@ import 'package:get_it/get_it.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:pomodoro_flutter/core/utils/show_snackbar.dart';
 import 'package:pomodoro_flutter/feature/information/view/screen/information_page.dart';
+import 'package:pomodoro_flutter/feature/pomodoro/data/audio_config_shared_preferences.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/view/bloc/pomodoro_bloc.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/view/bloc/pomodoro_state.dart';
 import 'package:pomodoro_flutter/feature/pomodoro/view/widgets/audio_config.dart';
