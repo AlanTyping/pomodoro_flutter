@@ -5,28 +5,28 @@ class AudioConfigButton extends StatelessWidget {
   final IconData icon;
   final String title;
   final VoidCallback onPressed;
+  final bool isSelected;
+
   const AudioConfigButton({
     super.key,
     required this.icon,
     required this.title,
     required this.onPressed,
+    this.isSelected = false,
   });
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    final brightnessDark =
-        View.of(context).platformDispatcher.platformBrightness ==
-                Brightness.dark
-            ? true
-            : false;
 
     return TextButton.icon(
       onPressed: onPressed,
       style: TextButton.styleFrom(
         alignment: Alignment.centerLeft,
         backgroundColor:
-            brightnessDark ? colorScheme.onPrimary : colorScheme.surface,
+            isSelected
+                ? colorScheme.primaryContainer
+                : colorScheme.secondaryContainer,
         foregroundColor: colorScheme.onSecondaryContainer,
         iconColor: colorScheme.onSecondaryContainer,
         iconSize: 30,
@@ -34,25 +34,14 @@ class AudioConfigButton extends StatelessWidget {
         padding: const EdgeInsets.only(left: 16, top: 12, bottom: 12),
         minimumSize: const Size.fromHeight(20),
       ),
-      icon: CircleAvatar(
-        backgroundColor:
-            brightnessDark ? colorScheme.inverseSurface : colorScheme.primary,
-        child: Icon(
-          icon,
-          color: brightnessDark ? colorScheme.onPrimary : colorScheme.surface,
-        ),
-      ),
+      icon: CircleAvatar(child: Icon(icon)),
       label: Padding(
         padding: const EdgeInsets.only(left: 12),
         child: Text(
           title,
-          style: Theme.of(context).textTheme.labelLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-            color:
-                brightnessDark
-                    ? colorScheme.inverseSurface
-                    : colorScheme.primary,
-          ),
+          style: Theme.of(
+            context,
+          ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
       ),
     );

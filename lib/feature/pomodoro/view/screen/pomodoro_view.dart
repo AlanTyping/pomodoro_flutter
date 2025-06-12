@@ -17,10 +17,21 @@ class _PomodoroViewState extends State<_PomodoroView> {
     startPomodoroAudio();
   }
 
-  Future<void> startPomodoroAudio() async {
-    await player.setAsset(_defaultAudioAsset);
+  void startPomodoroAudio() async {
+    final configSoundValue = GetIt.I.get<SharedPreferences>().getString(
+      audioConfigKey,
+    );
+    log("Get from Prefs: $configSoundValue");
+
+    if (configSoundValue case final value? when value.isNotEmpty) {
+      await player.setAsset(value);
+    } else {
+      await player.setAsset(_defaultAudioAsset);
+      await player.stop();
+    }
+
     await player.setLoopMode(LoopMode.one);
-    await player.setVolume(0.5);
+    await player.setVolume(0.4);
   }
 
   @override
@@ -52,7 +63,7 @@ class _PomodoroViewState extends State<_PomodoroView> {
             children: [
               Expanded(flex: 1, child: _UpperButtons()),
               Expanded(flex: 2, child: Center(child: _TitleWidget())),
-              Expanded(flex: 4, child: _FillingBoxAnimation()),
+              Expanded(flex: 5, child: _FillingBoxAnimation()),
               Expanded(flex: 3, child: _ActionButtons()),
             ],
           ),
@@ -60,15 +71,12 @@ class _PomodoroViewState extends State<_PomodoroView> {
       ),
       floatingActionButton: FloatingActionButton.small(
         onPressed: () => _audioDialogBuilder(context),
-        elevation: 0,
-        backgroundColor: Theme.of(context).colorScheme.onSecondary,
-        child: BlocBuilder<PomodoroBloc, PomodoroState>(
-          builder: (context, state) {
-            if (state.audioAsset != null) {
-              return const Icon(Icons.volume_up_outlined);
-            }
-            return const Icon(Icons.volume_off);
-          },
+        child: BlocSelector<PomodoroBloc, PomodoroState, bool>(
+          selector: (state) => state.audioAsset != null,
+          builder:
+              (context, hasAudioState) => Icon(
+                hasAudioState ? Icons.volume_up_outlined : Icons.volume_off,
+              ),
         ),
       ),
     );
@@ -84,24 +92,19 @@ class _PomodoroViewState extends State<_PomodoroView> {
           value: pomodoroBloc,
           child: AudioConfig(
             updatePlayerAsset: (String? asset) async {
-              Navigator.pop(context);
               if (asset != null) {
-                if (asset != 'mute') {
-                  final name = asset.split('/').last;
-                  pomodoroBloc.add(UpdatePomodoroSound(asset: name));
+                final name = asset.split('/').last;
+                pomodoroBloc.add(UpdatePomodoroSound(asset: asset));
 
-                  showSnackBar(
-                    context,
-                    AppLocalizations.of(context)!.change_to_label(name),
-                  );
+                showSnackBar(
+                  context,
+                  AppLocalizations.of(context)!.change_to_label(name),
+                );
 
-                  await AudioConfigSharedPreferences.setAudioConfig(asset);
-                  await player.setAsset(asset);
-                } else {
-                  await AudioConfigSharedPreferences.setAudioConfig('');
-                  pomodoroBloc.add(MutePomodoroSound());
-                  await player.stop();
-                }
+                await player.setAsset(asset);
+              } else {
+                pomodoroBloc.add(MutePomodoroSound());
+                await player.stop();
               }
             },
           ),

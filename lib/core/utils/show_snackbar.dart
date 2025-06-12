@@ -6,7 +6,7 @@ void showSnackBar(BuildContext context, String message) {
     ..showSnackBar(
       SnackBar(
         content: Text(message),
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme.of(context).colorScheme.primaryContainer,
       ),
     );
 }

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
@@ -19,7 +20,7 @@ class LocalNotificationService {
     await _notificationsPlugin.initialize(
       settings,
       onDidReceiveNotificationResponse: (NotificationResponse response) {
-        print('Notificación tocada: ${response.payload}');
+        log('Notificación tocada: ${response.payload}');
       },
     );
 
@@ -33,7 +34,7 @@ class LocalNotificationService {
               >()
               ?.requestNotificationsPermission();
 
-      print('Permiso Android concedido: $granted');
+      log('Permiso Android concedido: $granted');
     }
 
     if (Platform.isIOS) {
@@ -43,7 +44,7 @@ class LocalNotificationService {
           >()
           ?.requestPermissions(alert: true, badge: true, sound: true);
 
-      print('Permisos iOS concedidos: $granted');
+      log('Permisos iOS concedidos: $granted');
     }
   }
 

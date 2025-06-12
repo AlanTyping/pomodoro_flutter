@@ -1,5 +1,8 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:get_it/get_it.dart';
+import 'package:pomodoro_flutter/core/constants.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'pomodoro_state.freezed.dart';
 
@@ -17,9 +20,9 @@ abstract class PomodoroState with _$PomodoroState {
     required PomodoroStatus status,
   }) = _PomodoroState;
 
-  factory PomodoroState.initial() => const PomodoroState(
+  factory PomodoroState.initial() => PomodoroState(
     cycle: Cycle.first,
-    timer: Duration(minutes: 25),
+    timer: const Duration(minutes: 25),
     status: PomodoroStatus.initial,
     cyclesData: {
       Cycle.first: 0,
@@ -27,5 +30,6 @@ abstract class PomodoroState with _$PomodoroState {
       Cycle.third: 0,
       Cycle.fourth: 0,
     },
+    audioAsset: GetIt.I.get<SharedPreferences>().getString(audioConfigKey),
   );
 }

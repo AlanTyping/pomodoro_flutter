@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:pomodoro_flutter/core/constants.dart';
 import 'package:pomodoro_flutter/core/notifications/notification_api.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 import 'package:pomodoro_flutter/feature/task/domain/usecases/insert_task_usecase.dart';
 import 'package:pomodoro_flutter/l10n/l10n.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import './pomodoro_state.dart';
 
@@ -18,8 +20,8 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   static const Duration restDuration = Duration(minutes: 5);
 
   StreamSubscription<int>? _streamSubscription;
-  final InsertTaskUsecase _saveTaskUseCase =
-      GetIt.instance.get<InsertTaskUsecase>();
+  final InsertTaskUsecase _saveTaskUseCase = GetIt.I.get<InsertTaskUsecase>();
+  final prefs = GetIt.I.get<SharedPreferences>();
 
   PomodoroBloc() : super(PomodoroState.initial()) {
     on<StartPomodoro>(_onStart);
@@ -32,12 +34,8 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
       (event, emit) => emit(state.copyWith(title: event.title)),
     );
     on<FinishPomodoro>(_onFinish);
-    on<UpdatePomodoroSound>(
-      (event, emit) => emit(state.copyWith(audioAsset: event.asset)),
-    );
-    on<MutePomodoroSound>(
-      (event, emit) => emit(state.copyWith(audioAsset: null)),
-    );
+    on<UpdatePomodoroSound>(_onUpdateSoundAsset);
+    on<MutePomodoroSound>(_onMutePomodoro);
   }
 
   Cycle get _getNextCycle {
@@ -207,13 +205,24 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   Map<Cycle, int> get _updatedCycleData {
     final newCycleData = Map<Cycle, int>.from(state.cyclesData)
       ..[state.cycle] = workDuration.inSeconds - state.timer.inSeconds;
-    // ..[state.cycle] =
-    //     state.isResting
-    //         ? (restDuration.inSeconds - state.timer.inSeconds) +
-    //             workDuration.inSeconds
-    //         : (workDuration.inSeconds - state.timer.inSeconds);
 
     return newCycleData;
+  }
+
+  Future<void> _onUpdateSoundAsset(
+    UpdatePomodoroSound event,
+    Emitter<PomodoroState> emit,
+  ) async {
+    prefs.setString(audioConfigKey, event.asset);
+    emit(state.copyWith(audioAsset: event.asset));
+  }
+
+  Future<void> _onMutePomodoro(
+    MutePomodoroSound event,
+    Emitter<PomodoroState> emit,
+  ) async {
+    prefs.remove(audioConfigKey);
+    emit(state.copyWith(audioAsset: null));
   }
 
   @override

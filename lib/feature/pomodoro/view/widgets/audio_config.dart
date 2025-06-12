@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
+import 'package:pomodoro_flutter/core/constants.dart';
 import 'package:pomodoro_flutter/l10n/l10n.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'audio_config_button.dart';
 
@@ -18,18 +21,16 @@ class _AudioConfigState extends State<AudioConfig> {
   @override
   void initState() {
     super.initState();
-    selectedAudio = null;
+    selectedAudio = GetIt.I.get<SharedPreferences>().getString(audioConfigKey);
   }
+
+  void setAudio([String? audioPath]) =>
+      setState(() => selectedAudio = audioPath);
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     final intl = AppLocalizations.of(context)!;
-    final brightnessDark =
-        View.of(context).platformDispatcher.platformBrightness ==
-                Brightness.dark
-            ? true
-            : false;
 
     return Dialog(
       child: Container(
@@ -37,58 +38,42 @@ class _AudioConfigState extends State<AudioConfig> {
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: brightnessDark ? colorScheme.surface : colorScheme.primary,
+          color: colorScheme.surface,
         ),
         child: Column(
           spacing: 8,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             AudioConfigButton(
-              onPressed: () => {selectedAudio = 'mute'},
+              onPressed: () => setAudio(),
               icon: Icons.music_off_rounded,
               title: intl.audio_config_btn_without_audio,
+              isSelected: selectedAudio == null,
             ),
-            Divider(
-              height: 2,
-              color:
-                  brightnessDark ? colorScheme.primary : colorScheme.onPrimary,
-            ),
+            const Divider(height: 4),
             AudioConfigButton(
-              onPressed:
-              // () => context.read<PomodoroBloc>().add(
-              //   UpdatePomodoroSound(asset: 'assets/audio/fire.m4a'),
-              // ),
-              () {
-                selectedAudio = 'assets/audio/fire.m4a';
-              },
+              onPressed: () => setAudio('assets/audio/fire.m4a'),
               icon: Icons.fireplace,
               title: intl.audio_config_btn_fire,
+              isSelected: selectedAudio?.contains('fire') ?? false,
             ),
             AudioConfigButton(
-              onPressed:
-              // () => context.read<PomodoroBloc>().add(
-              //   UpdatePomodoroSound(asset: 'assets/audio/water.m4a'),
-              // ),
-              () {
-                selectedAudio = 'assets/audio/water.m4a';
-              },
+              onPressed: () => setAudio('assets/audio/water.m4a'),
               icon: Icons.water_drop_rounded,
               title: intl.audio_config_btn_drip,
+              isSelected: selectedAudio?.contains('water') ?? false,
             ),
             AudioConfigButton(
-              onPressed:
-              // () => context.read<PomodoroBloc>().add(
-              //   UpdatePomodoroSound(asset: 'assets/audio/rain.m4a'),
-              // ),
-              () {
-                selectedAudio = 'assets/audio/rain.m4a';
-              },
+              onPressed: () => setAudio('assets/audio/rain.m4a'),
               icon: Icons.waterfall_chart_rounded,
               title: intl.audio_config_btn_rain,
+              isSelected: selectedAudio?.contains('rain') ?? false,
             ),
             ElevatedButton(
               onPressed: () {
                 widget.updatePlayerAsset(selectedAudio);
+
+                Navigator.of(context).pop();
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size.fromHeight(70),
@@ -99,21 +84,12 @@ class _AudioConfigState extends State<AudioConfig> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadiusGeometry.circular(10),
                 ),
-                backgroundColor:
-                    brightnessDark
-                        ? colorScheme.secondaryContainer
-                        : colorScheme.onPrimary,
-                foregroundColor: colorScheme.onPrimaryContainer,
               ),
               child: Text(
                 intl.audio_config_btn_save,
-                style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color:
-                      brightnessDark
-                          ? colorScheme.inverseSurface
-                          : colorScheme.surface,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyLarge!.copyWith(fontWeight: FontWeight.bold),
               ),
             ),
           ],
