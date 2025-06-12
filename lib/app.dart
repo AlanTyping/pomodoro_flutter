@@ -10,12 +10,12 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final brightness = View.of(context).platformDispatcher.platformBrightness;
     PomodoroTheme theme = PomodoroTheme(
-      createTextTheme(context, 'Nokora', 'Alike'),
+      createTextTheme(context, 'Poppins', 'Alike'),
     );
 
     return MaterialApp(
-      onGenerateTitle: (context) => AppLocalizations.of(context)!.app_name,
       theme: brightness == Brightness.dark ? theme.dark() : theme.light(),
+      onGenerateTitle: (context) => AppLocalizations.of(context)!.app_name,
       home: const PomodoroPage(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
