@@ -6,15 +6,10 @@ class _TaskHistoryView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final intl = AppLocalizations.of(context)!;
-    final colorScheme = Theme.of(context).colorScheme;
+    // final colorScheme = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          intl.task_history_appbar_title,
-          style: TextStyle(color: colorScheme.primary),
-        ),
-      ),
+      appBar: AppBar(title: Text(intl.task_history_appbar_title)),
       body: SafeArea(
         child: BlocBuilder<TaskHistoryCubit, TaskHistoryState>(
           builder: (context, state) {
@@ -78,7 +73,7 @@ class _DateFilterButton extends StatelessWidget {
     return BlocSelector<TaskHistoryCubit, TaskHistoryState, DateTime?>(
       selector: (state) => state.dateFilter,
       builder: (context, dateFilter) {
-        final colorScheme = Theme.of(context).colorScheme;
+        // final colorScheme = Theme.of(context).colorScheme;
 
         return IconButton(
           onPressed: () async {
@@ -91,7 +86,7 @@ class _DateFilterButton extends StatelessWidget {
 
             cubit.changeDateFilter(date);
           },
-          icon: Icon(Icons.calendar_today, color: colorScheme.primary),
+          icon: const Icon(Icons.calendar_today),
         );
       },
     );
@@ -112,8 +107,17 @@ class _FilterActionButtons extends StatelessWidget {
       children: [
         Expanded(
           child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              backgroundColor: colorScheme.outline,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
             onPressed: cubit.applyFilters,
-            child: Text(intl.task_history_apply_filters_button),
+            child: Text(
+              intl.task_history_apply_filters_button,
+              style: const TextStyle(color: Colors.white),
+            ),
           ),
         ),
         IconButton.filled(

@@ -13,7 +13,7 @@ class _NameFilterField extends StatelessWidget {
       onChanged: context.read<TaskHistoryCubit>().changeNameFilter,
       decoration: InputDecoration(
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(10),
           borderSide: BorderSide(color: colorScheme.outline),
         ),
         labelText: intl.task_history_input_labelText,

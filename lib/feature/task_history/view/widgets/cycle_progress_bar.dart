@@ -10,7 +10,7 @@ class CycleProgressBar extends StatelessWidget {
     final colorScheme = Theme.of(context).colorScheme;
     Icon icon;
     if (percentage == 1.0) {
-      icon = Icon(Icons.check, color: colorScheme.primary);
+      icon = Icon(Icons.check, color: colorScheme.secondary);
     } else if (percentage == 0.0) {
       icon = const Icon(Icons.close, color: Colors.red);
     } else {
@@ -27,7 +27,7 @@ class CycleProgressBar extends StatelessWidget {
           widthFactor: percentage,
           alignment: Alignment.centerLeft,
           child: ColoredBox(
-            color: colorScheme.primary,
+            color: colorScheme.secondary,
             child: const SizedBox(height: 50),
           ),
         ),

@@ -39,9 +39,10 @@ class AudioConfigButton extends StatelessWidget {
         padding: const EdgeInsets.only(left: 12),
         child: Text(
           title,
-          style: Theme.of(
-            context,
-          ).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.bold),
+          style: Theme.of(context).textTheme.labelLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
       ),
     );

@@ -38,13 +38,22 @@ class _FillingBoxAnimation extends StatelessWidget {
             ),
 
             Center(
-              child: Text(
-                '${(timer.inSeconds ~/ 60).toString().padLeft(2, '0')}:${(timer.inSeconds.remainder(60).toString().padLeft(2, '0'))}',
-                style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                  color:
-                      isResting
-                          ? colorScheme.onTertiaryContainer
-                          : colorScheme.onPrimaryContainer,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: colorScheme.surface,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    '${(timer.inSeconds ~/ 60).toString().padLeft(2, '0')}:${(timer.inSeconds.remainder(60).toString().padLeft(2, '0'))}',
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      color:
+                          isResting
+                              ? colorScheme.tertiary
+                              : colorScheme.primary,
+                    ),
+                  ),
                 ),
               ),
             ),
