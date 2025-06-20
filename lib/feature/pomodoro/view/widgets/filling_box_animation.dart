@@ -29,8 +29,8 @@ class _FillingBoxAnimation extends StatelessWidget {
                       total: totalSeconds.inSeconds,
                       fillColor:
                           isResting
-                              ? colorScheme.tertiary
-                              : colorScheme.primary,
+                              ? colorScheme.tertiaryContainer
+                              : colorScheme.primaryContainer,
                       current: currentSeconds,
                       unFillColor: colorScheme.surface,
                     ),
@@ -43,8 +43,8 @@ class _FillingBoxAnimation extends StatelessWidget {
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
                   color:
                       isResting
-                          ? colorScheme.onTertiary
-                          : colorScheme.onPrimary,
+                          ? colorScheme.onTertiaryContainer
+                          : colorScheme.onPrimaryContainer,
                 ),
               ),
             ),

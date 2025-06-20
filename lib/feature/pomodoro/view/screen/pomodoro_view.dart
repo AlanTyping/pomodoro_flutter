@@ -149,9 +149,9 @@ class _TitleWidget extends StatelessWidget {
                   contentPadding: const EdgeInsets.symmetric(horizontal: 24),
                   constraints: BoxConstraints.loose(const Size(300, 60)),
                 ),
-                style: Theme.of(
-                  context,
-                ).textTheme.bodyMedium?.copyWith(color: colorScheme.onPrimary),
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onPrimaryContainer,
+                ),
                 onChanged:
                     (value) => context.read<PomodoroBloc>().add(
                       UpdateTitlePomodoro(value),
@@ -162,9 +162,9 @@ class _TitleWidget extends StatelessWidget {
         } else {
           return Text(
             state.title ?? 'N/A',
-            style: Theme.of(
-              context,
-            ).textTheme.titleLarge?.copyWith(color: colorScheme.onPrimary),
+            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+              color: colorScheme.onSecondaryContainer,
+            ),
           );
         }
       },
@@ -177,6 +177,8 @@ class _UpperButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const iconSize = 27.0;
+
     return BlocBuilder<PomodoroBloc, PomodoroState>(
       builder: (context, state) {
         final colorScheme = Theme.of(context).colorScheme;
@@ -188,7 +190,7 @@ class _UpperButtons extends StatelessWidget {
             IconButton(
               onPressed:
                   () => Navigator.of(context).push(InformationPage.route()),
-              iconSize: 25,
+              iconSize: iconSize,
               color: backgroundColor,
               icon: const Icon(Icons.info),
             ),
@@ -196,7 +198,7 @@ class _UpperButtons extends StatelessWidget {
             IconButton(
               onPressed:
                   () => Navigator.of(context).push(TaskHistoryPage.route()),
-              iconSize: 25,
+              iconSize: iconSize,
               color: backgroundColor,
               icon: const Icon(Icons.article),
             ),
