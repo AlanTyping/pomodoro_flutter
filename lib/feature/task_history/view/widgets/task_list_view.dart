@@ -1,9 +1,7 @@
 part of '../screen/task_history_page.dart';
+
 class _TaskListView extends StatelessWidget {
-  const _TaskListView({
-    required this.tasks,
-    required this.onDeleteTask,
-  });
+  const _TaskListView({required this.tasks, required this.onDeleteTask});
 
   final Iterable<Task> tasks;
   final Function(Task) onDeleteTask;
@@ -15,11 +13,8 @@ class _TaskListView extends StatelessWidget {
       separatorBuilder: (context, index) => const SizedBox(height: 16),
       itemCount: tasks.length,
       itemBuilder: (context, index) {
-        final task = tasks.elementAt(index);
-        return _TaskCard(
-          task: task,
-          onDelete: () => onDeleteTask(task),
-        );
+        final task = tasks.elementAt(tasks.length - 1 - index);
+        return _TaskCard(task: task, onDelete: () => onDeleteTask(task));
       },
     );
   }
