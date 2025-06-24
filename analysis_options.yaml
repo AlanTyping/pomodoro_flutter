@@ -1,1 +1,25 @@
 include: package:flutter_lints/flutter.yaml
+
+analyzer:
+  errors:
+    unused_element: ignore
+    depend_on_referenced_packages: ignore
+    unused_element_parameter: ignore
+  plugins:
+    - custom_lint
+
+linter:
+  rules:
+    prefer_const_constructors: true
+    prefer_single_quotes: true
+    prefer_final_fields: true
+    always_declare_return_types: true
+    avoid_print: false
+    prefer_asserts_with_message: true
+    use_key_in_widget_constructors: false
+    camel_case_types: true
+
+dart_code_metrics:
+  metrics:
+    maximun-nesting-level: 5
+    widgets-nesting-level: 5

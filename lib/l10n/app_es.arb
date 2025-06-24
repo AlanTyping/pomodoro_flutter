@@ -1,0 +1,111 @@
+{
+  "@@locale": "es",
+  "@@context": "pomodoro_app",
+  "app_name": "Pomodoro Flutter",
+  "@app_name": {},
+  "pomodoro_title": "Metodo Pomodoro",
+  "@pomodoro_title": {},
+  "task_input_placeholder": "Nueva Tarea",
+  "@task_input_placeholder": {},
+  "btn_start": "Iniciar",
+  "add_new_task_snackbar": "Añade una nueva tarea!",
+  "@btn_start": {},
+  "btn_save_and_restart": "Guardar y Reiniciar",
+  "@btn_save_and_restart": {},
+  "audio_config_btn_without_audio": "sin audio",
+  "@audio_config_btn_without_audio": {},
+  "audio_config_btn_fire": "fuego",
+  "@audio_config_btn_fire": {},
+  "audio_config_btn_drip": "goteo",
+  "@audio_config_btn_drip": {},
+  "audio_config_btn_rain": "lluvia",
+  "@audio_config_btn_rain": {},
+  "audio_config_btn_save": "Guardar",
+  "@audio_config_btn_save": {},
+  "task_card_complete": "Completado",
+  "@task_card_complete": {},
+  "task_card_incomplete": "Incompleto",
+  "@task_card_incomplete": {},
+  "task_history_appbar_title": "Historial",
+  "@task_history_appbar_title": {},
+  "task_history_apply_filters_button": "Aplicar Filtros",
+  "@task_history_apply_filters_button": {},
+  "task_history_input_labelText": "Filtrar por nombre",
+  "@task_history_input_labelText": {},
+  "task_history_input_hintText": "Nombre de la tarea",
+  "@task_history_input_hintText": {},
+    "task_history_delete_task_confirmation_confirm": "Eliminar",
+  "task_history_delete_task_confirmation_cancel": "cancelar",
+  "task_history_delete_task_confirmation": "Deseas borrar esta tarea {taskTitle}?",
+  "@task_history_delete_task_confirmation": {
+    "placeholders": {
+      "taskTitle": {
+        "type": "String"
+      }
+    }
+  },
+  "task_history_input_empyDate": "Seleccionar Fecha",
+  "@task_history_input_empyDate": {},
+  "task_history_input_date": "Fecha: {formatedDate}",
+  "@task_history_input_date": {
+    "placeholders": {
+      "formatedDate": {
+        "type": "String"
+      }
+    }
+  },
+
+  "notification_init_working_session_title": "¡Sesión iniciada!",
+  "@notification_init_working_session_title": {},
+  "notification_init_working_session_description": "Es momento de concentrarse.",
+  "@notification_init_working_session_description": {},
+  "notification_finish_working_session_title": "¡Sesión terminada!",
+  "@notification_finish_working_session_title": {},
+  "notification_finish_working_session_description": "Es momento de descansar.",
+  "@notification_finish_working_session_description": {},
+  "notification_init_resting_session_title": "¡Tiempo de descanso!",
+  "@notification_init_resting_session_title": {},
+  "notification_init_resting_session_description": "Descanso de {restDuration} minutos",
+  "@notification_init_resting_session_description": {
+    "placeholders": {
+      "restDuration": {
+        "type": "int"
+      }
+    }
+  },
+  "notification_finish_resting_session_title": "¡Descanso terminado!",
+  "@notification_finish_resting_session_title": {},
+  "notification_finish_resting_session_description": "Es momento de concentrarse",
+  "@notification_finish_resting_session_description": {},
+  "notification_finish_pomodoro_title": "Pomodoro completado",
+  "@notification_finish_pomodoro_title": {},
+  "notification_finish_pomodoro_description": "Buen trabajo!",
+  "@notification_finish_pomodoro_description": {},
+  "change_to_label": "Cambiado a {asset}",
+  "@change_to_label": {
+    "description": "Texto que dice que se actualizo a otro ASSET",
+    "placeholders":{
+      "asset": {
+        "type": "String",
+        "example": "water.mp3"
+      }
+    }
+  },
+  "pomodoro_description_app_developers_presentation": "Desarrolladores",
+  "pomodoro_description_appbar_title": "Información",
+  "pomodoro_description_first_paragraph": "La Técnica Pomodoro es una estrategia para la gestión del tiempo que se basa en trabajar en sesiones de 25 minutos (llamadas \"pomodoros\") seguidas de breves descansos, para así maximizar la concentración y la productividad. Este método fue desarrollado por Francesco Cirillo en la década de 1980 como estudiante universitario.",
+  "pomodoro_how_works": "Cómo funciona",
+  "pomodoro_1_step_description": "Selección de tareas: Elige una tarea o actividad a realizar",
+  "pomodoro_2_step_description": "Establecer el pomodoro: Configura un temporizador para 25 minutos",
+  "pomodoro_3_step_description": "Trabajar: Durante estos 25 minutos, concéntrate únicamente en la tarea seleccionada, evitando distracciones",
+  "pomodoro_4_step_description": "Descanso breve: Después de 25 minutos, toma un descanso de 5 minutos",
+  "pomodoro_5_step_description": "Repetición: Repite los pasos 1 a 4 cuatro veces consecutivas",
+  "pomodoro_6_step_description": "Descanso más largo: Después de la cuarta sesión (cuatro pomodoros), toma un descanso más largo de 15 a 30 minutos",
+  "pomodoro_7_step_description": "Continuar: Reinicia el ciclo y continúa trabajando en tus tareas",
+  "benefits": "Beneficios",
+  "pomodoro_1_benefit": "Mejor concentración: Las sesiones cortas y los descansos te ayudan a mantener la atención",
+  "pomodoro_2_benefit": "Mayor productividad: Al trabajar en bloques, puedes completar más tareas en menos tiempo",
+  "pomodoro_3_benefit": "Reducción del estrés: Los descansos regulares pueden ayudar a prevenir el agotamiento",
+  "pomodoro_4_benefit": "Mejor organización: La estructura de la técnica te permite planificar mejor tu tiempo y priorizar tus tareas",
+  "pomodoro_5_benefit": "Fácil de implementar: La técnica es sencilla y puede ser adaptada a diversas situaciones y actividades"
+}

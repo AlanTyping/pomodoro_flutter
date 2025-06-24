@@ -1,17 +1,26 @@
+enum Cycle { first, second, third, fourth }
+
 class Task {
   final int? id;
   final String title;
   final DateTime date;
-  final bool status;
-  final Cycle cycle;
+  final bool completed;
+  final Map<Cycle, int> cyclesData;
 
-  Task({
+  const Task({
     this.id,
     required this.title,
     required this.date,
-    required this.status,
-    required this.cycle
+    required this.completed,
+    this.cyclesData = const {
+      Cycle.first: 0,
+      Cycle.second: 0,
+      Cycle.third: 0,
+      Cycle.fourth: 0,
+    },
   });
-}
 
-enum Cycle { first, second, third, fourth }
+  @override
+  String toString() =>
+      'Task ($id, $title, $date, isConpleted: $completed, $cyclesData)';
+}
