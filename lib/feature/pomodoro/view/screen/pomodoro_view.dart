@@ -153,15 +153,15 @@ class _TitleWidget extends StatelessWidget {
                   counterText: '',
                   hintText:
                       AppLocalizations.of(context)!.task_input_placeholder,
-                  hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
-                  ),
+                  hintStyle: Theme.of(
+                    context,
+                  ).textTheme.bodyMedium?.copyWith(color: colorScheme.primary),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 24),
                   constraints: BoxConstraints.loose(const Size(300, 60)),
                 ),
-                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                  color: colorScheme.onPrimaryContainer,
-                ),
+                style: Theme.of(
+                  context,
+                ).textTheme.bodyMedium?.copyWith(color: colorScheme.primary),
                 onChanged:
                     (value) => context.read<PomodoroBloc>().add(
                       UpdateTitlePomodoro(value),
