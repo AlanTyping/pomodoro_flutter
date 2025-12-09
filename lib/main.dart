@@ -23,15 +23,15 @@ Future<void> _insertDependecies() async {
   final taskRepo = GetIt.I.get<TaskRepository>();
 
   GetIt.instance.registerSingleton<GetAllTasksUsecase>(
-    SqlGetAllTasksUsecase(taskRepo),
+    GetAllTasksUsecaseImpl(taskRepo),
   );
 
   GetIt.instance.registerSingleton<DeleteTaskUsecase>(
-    SqlDeleteTaskUsecase(taskRepo),
+    DeleteTaskUsecaseImpl(taskRepo),
   );
 
   GetIt.instance.registerSingleton<InsertTaskUsecase>(
-    SqlInsertTaskUsecase(taskRepo),
+    InsertTaskUsecaseImpl(taskRepo),
   );
 
   // SharedPreferences

@@ -9,7 +9,7 @@ class _PomodoroView extends StatefulWidget {
 
 class _PomodoroViewState extends State<_PomodoroView> {
   final player = AudioPlayer();
-  final String _defaultAudioAsset = 'assets/audio/rain.m4a';
+  final String _defaultAudioAsset = 'assets/audio/fire.m4a';
 
   @override
   void initState() {

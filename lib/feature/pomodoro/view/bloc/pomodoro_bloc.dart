@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pomodoro_flutter/core/constants.dart';
+import 'package:pomodoro_flutter/core/foreground_service/foreground_service.dart';
 import 'package:pomodoro_flutter/core/notifications/notification_api.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 import 'package:pomodoro_flutter/feature/task/domain/usecases/insert_task_usecase.dart';
@@ -43,7 +45,10 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
     return Cycle.values[nextOrdinal];
   }
 
-  void _onStart(StartPomodoro event, Emitter<PomodoroState> emit) {
+  Future<void> _onStart(
+    StartPomodoro event,
+    Emitter<PomodoroState> emit,
+  ) async {
     final timer = state.isResting ? restDuration : workDuration;
 
     emit(state.copyWith(status: PomodoroStatus.running));
@@ -54,10 +59,10 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
       timer,
     ).listen((value) => add(_TickPomodoro(value)));
 
-    emmitNotification(
-      title: l10n.notification_init_working_session_title,
-      description: l10n.notification_init_working_session_description,
-    );
+    // emmitNotification(
+    //   title: l10n.notification_init_working_session_title,
+    //   description: l10n.notification_init_working_session_description,
+    // );
   }
 
   void _onTick(_TickPomodoro event, Emitter<PomodoroState> emit) {

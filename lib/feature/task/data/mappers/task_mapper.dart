@@ -5,6 +5,7 @@ import '../models/task_model.dart';
 final class TaskMapper {
   final totalDuration = const Duration(minutes: 30).inSeconds;
 
+  // testeado
   Task fromModel(TaskModel model) {
     final isCompleted =
         model.secondsFirstCycle == totalDuration &&
@@ -26,10 +27,16 @@ final class TaskMapper {
     );
   }
 
+  List<TaskModel> fromJsonList(List<Map<String, dynamic>> list) {
+    return list.map((e) => TaskModel.fromJson(e)).toList();
+  }
+
+  // testeado
   List<Task> fromListModel(List<TaskModel> list) {
     return list.map((e) => fromModel(e)).toList();
   }
 
+  // testeado
   TaskModel fromTask(Task task) {
     final cyclesData = task.cyclesData.values;
 

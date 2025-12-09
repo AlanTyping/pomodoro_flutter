@@ -1,0 +1,10 @@
+{
+  "configurations": [
+    {
+      "name": "All Tests",
+      "request": "launch",
+      "type": "dart",
+      "program": "test"
+    }
+  ]
+}

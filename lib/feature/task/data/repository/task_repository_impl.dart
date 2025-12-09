@@ -1,6 +1,5 @@
 import 'package:pomodoro_flutter/feature/task/data/datasource/task_local_datasource.dart';
 import 'package:pomodoro_flutter/feature/task/data/mappers/task_mapper.dart';
-import 'package:pomodoro_flutter/feature/task/data/models/task_model.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart'
     show Task;
 import 'package:pomodoro_flutter/feature/task/domain/repository/task_repository.dart';
@@ -17,17 +16,19 @@ class TaskRepositoryImpl implements TaskRepository {
 
   @override
   Future<List<Task>> getAllTasks() async {
+    // 1. establecer base de datos
     final db = await _database;
 
+    // 2. hacer query para recibir tareas en json
     final List<Map<String, dynamic>> queryResult = await db.rawQuery(
       'SELECT * FROM $taskTableName',
     );
 
-    final listModels =
-        queryResult
-            .map((objectJson) => TaskModel.fromJson(objectJson))
-            .toList();
+    // mapear de List<json> a List<TaskModel>
+    final listModels = TaskMapper().fromJsonList(queryResult);
 
+    // 3 mapearlas y retornar
+    // retornar List<Task>
     return TaskMapper().fromListModel(listModels);
   }
 
