@@ -6,8 +6,8 @@ part 'task_history_state.freezed.dart';
 @freezed
 abstract class TaskHistoryState with _$TaskHistoryState {
   const factory TaskHistoryState({
-    required List<Task> tasks,
-    required List<Task> filteredTasks,
+    required List<TaskEntity> tasks,
+    required List<TaskEntity> filteredTasks,
     String? nameFilter,
     DateTime? dateFilter,
     @Default(false) bool isLoading,

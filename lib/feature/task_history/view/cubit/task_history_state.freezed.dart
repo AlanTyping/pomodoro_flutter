@@ -14,8 +14,8 @@ T _$identity<T>(T value) => value;
 
 /// @nodoc
 mixin _$TaskHistoryState {
-  List<Task> get tasks;
-  List<Task> get filteredTasks;
+  List<TaskEntity> get tasks;
+  List<TaskEntity> get filteredTasks;
   String? get nameFilter;
   DateTime? get dateFilter;
   bool get isLoading;
@@ -72,8 +72,8 @@ abstract mixin class $TaskHistoryStateCopyWith<$Res> {
   ) = _$TaskHistoryStateCopyWithImpl;
   @useResult
   $Res call({
-    List<Task> tasks,
-    List<Task> filteredTasks,
+    List<TaskEntity> tasks,
+    List<TaskEntity> filteredTasks,
     String? nameFilter,
     DateTime? dateFilter,
     bool isLoading,
@@ -105,12 +105,12 @@ class _$TaskHistoryStateCopyWithImpl<$Res>
             null == tasks
                 ? _self.tasks
                 : tasks // ignore: cast_nullable_to_non_nullable
-                    as List<Task>,
+                    as List<TaskEntity>,
         filteredTasks:
             null == filteredTasks
                 ? _self.filteredTasks
                 : filteredTasks // ignore: cast_nullable_to_non_nullable
-                    as List<Task>,
+                    as List<TaskEntity>,
         nameFilter:
             freezed == nameFilter
                 ? _self.nameFilter
@@ -135,25 +135,25 @@ class _$TaskHistoryStateCopyWithImpl<$Res>
 
 class _TaskHistoryState implements TaskHistoryState {
   const _TaskHistoryState({
-    required final List<Task> tasks,
-    required final List<Task> filteredTasks,
+    required final List<TaskEntity> tasks,
+    required final List<TaskEntity> filteredTasks,
     this.nameFilter,
     this.dateFilter,
     this.isLoading = false,
   }) : _tasks = tasks,
        _filteredTasks = filteredTasks;
 
-  final List<Task> _tasks;
+  final List<TaskEntity> _tasks;
   @override
-  List<Task> get tasks {
+  List<TaskEntity> get tasks {
     if (_tasks is EqualUnmodifiableListView) return _tasks;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_tasks);
   }
 
-  final List<Task> _filteredTasks;
+  final List<TaskEntity> _filteredTasks;
   @override
-  List<Task> get filteredTasks {
+  List<TaskEntity> get filteredTasks {
     if (_filteredTasks is EqualUnmodifiableListView) return _filteredTasks;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_filteredTasks);
@@ -219,8 +219,8 @@ abstract mixin class _$TaskHistoryStateCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    List<Task> tasks,
-    List<Task> filteredTasks,
+    List<TaskEntity> tasks,
+    List<TaskEntity> filteredTasks,
     String? nameFilter,
     DateTime? dateFilter,
     bool isLoading,
@@ -252,12 +252,12 @@ class __$TaskHistoryStateCopyWithImpl<$Res>
             null == tasks
                 ? _self._tasks
                 : tasks // ignore: cast_nullable_to_non_nullable
-                    as List<Task>,
+                    as List<TaskEntity>,
         filteredTasks:
             null == filteredTasks
                 ? _self._filteredTasks
                 : filteredTasks // ignore: cast_nullable_to_non_nullable
-                    as List<Task>,
+                    as List<TaskEntity>,
         nameFilter:
             freezed == nameFilter
                 ? _self.nameFilter

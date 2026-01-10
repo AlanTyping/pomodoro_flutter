@@ -1,63 +1,77 @@
-import 'package:pomodoro_flutter/feature/task/data/datasource/task_local_datasource.dart';
+import 'package:fpdart/fpdart.dart';
+import 'package:pomodoro_flutter/core/failure.dart';
+import 'package:pomodoro_flutter/feature/task/data/datasource/task_local_datasource_impl.dart';
 import 'package:pomodoro_flutter/feature/task/data/mappers/task_mapper.dart';
-import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart'
-    show Task;
+import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 import 'package:pomodoro_flutter/feature/task/domain/repository/task_repository.dart';
-import 'package:sqflite/sqflite.dart';
 
 class TaskRepositoryImpl implements TaskRepository {
-  //Instancia a la base de datos
-  final SQLiteTaskLocalDatasource localDatasource = SQLiteTaskLocalDatasource();
-
-  //en una variable manejamos la instancia de la inicializacion
-  Future<Database> get _database async => await localDatasource.getDataBase();
-
-  static const taskTableName = 'taskTable';
+  final SqfLiteTaskLocalDatasource localDatasource;
+  final TaskMapper mapper;
+  const TaskRepositoryImpl(this.localDatasource, {required this.mapper});
 
   @override
-  Future<List<Task>> getAllTasks() async {
-    // 1. establecer base de datos
-    final db = await _database;
+  Future<Either<Failure, List<TaskEntity>>> getAllTasks() async {
+    try {
+      final queryResult = await localDatasource.getAllTasksJson();
+      final listModels = mapper.fromJsonList(queryResult);
 
-    // 2. hacer query para recibir tareas en json
-    final List<Map<String, dynamic>> queryResult = await db.rawQuery(
-      'SELECT * FROM $taskTableName',
-    );
-
-    // mapear de List<json> a List<TaskModel>
-    final listModels = TaskMapper().fromJsonList(queryResult);
-
-    // 3 mapearlas y retornar
-    // retornar List<Task>
-    return TaskMapper().fromListModel(listModels);
+      return right(mapper.fromListModel(listModels));
+    } catch (e) {
+      return left(DatabaseFailure(e.toString()));
+    }
   }
 
   @override
-  Future<void> insertTask(Task task) async {
-    final db = await _database;
+  Future<Either<Failure, int>> insertTask(TaskEntity task) async {
+    try {
+      final data = mapper.fromTask(task);
 
-    final data = TaskMapper().fromTask(task);
+      final result = await localDatasource.insertTask(data.toJson());
 
-    await db.insert(taskTableName, data.toJson());
+      if (result == 0) {
+        return left(
+          const DatabaseFailure('No se pudo insertar la tarea correctamente'),
+        );
+      }
+
+      return right(result);
+    } catch (e) {
+      return left(DatabaseFailure(e.toString()));
+    }
   }
 
   @override
-  Future<void> updateTask(Task task) async {
-    final db = await _database;
+  Future<Either<Failure, Unit>> updateTask(TaskEntity task) async {
+    try {
+      final data = mapper.fromTask(task);
+      final result = await localDatasource.updateTask(data.toJson());
 
-    final data = TaskMapper().fromTask(task);
-
-    await db.update(
-      taskTableName,
-      data.toJson(),
-      where: 'id = ?',
-      whereArgs: [data.id],
-    );
+      if (result == 0) {
+        return left(
+          const DatabaseFailure('No se encontró la tarea a actualizar!'),
+        );
+      }
+      return right(unit);
+    } catch (e) {
+      return left(DatabaseFailure(e.toString()));
+    }
   }
 
   @override
-  Future<void> deleteTask(int id) async {
-    final db = await _database;
-    await db.delete(taskTableName, where: 'id = ?', whereArgs: [id]);
+  Future<Either<Failure, Unit>> deleteTask(int id) async {
+    try {
+      final result = await localDatasource.deleteTask(id);
+
+      if (result == 0) {
+        return left(
+          const DatabaseFailure('No se encontró la tarea a eliminar'),
+        );
+      }
+
+      return right(unit);
+    } catch (e) {
+      return left(DatabaseFailure(e.toString()));
+    }
   }
 }

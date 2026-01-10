@@ -109,8 +109,8 @@ void main() {
       expect(taskList.length, 2);
 
       // Tipos
-      expect(taskList[0], isA<Task>());
-      expect(taskList[1], isA<Task>());
+      expect(taskList[0], isA<TaskEntity>());
+      expect(taskList[1], isA<TaskEntity>());
 
       // Item 1
       expect(taskList[0].id, 1);
@@ -178,7 +178,7 @@ void main() {
       'fromListTask convierte List<Task> a List<TaskModel> con todos los campos',
       () {
         final tasks = [
-          Task(
+          TaskEntity(
             id: 1,
             title: 'T1',
             date: DateTime(2024, 1, 1),
@@ -190,7 +190,7 @@ void main() {
               Cycle.fourth: 20,
             },
           ),
-          Task(
+          TaskEntity(
             id: 2,
             title: 'T2',
             date: DateTime(2024, 1, 2),

@@ -188,7 +188,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
       (secondsPerCycle) => secondsPerCycle >= workDuration.inSeconds,
     );
 
-    final registeredTask = Task(
+    final registeredTask = TaskEntity(
       title: state.title ?? 'Null',
       date: DateTime.now(),
       completed: isCompleted,

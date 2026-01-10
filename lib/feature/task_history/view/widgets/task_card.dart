@@ -3,7 +3,7 @@ part of '../screen/task_history_page.dart';
 class _TaskCard extends StatelessWidget {
   const _TaskCard({required this.task, required this.onDelete});
 
-  final Task task;
+  final TaskEntity task;
   final VoidCallback onDelete;
 
   @override

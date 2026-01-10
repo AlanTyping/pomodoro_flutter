@@ -3,8 +3,8 @@ part of '../screen/task_history_page.dart';
 class _TaskListView extends StatelessWidget {
   const _TaskListView({required this.tasks, required this.onDeleteTask});
 
-  final Iterable<Task> tasks;
-  final Function(Task) onDeleteTask;
+  final Iterable<TaskEntity> tasks;
+  final Function(TaskEntity) onDeleteTask;
 
   @override
   Widget build(BuildContext context) {

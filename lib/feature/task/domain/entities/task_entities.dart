@@ -1,13 +1,13 @@
 enum Cycle { first, second, third, fourth }
 
-class Task {
+class TaskEntity {
   final int? id;
   final String title;
   final DateTime date;
   final bool completed;
   final Map<Cycle, int> cyclesData;
 
-  const Task({
+  const TaskEntity({
     this.id,
     required this.title,
     required this.date,

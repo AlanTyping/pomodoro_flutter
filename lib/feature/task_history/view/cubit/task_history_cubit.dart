@@ -1,9 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
-import 'package:pomodoro_flutter/feature/task/domain/usecases/delete_task_usecase.dart';
-import 'package:pomodoro_flutter/feature/task/domain/usecases/get_all_tasks_usecase.dart';
-
+import 'package:pomodoro_flutter/feature/task/domain/usecases/delete_task.dart';
+import 'package:pomodoro_flutter/feature/task/domain/usecases/get_all_tasks.dart';
 import 'task_history_state.dart';
 
 final class TaskHistoryCubit extends Cubit<TaskHistoryState> {
@@ -11,13 +10,13 @@ final class TaskHistoryCubit extends Cubit<TaskHistoryState> {
     _fetchData();
   }
 
-  final _fetchAllTasksUseCase = GetIt.I.get<GetAllTasksUsecase>();
+  final _fetchAllTasksUseCase = GetIt.I.get<GetAllTasks>();
 
-  final _deleteTaskUseCase = GetIt.I.get<DeleteTaskUsecase>();
+  final _deleteTaskUseCase = GetIt.I.get<DeleteTask>();
 
-  Future<void> deleteTask(Task task) async {
+  Future<void> deleteTask(TaskEntity task) async {
     if (task.id != null) {
-      await _deleteTaskUseCase.execute(task.id!);
+      await _deleteTaskUseCase(DeleteParams(task.id!));
       _fetchData();
     }
   }
