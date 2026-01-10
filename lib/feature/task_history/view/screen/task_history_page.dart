@@ -20,7 +20,7 @@ final class TaskHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TaskHistoryCubit(),
+      create: (context) => TaskHistoryCubit()..init(),
       child: const _TaskHistoryView(),
     );
   }
