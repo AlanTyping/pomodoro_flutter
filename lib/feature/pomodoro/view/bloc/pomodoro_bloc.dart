@@ -1,13 +1,11 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pomodoro_flutter/core/constants.dart';
-import 'package:pomodoro_flutter/core/foreground_service/foreground_service.dart';
 import 'package:pomodoro_flutter/core/notifications/notification_api.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
-import 'package:pomodoro_flutter/feature/task/domain/usecases/insert_task_usecase.dart';
+import 'package:pomodoro_flutter/feature/task/domain/usecases/insert_task.dart';
 import 'package:pomodoro_flutter/l10n/l10n.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,7 +20,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
   static const Duration restDuration = Duration(minutes: 5);
 
   StreamSubscription<int>? _streamSubscription;
-  final InsertTaskUsecase _saveTaskUseCase = GetIt.I.get<InsertTaskUsecase>();
+  final InsertTask _saveTask = GetIt.I.get<InsertTask>();
   final prefs = GetIt.I.get<SharedPreferences>();
 
   PomodoroBloc() : super(PomodoroState.initial()) {
@@ -195,7 +193,7 @@ final class PomodoroBloc extends Bloc<PomodoroEvent, PomodoroState> {
       cyclesData: state.cyclesData,
     );
 
-    await _saveTaskUseCase.execute(registeredTask);
+    await _saveTask(InsertTaskParams(registeredTask));
 
     emit(PomodoroState.initial());
   }

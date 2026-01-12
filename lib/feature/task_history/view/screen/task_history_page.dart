@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:intl/intl.dart';
 import 'package:pomodoro_flutter/feature/task/domain/entities/task_entities.dart';
 import 'package:pomodoro_flutter/feature/task_history/view/widgets/cycle_progress_bar.dart';
@@ -20,7 +21,7 @@ final class TaskHistoryPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TaskHistoryCubit()..init(),
+      create: (context) => GetIt.I<TaskHistoryCubit>()..init(),
       child: const _TaskHistoryView(),
     );
   }

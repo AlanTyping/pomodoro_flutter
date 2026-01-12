@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:pomodoro_flutter/core/failure.dart';
 import 'package:pomodoro_flutter/feature/task/data/repository/task_repository_impl.dart';
 import '../../../../mocks/database_mock.dart';
 import '../../../../mocks/mapper_mock.dart';
@@ -43,7 +45,7 @@ void main() {
       final result = await repo.getAllTasks();
 
       // assert
-      expect(result, equals(taskListMock));
+      expect(result, equals(right(taskListMock)));
       verify(() => localDatasource.getAllTasksJson()).called(1);
       verify(() => repo.mapper.fromJsonList(taskJsonListMock)).called(1);
       verify(() => repo.mapper.fromListModel(taskModelListMock)).called(1);
@@ -55,7 +57,7 @@ void main() {
       // act
       final result = await repo.deleteTask(123);
       // assert
-      expect(result, 1);
+      expect(result, right(unit));
     });
   });
 
@@ -66,7 +68,10 @@ void main() {
       // act
       final result = await repo.deleteTask(123);
       // assert
-      expect(result, 1);
+      expect(
+        result,
+        left(const DatabaseFailure('No se encontró la tarea a eliminar')),
+      );
     });
   });
 }

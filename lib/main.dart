@@ -5,9 +5,12 @@ import 'package:pomodoro_flutter/core/notifications/notification_api.dart';
 import 'package:pomodoro_flutter/feature/task/data/datasource/task_local_datasource_impl.dart';
 import 'package:pomodoro_flutter/feature/task/data/mappers/task_mapper.dart';
 import 'package:pomodoro_flutter/feature/task/data/repository/task_repository_impl.dart';
-import 'package:pomodoro_flutter/feature/task/data/usecases/use_cases.dart';
 import 'package:pomodoro_flutter/feature/task/domain/repository/task_repository.dart';
-import 'package:pomodoro_flutter/feature/task/domain/usecases/use_cases.dart';
+import 'package:pomodoro_flutter/feature/task/domain/usecases/delete_task.dart';
+import 'package:pomodoro_flutter/feature/task/domain/usecases/get_all_tasks.dart';
+import 'package:pomodoro_flutter/feature/task/domain/usecases/insert_task.dart';
+import 'package:pomodoro_flutter/feature/task/domain/usecases/update_task.dart';
+import 'package:pomodoro_flutter/feature/task_history/view/cubit/cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -22,6 +25,11 @@ void main() async {
 Future<void> _insertDependecies() async {
   final sl = GetIt.I;
 
+  // cubit
+  sl.registerLazySingleton<TaskHistoryCubit>(
+    () => TaskHistoryCubit(sl(), sl(), sl(), sl()),
+  );
+
   // Datasource
   sl.registerLazySingleton<SqfLiteTaskLocalDatasource>(
     () => SqfLiteTaskLocalDatasource(),
@@ -31,7 +39,7 @@ Future<void> _insertDependecies() async {
   sl.registerLazySingleton<TaskMapper>(() => TaskMapper());
 
   // Repository
-  sl.registerLazySingleton<TaskRepository>(
+  sl.registerFactory<TaskRepository>(
     () => TaskRepositoryImpl(
       sl<SqfLiteTaskLocalDatasource>(),
       mapper: sl<TaskMapper>(),
@@ -39,17 +47,11 @@ Future<void> _insertDependecies() async {
   );
 
   // Usecases
-  sl.registerLazySingleton<GetAllTasksUsecase>(
-    () => GetAllTasks(sl<TaskRepository>()),
-  );
-
-  sl.registerLazySingleton<DeleteTaskUsecase>(
-    () => DeleteTask(sl<TaskRepository>()),
-  );
-
-  sl.registerLazySingleton<InsertTaskUsecase>(
-    () => InsertTask(sl<TaskRepository>()),
-  );
+  sl.registerFactory<GetAllTasks>(() => GetAllTasks(sl<TaskRepository>()));
+  sl.registerFactory<DeleteTask>(() => DeleteTask(sl<TaskRepository>()));
+  sl.registerFactory<InsertTask>(() => InsertTask(sl<TaskRepository>()));
+  sl.registerFactory<GetAllTasks>(() => GetAllTasks(sl<TaskRepository>()));
+  sl.registerFactory<UpdateTask>(() => UpdateTask(sl<TaskRepository>()));
 
   // SharedPreferences
   final prefs = await SharedPreferences.getInstance();

@@ -11,7 +11,7 @@ class TaskRepositoryImpl implements TaskRepository {
   const TaskRepositoryImpl(this.localDatasource, {required this.mapper});
 
   @override
-  Future<Either<Failure, List<TaskEntity>>> getAllTasks() async {
+  Future<Either<DatabaseFailure, List<TaskEntity>>> getAllTasks() async {
     try {
       final queryResult = await localDatasource.getAllTasksJson();
       final listModels = mapper.fromJsonList(queryResult);
@@ -23,7 +23,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, int>> insertTask(TaskEntity task) async {
+  Future<Either<DatabaseFailure, int>> insertTask(TaskEntity task) async {
     try {
       final data = mapper.fromTask(task);
 
@@ -42,7 +42,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> updateTask(TaskEntity task) async {
+  Future<Either<DatabaseFailure, Unit>> updateTask(TaskEntity task) async {
     try {
       final data = mapper.fromTask(task);
       final result = await localDatasource.updateTask(data.toJson());
@@ -59,7 +59,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, Unit>> deleteTask(int id) async {
+  Future<Either<DatabaseFailure, Unit>> deleteTask(int id) async {
     try {
       final result = await localDatasource.deleteTask(id);
 
