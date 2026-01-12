@@ -12,8 +12,8 @@ import 'task_history_state.dart';
 final class TaskHistoryCubit extends Cubit<TaskHistoryState> {
   final DeleteTask _deleteTask;
   final GetAllTasks _getAllTasks;
-  final InsertTask _insertTask;
-  final UpdateTask _updateTask;
+  // final InsertTask _insertTask;
+  // final UpdateTask _updateTask;
 
   TaskHistoryCubit(
     DeleteTask deleteTask,
@@ -22,8 +22,8 @@ final class TaskHistoryCubit extends Cubit<TaskHistoryState> {
     UpdateTask updateTask,
   ) : _deleteTask = deleteTask,
       _getAllTasks = getAllTasks,
-      _insertTask = insertTask,
-      _updateTask = updateTask,
+      // _insertTask = insertTask,
+      // _updateTask = updateTask,
       super(TaskHistoryState.initial());
 
   void init() {

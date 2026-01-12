@@ -33,7 +33,7 @@ void main() {
     // fromModel
     // ---------------------------------------------------------------------
     test('fromModel recibe TaskModel y retorna Task con todos los campos', () {
-      final model = TaskModel(
+      final model = const TaskModel(
         id: 10,
         title: 'asd',
         date: '2024-01-01T00:00:00.000',
