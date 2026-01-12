@@ -7,7 +7,8 @@ final class InformationPage extends StatelessWidget {
   const InformationPage({super.key});
 
   static Route route() => PageRouteBuilder(
-    pageBuilder: (context, animation, secondAnimation) => const InformationPage(),
+    pageBuilder:
+        (context, animation, secondAnimation) => const InformationPage(),
   );
 
   @override
