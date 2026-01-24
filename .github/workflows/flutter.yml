@@ -14,6 +14,14 @@ jobs:
         with:
           channel: stable
 
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.pub-cache
+            build
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.lock') }}
+          
       - name: Install dependencies
         run: flutter pub get
 
@@ -25,3 +33,5 @@ jobs:
 
       - name: Run tests
         run: flutter test
+
+  
